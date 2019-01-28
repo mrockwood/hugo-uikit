@@ -3,3 +3,4 @@
 /.vscode
 /haters
 .DS_Store
+site/data/webpack.json
