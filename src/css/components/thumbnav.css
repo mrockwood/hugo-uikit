@@ -1,0 +1,123 @@
+/**
+ * Name:            Thumbnav
+ * Description:     Component to create thumbnail navigations
+ *
+ * Component:       `c-thumbnav`
+ *
+ * Modifier:        `c-thumbnav-vertical`
+ *
+ * States:          `c-active`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --thumbnav-margin-horizontal:                    15px;
+    --thumbnav-margin-vertical:                      var(--thumbnav-margin-horizontal);
+
+    --thumbnav-item-background:                      color-mod(var(--global-background) alpha(40%));
+    --thumbnav-item-hover-background:                transparent;
+    --thumbnav-item-active-background:               transparent;
+
+}
+
+
+/* ========================================================================
+   Component: Thumbnav
+ ========================================================================== */
+
+/*
+ * 1. Allow items to wrap into the next line
+ * 2. Reset list
+ * 3. Gutter
+ */
+
+.c-thumbnav {
+    display: flex;
+    /* 1 */
+    flex-wrap: wrap;
+    /* 2 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* 3 */
+    margin-left: calc(var(--thumbnav-margin-horizontal) * -1);
+}
+
+/*
+ * Space is allocated based on content dimensions, but shrinks: 0 1 auto
+ * 1. Gutter
+ */
+
+.c-thumbnav > * {
+    /* 1 */
+    padding-left: var(--thumbnav-margin-horizontal);
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * Items
+ */
+
+.c-thumbnav > * > * {
+    display: inline-block;
+    position: relative;
+}
+
+.c-thumbnav > * > *::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--thumbnav-item-background);
+    transition: background-color 0.1s ease-in-out;
+}
+
+/* Hover + Focus */
+.c-thumbnav > * > :hover,
+.c-thumbnav > * > :focus {
+    outline: none;
+}
+
+.c-thumbnav > * > :hover::after,
+.c-thumbnav > * > :focus::after {
+    background-color: var(--thumbnav-item-hover-background);
+}
+
+/* Active */
+.c-thumbnav > .c-active > *::after {
+    background-color: var(--thumbnav-item-active-background);
+}
+
+
+/* Modifier: 'c-thumbnav-vertical'
+ ========================================================================== */
+
+/*
+ * 1. Change direction
+ * 2. Gutter
+ */
+
+.c-thumbnav-vertical {
+    /* 1 */
+    flex-direction: column;
+    /* 2 */
+    margin-left: 0;
+    margin-top: calc(var(--thumbnav-margin-vertical) * -1);
+}
+
+/* 2 */
+.c-thumbnav-vertical > * {
+    padding-left: 0;
+    padding-top: var(--thumbnav-margin-vertical);
+}

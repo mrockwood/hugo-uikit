@@ -1,0 +1,153 @@
+/**
+ * Name:            Container
+ * Description:     Component to align and center your site and grid content
+ *
+ * Component:       `c-container`
+ *
+ * Modifier:        `c-container-small`
+ *                  `c-container-large`
+ *                  `c-container-expand`
+ *                  `c-container-expand-left`
+ *                  `c-container-expand-right`
+ *                  `c-container-item-padding-remove-left`
+ *                  `c-container-item-padding-remove-right`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --container-max-width:                   1200px;
+    --container-xsmall-max-width:            750px;
+    --container-small-max-width:             900px;
+    --container-large-max-width:             1600px;
+
+    --container-padding-horizontal:          15px;
+
+}
+
+@media (--s-up) {
+
+    :root {
+
+        --container-padding-horizontal:        var(--global-gutter);
+
+    }
+
+}
+
+@media (--m-up) {
+
+    :root {
+
+        --container-padding-horizontal:        var(--global-medium-gutter);
+
+    }
+
+}
+
+
+/* ========================================================================
+   Component: Container
+ ========================================================================== */
+
+/*
+ * 1. Box sizing has to be `content-box` so the max-width is always the same and
+ *    unaffected by the padding on different breakpoints. It's important for the size modifiers.
+ */
+
+.c-container {
+    /* 1 */
+    box-sizing: content-box;
+    max-width: var(--container-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-padding-horizontal);
+    padding-right: var(--container-padding-horizontal);
+}
+
+/*
+ * Micro clearfix
+ */
+
+.c-container::before,
+.c-container::after {
+    content: "";
+    display: table;
+}
+
+.c-container::after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.c-container > :last-child { margin-bottom: 0; }
+
+/*
+ * Remove padding from nested containers
+ */
+
+.c-container .c-container {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+/* Size modifier
+ ========================================================================== */
+
+.c-container-xsmall { max-width: var(--container-xsmall-max-width); }
+
+.c-container-small { max-width: var(--container-small-max-width); }
+
+.c-container-large { max-width: var(--container-large-max-width); }
+
+.c-container-expand { max-width: none; }
+
+
+/* Expand modifier
+ ========================================================================== */
+
+/*
+ * Expand one side only
+ */
+
+.c-container-expand-left { margin-left: 0; }
+.c-container-expand-right { margin-right: 0; }
+
+/* Tablet landscape and bigger */
+@media (--m-up) {
+
+    .c-container-expand-left,
+    .c-container-expand-right { max-width: calc(50% + (var(--container-max-width) / 2) - var(--container-padding-horizontal)); }
+
+}
+
+.c-container-expand-left.c-container-xsmall,
+.c-container-expand-right.c-container-xsmall { max-width: calc(50% + (var(--container-xsmall-max-width) / 2) - var(--container-padding-horizontal)); }
+
+.c-container-expand-left.c-container-small,
+.c-container-expand-right.c-container-small { max-width: calc(50% + (var(--container-small-max-width) / 2) - var(--container-padding-horizontal)); }
+
+.c-container-expand-left.c-container-large,
+.c-container-expand-right.c-container-large { max-width: calc(50% + (var(--container-large-max-width) / 2) - var(--container-padding-horizontal)); }
+
+
+/* Item
+ ========================================================================== */
+
+/*
+ * Utility classes to reset container padding on the left or right side
+ * Note: It has to be negative margin on the item, because it's specific to the item.
+ */
+
+.c-container-item-padding-remove-left,
+.c-container-item-padding-remove-right { width: calc(100% + var(--container-padding-horizontal)); }
+
+.c-container-item-padding-remove-left { margin-left: calc(var(--container-padding-horizontal) * -1); }
+.c-container-item-padding-remove-right { margin-right: calc(var(--container-padding-horizontal) * -1); }

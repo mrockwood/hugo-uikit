@@ -1,0 +1,156 @@
+/**
+ * Name:            Comment
+ * Description:     Component to create nested comments
+ *
+ * Component:       `c-comment`
+ *
+ * Sub-objects:     `c-comment-body`
+ *                  `c-comment-header`
+ *                  `c-comment-title`
+ *                  `c-comment-meta`
+ *                  `c-comment-avatar`
+ *                  `c-comment-list`
+ *
+ * Modifier:        `c-comment-primary`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --comment-header-margin-bottom:                  var(--global-margin);
+
+    --comment-title-font-size:                       var(--global-medium-font-size);
+    --comment-title-line-height:                     1.4;
+
+    --comment-meta-font-size:                        var(--global-small-font-size);
+    --comment-meta-line-height:                      1.4;
+    --comment-meta-color:                            var(--global-muted-color);
+
+    --comment-list-margin-top:                       var(--global-large-margin);
+    --comment-list-padding-left:                     30px;
+
+    --comment-primary-padding:                       var(--global-gutter);
+    --comment-primary-background:                    var(--global-muted-background);
+
+}
+
+@media (--m-up) {
+
+    :root {
+
+        --comment-list-padding-left:                 100px;
+
+    }
+
+}
+
+
+/* ========================================================================
+   Component: Comment
+ ========================================================================== */
+
+.c-comment {}
+
+
+/* Sections
+ ========================================================================== */
+
+.c-comment-body {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.c-comment-header {
+    margin-bottom: var(--comment-header-margin-bottom);
+}
+
+/*
+ * Micro clearfix
+ */
+
+.c-comment-body::before,
+.c-comment-body::after,
+.c-comment-header::before,
+.c-comment-header::after {
+    content: "";
+    display: table;
+}
+
+.c-comment-body::after,
+.c-comment-header::after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.c-comment-body > :last-child,
+.c-comment-header > :last-child { margin-bottom: 0; }
+
+
+/* Title
+ ========================================================================== */
+
+.c-comment-title {
+    font-size: var(--comment-title-font-size);
+    line-height: var(--comment-title-line-height);
+}
+
+
+/* Meta
+ ========================================================================== */
+
+.c-comment-meta {
+    font-size: var(--comment-meta-font-size);
+    line-height: var(--comment-meta-line-height);
+    color: var(--comment-meta-color);
+}
+
+
+/* Avatar
+ ========================================================================== */
+
+.c-comment-avatar {}
+
+
+/* List
+ ========================================================================== */
+
+.c-comment-list {
+    padding: 0;
+    list-style: none;
+}
+
+/* Adjacent siblings */
+.c-comment-list > :nth-child(n+2) {
+    margin-top: var(--comment-list-margin-top);
+}
+
+/*
+ * Sublists
+ * Note: General sibling selector allows reply block between comment and sublist
+ */
+
+.c-comment-list .c-comment ~ ul {
+    margin: var(--comment-list-margin-top) 0 0 0;
+    padding-left: var(--comment-list-padding-left);
+    list-style: none;
+}
+
+/* Adjacent siblings */
+.c-comment-list .c-comment ~ ul > :nth-child(n+2) {
+    margin-top: var(--comment-list-margin-top);
+}
+
+
+/* Style modifier
+ ========================================================================== */
+
+.c-comment-primary {
+    padding: var(--comment-primary-padding);
+    background-color: var(--comment-primary-background);
+}

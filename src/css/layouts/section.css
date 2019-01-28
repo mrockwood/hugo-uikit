@@ -1,0 +1,200 @@
+/**
+ * Name:            Section
+ * Description:     Component to create horizontal layout section
+ *
+ * Component:       `c-section`
+ *
+ * Modifiers:       `c-section-xsmall`
+ *                  `c-section-small`
+ *                  `c-section-large`
+ *                  `c-section-xlarge`
+ *                  `c-section-default`
+ *                  `c-section-muted`
+ *                  `c-section-primary`
+ *                  `c-section-secondary`
+ *                  `c-section-overlap`
+ *
+ * States:          `c-preserve-color`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --section-padding-vertical:                        var(--global-medium-margin);
+
+    --section-xsmall-padding-vertical:                 var(--global-margin);
+
+    --section-small-padding-vertical:                  var(--global-medium-margin);
+
+    --section-large-padding-vertical:                  var(--global-large-margin);
+
+    --section-xlarge-padding-vertical:                 var(--global-xlarge-margin);
+
+    --section-default-background:                      var(--global-background);
+
+    --section-muted-background:                        var(--global-muted-background);
+
+    --section-gradient-background:                     var(--global-gradient-background);
+
+    --section-primary-background:                      var(--global-primary-background);
+
+    --section-secondary-background:                    var(--global-secondary-background);
+
+}
+
+@media (--m-up) {
+
+    :root {
+
+        --section-padding-vertical:                    var(--global-large-margin);
+
+        --section-large-padding-vertical:              var(--global-xlarge-margin);
+
+        --section-xlarge-padding-vertical:             calc(var(--global-large-margin) + var(--global-xlarge-margin));
+
+    }
+
+}
+
+
+/* ========================================================================
+   Component: Section
+ ========================================================================== */
+
+/*
+ * 1. Make it work with `100vh` and height in general
+ */
+
+.c-section {
+    box-sizing: border-box; /* 1 */
+    padding-top: var(--section-padding-vertical);
+    padding-bottom: var(--section-padding-vertical);
+}
+
+/*
+ * Micro clearfix
+ */
+
+.c-section::before,
+.c-section::after {
+    content: "";
+    display: table;
+}
+
+.c-section::after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.c-section > :last-child { margin-bottom: 0; }
+
+
+/* Size modifiers
+ ========================================================================== */
+
+/*
+ * XSmall
+ */
+
+.c-section-xsmall {
+    padding-top: var(--section-xsmall-padding-vertical);
+    padding-bottom: var(--section-xsmall-padding-vertical);
+}
+
+/*
+ * Small
+ */
+
+.c-section-small {
+    padding-top: var(--section-small-padding-vertical);
+    padding-bottom: var(--section-small-padding-vertical);
+}
+
+/*
+ * Large
+ */
+
+.c-section-large {
+    padding-top: var(--section-large-padding-vertical);
+    padding-bottom: var(--section-large-padding-vertical);
+}
+
+
+/*
+ * XLarge
+ */
+
+.c-section-xlarge {
+    padding-top: var(--section-xlarge-padding-vertical);
+    padding-bottom: var(--section-xlarge-padding-vertical);
+}
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+.c-section-default {
+    background: var(--section-default-background);
+}
+
+/*
+ * Muted
+ */
+
+.c-section-muted {
+    background: var(--section-muted-background);
+}
+
+/*
+ * Gradient
+ */
+
+.c-section-gradient {
+    background: var(--section-gradient-background);
+}
+
+/*
+ * Primary
+ */
+
+.c-section-primary {
+    background: var(--section-primary-background);
+}
+
+/*
+.c-section-primary:not(.c-preserve-color):extend(.c-light all) when (@section-primary-color-mode = light) {}
+.c-section-primary:not(.c-preserve-color):extend(.c-dark all) when (@section-primary-color-mode = dark) {}
+*/
+
+/*
+ * Secondary
+ */
+
+.c-section-secondary {
+    background: var(--section-secondary-background);
+}
+
+/*
+.c-section-secondary:not(.c-preserve-color):extend(.c-light all) when (@section-secondary-color-mode = light) {}
+.c-section-secondary:not(.c-preserve-color):extend(.c-dark all) when (@section-secondary-color-mode = dark) {}
+*/
+
+/* Overlap modifier
+ ========================================================================== */
+
+/*
+ * Reserved modifier to make a section overlap another section with an border image
+ * Implemented by the theme
+ */
+
+.c-section-overlap {}

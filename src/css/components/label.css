@@ -1,0 +1,96 @@
+/**
+ * Name:            Label
+ * Description:     Component to indicate important notes
+ *
+ * Component:       `c-label`
+ *
+ * Modifiers:       `c-label-success`
+ *                  `c-label-warning`
+ *                  `c-label-danger`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --label-padding-vertical:                        0;
+    --label-padding-horizontal:                      var(--global-small-margin);
+    --label-border-radius:                           var(--global-border-radius);
+    --label-background:                              var(--global-primary-background);
+    --label-line-height:                             var(--global-line-height);
+    --label-font-size:                               var(--global-small-font-size);
+    --label-color:                                   var(--global-inverse-color);
+    --label-text-transform:                          uppercase;
+
+    --label-info-background:                         var(--global-info-background);
+    --label-info-color:                              var(--global-inverse-color);
+    --label-success-background:                      var(--global-success-background);
+    --label-success-color:                           var(--global-inverse-color);
+    --label-warning-background:                      var(--global-warning-background);
+    --label-warning-color:                           var(--global-inverse-color);
+    --label-danger-background:                       var(--global-danger-background);
+    --label-danger-color:                            var(--global-inverse-color);
+
+}
+
+
+/* ========================================================================
+   Component: Label
+ ========================================================================== */
+
+.c-label {
+    display: inline-block;
+    border-radius: var(--label-border-radius);
+    padding: var(--label-padding-vertical) var(--label-padding-horizontal);
+    background: var(--label-background);
+    line-height: var(--label-line-height);
+    font-size: var(--label-font-size);
+    color: var(--label-color);
+    text-transform: var(--label-text-transform);
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+
+/* Color modifiers
+ ========================================================================== */
+
+/*
+ * Success
+ */
+
+.c-label-info {
+    background-color: var(--label-info-background);
+    color: var(--label-info-color);
+}
+
+/*
+ * Success
+ */
+
+.c-label-success {
+    background-color: var(--label-success-background);
+    color: var(--label-success-color);
+}
+
+/*
+ * Warning
+ */
+
+.c-label-warning {
+    background-color: var(--label-warning-background);
+    color: var(--label-warning-color);
+}
+
+/*
+ * Danger
+ */
+
+.c-label-danger {
+    background-color: var(--label-danger-background);
+    color: var(--label-danger-color);
+}

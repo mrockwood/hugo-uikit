@@ -1,0 +1,407 @@
+/**
+ * Name:            Button
+ * Description:     Styles for buttons
+ *
+ * Component:       `c-button`
+ *
+ * Sub-objects:     `c-button-group`
+ *
+ * Modifiers:       `c-button-default`
+ *                  `c-button-primary`
+ *                  `c-button-secondary`
+ *                  `c-button-danger`
+ *                  `c-button-text`
+ *                  `c-button-link`
+ *                  `c-button-small`
+ *                  `c-button-large`
+ *
+ * States:          `c-active`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --button-line-height:                            calc(var(--global-control-height) - (var(--button-border-width) * 2));
+    --button-small-line-height:                      calc(var(--global-control-small-height) - (var(--button-border-width) * 2));
+    --button-large-line-height:                      calc(var(--global-control-large-height) - (var(--button-border-width) * 2));
+
+    --button-font-size:                              var(--global-font-size);
+    --button-small-font-size:                        var(--global-small-font-size);
+    --button-large-font-size:                        var(--global-medium-font-size);
+
+    --button-padding-horizontal:                     var(--global-gutter);
+    --button-small-padding-horizontal:               var(--global-small-gutter);
+    --button-large-padding-horizontal:               var(--global-medium-gutter);
+
+    --button-border-width:                           var(--global-border-width);
+    --button-border-radius:                          var(--global-border-radius);
+
+    --button-default-background:                     transparent;
+    --button-default-color:                          var(--global-emphasis-color);
+    --button-default-hover-background:               transparent;
+    --button-default-hover-color:                    var(--global-emphasis-color);
+    --button-default-active-background:              transparent;
+    --button-default-active-color:                   var(--global-emphasis-color);
+    --button-default-border:                         var(--global-border);
+    --button-default-hover-border:                   var(--gray-5);
+    --button-default-active-border:                  var(--gray-6);
+
+    --button-primary-background:                     var(--global-primary-background);
+    --button-primary-color:                          var(--global-inverse-color);
+    --button-primary-hover-background:               var(--primary-hover);
+    --button-primary-hover-color:                    var(--global-inverse-color);
+    --button-primary-active-background:              var(--primary-active);
+    --button-primary-active-color:                   var(--global-inverse-color);
+
+    --button-secondary-background:                   var(--global-secondary-background);
+    --button-secondary-color:                        var(--global-inverse-color);
+    --button-secondary-hover-background:             var(--gray-8);
+    --button-secondary-hover-color:                  var(--global-inverse-color);
+    --button-secondary-active-background:            var(--gray-7);
+    --button-secondary-active-color:                 var(--global-inverse-color);
+
+    --button-danger-background:                      var(--global-danger-background);
+    --button-danger-color:                           var(--global-inverse-color);
+    --button-danger-hover-background:                var(--danger-hover);
+    --button-danger-hover-color:                     var(--global-inverse-color);
+    --button-danger-active-background:               var(--danger-active);
+    --button-danger-active-color:                    var(--global-inverse-color);
+
+    --button-disabled-background:                    transparent;
+    --button-disabled-color:                         var(--global-muted-color);
+    --button-disabled-border:                        var(--global-border);
+
+    --button-text-line-height:                       var(--global-line-height);
+    --button-text-color:                             var(--global-emphasis-color);
+    --button-text-hover-color:                       var(--global-emphasis-color);
+    --button-text-disabled-color:                    var(--global-muted-color);
+
+    --button-link-line-height:                       var(--global-line-height);
+    --button-link-color:                             var(--global-link-color);
+    --button-link-hover-color:                       var(--global-link-hover-color);
+    --button-link-hover-text-decoration:             underline;
+    --button-link-disabled-color:                    var(--global-muted-color);
+
+}
+
+
+/* ========================================================================
+   Component: Button
+ ========================================================================== */
+
+/**
+ * 1. Remove margins in Chrome, Safari and Opera.
+ * 2. Remove borders for `button`.
+ * 3. Address `overflow` set to `hidden` in IE.
+ * 4. Correct `font` properties and `color` not being inherited for `button`.
+ * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 6. Style
+ * 7. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
+ *    Better would be to use height and flexbox to center the text vertically but flexbox doesn't work in Firefox on `button` elements.
+ * 8. Align text if button has a width
+ * 9. Required for `a`.
+ */
+
+.c-button {
+    /* 1 */
+    margin: 0;
+    /* 2 */
+    border: none;
+    /* 3 */
+    overflow: visible;
+    /* 4 */
+    font: inherit;
+    color: inherit;
+    /* 5 */
+    text-transform: none;
+    /* 6 */
+    border-radius: var(--button-border-radius);
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 0 var(--button-padding-horizontal);
+    vertical-align: middle;
+    font-size: var(--button-font-size);
+    /* 7 */
+    line-height: var(--button-line-height);
+    /* 8 */
+    text-align: center;
+    /* 9 */
+    text-decoration: none;
+
+    transition: 0.1s ease-in-out;
+    transition-property: color, background-color, border-color;
+}
+
+.c-button:not(:disabled) { cursor: pointer; }
+
+/*
+ * Remove the inner border and padding in Firefox.
+ */
+
+.c-button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/* Hover */
+.c-button:hover {
+    /* 9 */
+    text-decoration: none;
+}
+
+/* Focus */
+.c-button:focus {
+    outline: none;
+}
+
+/* OnClick + Active */
+.c-button:active,
+.c-button.c-active {}
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+.c-button-default {
+    background-color: var(--button-default-background);
+    border: var(--button-border-width) solid var(--button-default-border);
+    color: var(--button-default-color);
+}
+
+/* Hover + Focus */
+.c-button-default:hover,
+.c-button-default:focus {
+    background-color: var(--button-default-hover-background);
+    border-color: var(--button-default-hover-border);
+    color: var(--button-default-hover-color);
+}
+
+/* OnClick + Active */
+.c-button-default:active,
+.c-button-default.c-active {
+    background-color: var(--button-default-active-background);
+    border-color: var(--button-default-active-border);
+    color: var(--button-default-active-color);
+}
+
+/*
+ * Primary
+ */
+
+.c-button-primary {
+    background-color: var(--button-primary-background);
+    border: var(--button-border-width) solid transparent;
+    color: var(--button-primary-color);
+}
+
+/* Hover + Focus */
+.c-button-primary:hover,
+.c-button-primary:focus {
+    background-color: var(--button-primary-hover-background);
+    border: var(--button-border-width) solid transparent;
+    color: var(--button-primary-hover-color);
+}
+
+/* OnClick + Active */
+.c-button-primary:active,
+.c-button-primary.c-active {
+    background-color: var(--button-primary-active-background);
+    border: var(--button-border-width) solid transparent;
+    color: var(--button-primary-active-color);
+}
+
+/*
+ * Secondary
+ */
+
+.c-button-secondary {
+    background-color: var(--button-secondary-background);
+    border: var(--button-border-width) solid transparent;
+    color: var(--button-secondary-color);
+}
+
+/* Hover + Focus */
+.c-button-secondary:hover,
+.c-button-secondary:focus {
+    background-color: var(--button-secondary-hover-background);
+    border: var(--button-border-width) solid transparent;
+    color: var(--button-secondary-hover-color);
+}
+
+/* OnClick + Active */
+.c-button-secondary:active,
+.c-button-secondary.c-active {
+    background-color: var(--button-secondary-active-background);
+    border: var(--button-border-width) solid transparent;
+    color: var(--button-secondary-active-color);
+}
+
+/*
+ * Danger
+ */
+
+.c-button-danger {
+    background-color: var(--button-danger-background);
+    border: var(--button-border-width) solid transparent;
+    color: var(--button-danger-color);
+}
+
+/* Hover + Focus */
+.c-button-danger:hover,
+.c-button-danger:focus {
+    background-color: var(--button-danger-hover-background);
+    border: var(--button-border-width) solid transparent;
+    color: var(--button-danger-hover-color);
+}
+
+/* OnClick + Active */
+.c-button-danger:active,
+.c-button-danger.c-active {
+    background-color: var(--button-danger-active-background);
+    border: var(--button-border-width) solid transparent;
+    color: var(--button-danger-active-color);
+}
+
+/*
+ * Disabled
+ * The same for all style modifiers
+ */
+
+.c-button-default:disabled,
+.c-button-primary:disabled,
+.c-button-secondary:disabled,
+.c-button-danger:disabled {
+    background-color: var(--button-disabled-background);
+    border-color: var(--button-disabled-border);
+    color: var(--button-disabled-color);
+}
+
+
+/* Size modifiers
+ ========================================================================== */
+
+.c-button-small {
+    padding: 0 var(--button-small-padding-horizontal);
+    line-height: var(--button-small-line-height);
+    font-size: var(--button-small-font-size);
+}
+
+.c-button-large {
+    padding: 0 var(--button-large-padding-horizontal);
+    line-height: var(--button-large-line-height);
+    font-size: var(--button-large-font-size);
+}
+
+
+/* Text modifiers
+ ========================================================================== */
+
+/*
+ * Text
+ * 1. Reset
+ * 2. Style
+ */
+
+.c-button-text {
+    /* 1 */
+    padding: 0;
+    line-height: var(--button-text-line-height);
+    background: none;
+    /* 2 */
+    color: var(--button-text-color);
+}
+
+/* Hover + Focus */
+.c-button-text:hover,
+.c-button-text:focus {
+    color: var(--button-text-hover-color);
+}
+
+/* Disabled */
+.c-button-text:disabled {
+    color: var(--button-text-disabled-color);
+}
+
+/*
+ * Link
+ * 1. Reset
+ * 2. Style
+ */
+
+.c-button-link {
+    /* 1 */
+    padding: 0;
+    line-height: var(--button-link-line-height);
+    background: none;
+    /* 2 */
+    color: var(--button-link-color);
+}
+
+/* Hover + Focus */
+.c-button-link:hover,
+.c-button-link:focus {
+    color: var(--button-link-hover-color);
+    text-decoration: var(--button-link-hover-text-decoration);
+}
+
+/* Disabled */
+.c-button-link:disabled {
+    color: var(--button-link-disabled-color);
+    text-decoration: none;
+}
+
+
+/* Group
+ ========================================================================== */
+
+/*
+ * 1. Using `flex` instead of `inline-block` to prevent whitespace betweent child elements
+ * 2. Behave like button
+ * 3. Create position context
+ */
+
+.c-button-group {
+    /* 1 */
+    display: inline-flex;
+    /* 2 */
+    vertical-align: middle;
+    /* 3 */
+    position: relative;
+}
+
+/*
+ * Remove border radius
+ */
+
+.c-button-group .c-button { border-radius: 0; }
+
+/*
+ * Collapse border
+ */
+
+.c-button-group > .c-button:nth-child(n+2),
+.c-button-group > div:nth-child(n+2) .c-button { margin-left: calc(var(--button-border-width) * -1); }
+
+/*
+ * Create position context to superimpose the successor elements border
+ * Known issue: If you use an `a` element as button and an icon inside,
+ * the active state will not work if you click the icon inside the button
+ * Workaround: Just use a `button` or `input` element as button
+ */
+
+.c-button-group .c-button:hover,
+.c-button-group .c-button:focus,
+.c-button-group .c-button:active,
+.c-button-group .c-button.c-active {
+    position: relative;
+    z-index: 1;
+}

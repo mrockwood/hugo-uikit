@@ -1,0 +1,272 @@
+/**
+ * Name:            Off-canvas
+ * Description:     Component to create an off-canvas sidebar
+ *
+ * Component:       `c-offcanvas`
+ *
+ * Sub-objects:     `c-offcanvas-bar`
+ *                  `c-offcanvas-container`
+ *                  `c-offcanvas-page`
+ *
+ * Adopted:         `c-offcanvas-close`
+ *
+ * Modifiers:       `c-offcanvas-flip`
+ *                  `c-offcanvas-bar-animation`
+ *                  `c-offcanvas-reveal`
+ *                  `c-offcanvas-overlay`
+ *                  `c-offcanvas-container-animation`
+ *
+ * States:          `c-open`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --offcanvas-z-index:                             var(--global-z-index);
+
+    --offcanvas-bar-width:                           270px;
+    --offcanvas-bar-padding-vertical:                var(--global-margin);
+    --offcanvas-bar-padding-horizontal:              var(--global-margin);
+    --offcanvas-bar-background:                      var(--global-secondary-background);
+
+    --offcanvas-close-position:                      20px;
+    --offcanvas-close-padding:                       5px;
+
+    --offcanvas-overlay-background:                  rgba(0,0,0,0.1);
+
+}
+
+@media (--m-up) {
+
+    :root {
+
+        --offcanvas-bar-width:                       350px;
+        --offcanvas-bar-padding-vertical:            var(--global-medium-gutter);
+        --offcanvas-bar-padding-horizontal:          var(--global-medium-gutter);
+
+    }
+
+}
+
+
+/* ========================================================================
+   Component: Off-canvas
+ ========================================================================== */
+
+/*
+ * 1. Hide by default
+ * 2. Set position
+ */
+
+.c-offcanvas {
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: var(--offcanvas-z-index);
+}
+
+/*
+ * Flip modifier
+ */
+
+.c-offcanvas-flip .c-offcanvas {
+    right: 0;
+    left: auto;
+}
+
+
+/* Bar
+ ========================================================================== */
+
+/*
+ * 1. Set position
+ * 2. Size and style
+ * 3. Allow scrolling
+ */
+
+.c-offcanvas-bar {
+    /* 1 */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--offcanvas-bar-width) * -1);
+    /* 2 */
+    box-sizing: border-box;
+    width: var(--offcanvas-bar-width);
+    padding: var(--offcanvas-bar-padding-vertical) var(--offcanvas-bar-padding-horizontal);
+    background: var(--offcanvas-bar-background);
+    /* 3 */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Color Mode
+.c-offcanvas-bar:extend(.c-light all) when (var(--offcanvas-bar-color-mode = light) {}
+.c-offcanvas-bar:extend(.c-dark all) when (var(--offcanvas-bar-color-mode = dark) {}
+*/
+
+/* Flip modifier */
+.c-offcanvas-flip .c-offcanvas-bar {
+    left: auto;
+    right: calc(var(--offcanvas-bar-width) * -1);
+}
+
+/*
+ * Open
+ */
+
+.c-open > .c-offcanvas-bar { left: 0; }
+.c-offcanvas-flip .c-open > .c-offcanvas-bar {
+    left: auto;
+    right: 0;
+}
+
+/*
+ * Slide Animation (Used in slide and push mode)
+ */
+
+.c-offcanvas-bar-animation { transition: left 0.3s ease-out; }
+.c-offcanvas-flip .c-offcanvas-bar-animation { transition-property: right; }
+
+/*
+ * Reveal Animation
+ * 1. Set position
+ * 2. Clip the bar
+ * 3. Animation
+ * 4. Reset transform
+ */
+
+.c-offcanvas-reveal {
+    /* 1 */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    /* 2 */
+    width: 0;
+    overflow: hidden;
+    /* 3 */
+    transition: width 0.3s ease-out;
+}
+
+.c-offcanvas-reveal .c-offcanvas-bar {
+    /* 4 */
+    left: 0;
+}
+
+.c-offcanvas-flip .c-offcanvas-reveal .c-offcanvas-bar {
+    /* 4 */
+    left: auto;
+    right: 0;
+}
+
+.c-open > .c-offcanvas-reveal { width: var(--offcanvas-bar-width); }
+
+/*
+ * Flip modifier
+ */
+
+.c-offcanvas-flip .c-offcanvas-reveal {
+    right: 0;
+    left: auto;
+}
+
+
+/* Close
+ * Adopts `c-close`
+ ========================================================================== */
+
+.c-offcanvas-close {
+    position: absolute;
+    z-index: var(--offcanvas-z-index);
+    top: var(--offcanvas-close-position);
+    right: var(--offcanvas-close-position);
+    padding: var(--offcanvas-close-padding);
+}
+
+
+/* Overlay
+ ========================================================================== */
+
+/*
+ * Overlay the whole page. Needed for the `::before`
+ * 1. Using `100vw` so no modification is needed when off-canvas is flipped
+ * 2. Allow for closing with swipe gesture on devices with pointer events.
+ */
+
+.c-offcanvas-overlay {
+    /* 1 */
+    width: 100vw;
+    /* 2 */
+    touch-action: none;
+}
+
+/*
+ * 1. Mask the whole page
+ * 2. Fade-in transition
+ */
+
+.c-offcanvas-overlay::before {
+    /* 1 */
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--offcanvas-overlay-background);
+    /* 2 */
+    opacity: 0;
+    transition: opacity 0.15s linear;
+}
+
+.c-offcanvas-overlay.c-open::before { opacity: 1; }
+
+
+/* Prevent scrolling
+ ========================================================================== */
+
+/*
+ * Prevent horizontal scrollbar when the content is slide-out
+ * Has to be on the `html` element too to make it work on the `body`
+ */
+
+.c-offcanvas-page,
+.c-offcanvas-container { overflow-x: hidden; }
+
+
+/* Container
+ ========================================================================== */
+
+/*
+ * Prepare slide-out animation (Used in reveal and push mode)
+ * Using `position: left` instead of `transform` because position `fixed` elements like sticky navbars
+ * lose their fixed state and behaves like `absolute` within a transformed container
+ * 1. Provide a fixed width and prevent shrinking
+ */
+
+.c-offcanvas-container {
+    position: relative;
+    left: 0;
+    transition: left 0.3s ease-out;
+    /* 1 */
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/*
+ * Activate slide-out animation
+ */
+
+:not(.c-offcanvas-flip).c-offcanvas-container-animation { left: var(--offcanvas-bar-width); }
+
+.c-offcanvas-flip.c-offcanvas-container-animation { left: calc(var(--offcanvas-bar-width) * -1); }

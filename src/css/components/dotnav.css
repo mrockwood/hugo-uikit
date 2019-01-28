@@ -1,0 +1,152 @@
+/**
+ * Name:            Dotnav
+ * Description:     Component to create dot navigations
+ *
+ * Component:       `c-dotnav`
+ *
+ * Modifier:        `c-dotnav-vertical`
+ *
+ * States:          `c-active`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --dotnav-margin-horizontal:                      12px;
+    --dotnav-margin-vertical:                        var(--dotnav-margin-horizontal);
+
+    --dotnav-item-width:                             10px;
+    --dotnav-item-height:                            var(--dotnav-item-width);
+    --dotnav-item-border-radius:                     50%;
+    --dotnav-item-border-width:                      1px;
+    --dotnav-item-border:                            color-mod(var(--global-color) alpha(40%));
+    --dotnav-item-hover-border:                      transparent;
+    --dotnav-item-onclick-border:                    transparent;
+    --dotnav-item-active-border:                     transparent;
+
+    --dotnav-item-background:                        transparent;
+    --dotnav-item-hover-background:                  color-mod(var(--global-color) alpha(60%));
+    --dotnav-item-onclick-background:                color-mod(var(--global-color) alpha(20%));
+    --dotnav-item-active-background:                 color-mod(var(--global-color) alpha(60%));
+
+}
+/*
+@media (--l-up) {
+
+    :root {
+
+        --dotnav-item-width:                         15px;
+
+    }
+
+}
+*/
+
+/* ========================================================================
+   Component: Dotnav
+ ========================================================================== */
+
+/*
+ * 1. Allow items to wrap into the next line
+ * 2. Reset list
+ * 3. Gutter
+ */
+
+.c-dotnav {
+    display: flex;
+    /* 1 */
+    flex-wrap: wrap;
+    /* 2 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* 3 */
+    margin-left: calc(var(--dotnav-margin-horizontal) * -1);
+}
+
+/*
+ * 1. Space is allocated solely based on content dimensions: 0 0 auto
+ * 2. Gutter
+ */
+
+.c-dotnav > * {
+    /* 1 */
+    flex: none;
+    /* 2 */
+    padding-left: var(--dotnav-margin-horizontal);
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * Items
+ * 1. Hide text if present
+ */
+
+.c-dotnav > * > * {
+    display: block;
+    box-sizing: border-box;
+    width: var(--dotnav-item-width);
+    height: var(--dotnav-item-height);
+    background: var(--dotnav-item-background);
+    /*background: transparent;*/
+    border-radius: var(--dotnav-item-border-radius);
+    border: var(--dotnav-item-border-width) solid var(--dotnav-item-border);
+    transition: 0.2s ease-in-out;
+    transition-property: background-color, border-color;
+
+    /* 1 */
+    text-indent: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Hover + Focus */
+.c-dotnav > * > :hover,
+.c-dotnav > * > :focus {
+    background-color: var(--dotnav-item-hover-background);
+    outline: none;
+    border-color: var(--dotnav-item-hover-border);
+}
+
+/* OnClick */
+.c-dotnav > * > :active {
+    background-color: var(--dotnav-item-onclick-background);
+    border-color: var(--dotnav-item-onclick-border);
+}
+
+/* Active */
+.c-dotnav > .c-active > * {
+    background-color: var(--dotnav-item-active-background);
+    border-color: var(--dotnav-item-active-border);
+}
+
+
+/* Modifier: 'c-dotnav-vertical'
+ ========================================================================== */
+
+/*
+ * 1. Change direction
+ * 2. Gutter
+ */
+
+.c-dotnav-vertical {
+    /* 1 */
+    flex-direction: column;
+    /* 2 */
+    margin-left: 0;
+    margin-top: calc(var(--dotnav-margin-vertical) * -1);
+}
+
+/* 2 */
+.c-dotnav-vertical > * {
+    padding-left: 0;
+    padding-top: var(--dotnav-margin-vertical);
+}

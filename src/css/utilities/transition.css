@@ -1,0 +1,184 @@
+/**
+ * Name:            Transition
+ * Description:     Utilities for transitions
+ *
+ * Component:       `c-transition-*`
+ *
+ * Modifiers:       `c-transition-fade`
+ *                  `c-transition-scale-up`
+ *                  `c-transition-scale-down`
+ *                  `c-transition-slide-top-*`
+ *                  `c-transition-slide-bottom-*`
+ *                  `c-transition-slide-left-*`
+ *                  `c-transition-slide-right-*`
+ *                  `c-transition-opaque`
+ *                  `c-transition-slow`
+ *
+ * Sub-objects:     `c-transition-toggle`,
+ *                  `c-transition-active`
+ *
+ * States:          `c-active`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --transition-duration:                           0.3s;
+
+    --transition-scale:                              1.1;
+
+    --transition-slide-small-translate:              10px;
+    --transition-slide-medium-translate:             50px;
+
+    --transition-slow-duration:                      0.7s;
+
+}
+
+
+/* ========================================================================
+   Component: Transition
+ ========================================================================== */
+
+
+/* Toggle (Hover + Focus)
+ ========================================================================== */
+
+/*
+ * 1. Prevent tab highlighting on iOS.
+ */
+
+.c-transition-toggle {
+    /* 1 */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/*
+ * Remove outline for `tabindex`
+ */
+
+.c-transition-toggle:focus { outline: none; }
+
+
+/* Transitions
+ ========================================================================== */
+
+/*
+ * The toggle is triggered on touch devices by two methods:
+ * 1. Using `:focus` and tabindex
+ * 2. Using `:hover` and a `touchstart` event listener registered on the document
+ *    (Doesn't work on Surface touch devices)
+ *
+ * Note: Transitions don't work with `c-postion-center-*` classes because they also use `transform`,
+ *       therefore it's recommended to use an extra `div` for the transition.
+ */
+
+.c-transition-fade,
+[class*='c-transition-scale'],
+[class*='c-transition-slide'] {
+    transition: var(--transition-duration) ease-out;
+    transition-property: opacity, transform, filter;
+    opacity: 0;
+}
+
+/*
+ * Fade
+ */
+
+.c-transition-toggle:hover .c-transition-fade,
+.c-transition-toggle:focus .c-transition-fade,
+.c-transition-active.c-active .c-transition-fade { opacity: 1; }
+
+/*
+ * Scale
+ * Note: Using `scale3d` for better image rendering
+ */
+
+.c-transition-scale-up { transform: scale3d(1,1,1); }
+.c-transition-scale-down { transform: scale3d(var(--transition-scale),var(--transition-scale),1); }
+
+/* Show */
+.c-transition-toggle:hover .c-transition-scale-up,
+.c-transition-toggle:focus .c-transition-scale-up,
+.c-transition-active.c-active .c-transition-scale-up {
+    opacity: 1;
+    transform: scale3d(var(--transition-scale),var(--transition-scale),1);
+}
+
+.c-transition-toggle:hover .c-transition-scale-down,
+.c-transition-toggle:focus .c-transition-scale-down,
+.c-transition-active.c-active .c-transition-scale-down {
+    opacity: 1;
+    transform: scale3d(1,1,1);
+}
+
+/*
+ * Scale
+ * Note: Using `scale3d` for better image rendering
+ */
+
+[class*='c-transition-scale'] { opacity: 0; }
+
+.c-transition-scale-up { transform: scale3d(1,1,1); }
+
+.c-transition-scale-down { transform: scale3d(var(--transition-scale),var(--transition-scale),1); }
+
+/* Show */
+.c-transition-toggle:hover .c-transition-scale-up,
+.c-transition-toggle.c-hover .c-transition-scale-up,
+.c-transition-toggle:focus .c-transition-scale-up,
+.c-transition-active.c-active .c-transition-scale-up {
+    opacity: 1;
+    transform: scale3d(var(--transition-scale),var(--transition-scale),1);
+}
+
+.c-transition-toggle:hover .c-transition-scale-down,
+.c-transition-toggle.c-hover .c-transition-scale-down,
+.c-transition-toggle:focus .c-transition-scale-down,
+.c-transition-active.c-active .c-transition-scale-down {
+    opacity: 1;
+    transform: scale3d(1,1,1);
+}
+
+/*
+ * Slide
+ */
+
+.c-transition-slide-top { transform: translateY(-100%); }
+.c-transition-slide-bottom { transform: translateY(100%); }
+.c-transition-slide-left { transform: translateX(-100%); }
+.c-transition-slide-right { transform: translateX(100%); }
+
+.c-transition-slide-top-small { transform: translateY(calc(var(--transition-slide-small-translate) * -1)); }
+.c-transition-slide-bottom-small { transform: translateY(var(--transition-slide-small-translate)); }
+.c-transition-slide-left-small { transform: translateX(calc(var(--transition-slide-small-translate) * -1)); }
+.c-transition-slide-right-small { transform: translateX(var(--transition-slide-small-translate)); }
+
+.c-transition-slide-top-medium { transform: translateY(calc(var(--transition-slide-medium-translate) * -1)); }
+.c-transition-slide-bottom-medium { transform: translateY(var(--transition-slide-medium-translate)); }
+.c-transition-slide-left-medium { transform: translateX(calc(var(--transition-slide-medium-translate) * -1)); }
+.c-transition-slide-right-medium { transform: translateX(var(--transition-slide-medium-translate)); }
+
+/* Show */
+.c-transition-toggle:hover [class*='c-transition-slide'],
+.c-transition-toggle:focus [class*='c-transition-slide'],
+.c-transition-active.c-active [class*='c-transition-slide'] {
+    opacity: 1;
+    transform: translate(0,0);
+}
+
+
+/* Opacity modifier
+========================================================================== */
+
+.c-transition-opaque { opacity: 1; }
+
+
+/* Duration modifiers
+========================================================================== */
+
+.c-transition-slow { transition-duration: var(--transition-slow-duration); }

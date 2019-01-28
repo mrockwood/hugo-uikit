@@ -1,0 +1,99 @@
+/**
+ * Name:            Progress
+ * Description:     Component to create progress bars
+ *
+ * Component:       `c-progress`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --progress-height:                               15px;
+    --progress-margin-vertical:                      var(--global-margin);
+    --progress-background:                           var(--global-muted-background);
+    --progress-border-radius:                        500px;
+
+    --progress-bar-background:                       var(--global-primary-background);
+
+}
+
+
+/* ========================================================================
+   Component: Progress
+ ========================================================================== */
+
+/*
+ * 1. Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ * 2. Remove default style
+ * 3. Behave like a block element
+ * 4. Remove borders in Firefox and Edge
+ * 5. Set background color for progress container in Firefox, IE11 and Edge
+ * 6. Style
+ */
+
+.c-progress {
+    /* 1 */
+    vertical-align: baseline;
+    /* 2 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* 3 */
+    display: block;
+    width: 100%;
+    /* 4 */
+    border: 0;
+    /* 5 */
+    background-color: var(--progress-background);
+    /* 6 */
+    margin-bottom: var(--progress-margin-vertical);
+    height: var(--progress-height);
+    border-radius: var(--progress-border-radius);
+    overflow: hidden;
+}
+
+/* Add margin if adjacent element */
+* + .c-progress { margin-top: var(--progress-margin-vertical); }
+
+/*
+ * Remove animated circles for indeterminate state in IE11 and Edge
+ */
+
+.c-progress:indeterminate { color: transparent; }
+
+/*
+ * Progress container
+ * 2. Remove progress bar for indeterminate state in Firefox
+ */
+
+.c-progress::-webkit-progress-bar {
+  background-color: var(--progress-background);
+}
+
+/* 2 */
+.c-progress:indeterminate::-moz-progress-bar { width: 0; }
+
+/*
+ * Progress bar
+ * 1. Remove right border in IE11 and Edge
+ */
+
+.c-progress::-webkit-progress-value {
+    background-color: var(--progress-bar-background);
+    transition: width 0.6s ease;
+}
+
+.c-progress::-moz-progress-bar {
+    background-color: var(--progress-bar-background);
+}
+
+.c-progress::-ms-fill {
+    background-color: var(--progress-bar-background);
+    transition: width 0.6s ease;
+    /* 1 */
+    border: 0;
+}

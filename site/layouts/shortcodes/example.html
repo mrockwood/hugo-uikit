@@ -1,0 +1,16 @@
+<div class="tm-example c-position-relative c-margin-medium">
+    <ul c-tab>
+        <li><a href="#">Preview</a></li>
+        <li><a href="#">Markup</a></li>
+    </ul>
+    <ul class="c-switcher c-margin">
+        <li>{{ .Inner | markdownify }}</li>
+        <li><pre><code id="${id}" class="lang-html">{{ (trim .Inner " \n") | htmlEscape | safeHTML }}</code></pre></li>
+    </ul>
+    <div class="c-position-top-right c-margin-small-top">
+        <ul class="c-iconnav">
+            <li><a class="js-copy" c-tooltip="Copy to Clipboard" rel="#${id}"><img class="c-icon" src="/images/icon-clipboard.svg" c-svg></a></li>
+            <li><a class="js-codepen" c-tooltip="Edit on Codepen" rel="#${id}"><img class="c-icon" src="/images/icon-flask.svg" c-svg></a></li>
+        </ul>
+    </div>
+</div>

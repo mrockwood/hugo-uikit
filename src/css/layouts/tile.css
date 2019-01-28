@@ -1,0 +1,200 @@
+/**
+ * Name:            Tile
+ * Description:     Component to create tiled boxes
+ *
+ * Component:       `c-tile`
+ *
+ * Modifiers:       `c-tile-xsmall`
+ *                  `c-tile-small`
+ *                  `c-tile-large`
+ *                  `c-tile-xlarge`
+ *                  `c-tile-default`
+ *                  `c-tile-muted`
+ *                  `c-tile-primary`
+ *                  `c-tile-secondary`
+ *
+ * States:          `c-preserve-color`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --tile-padding-horizontal:                      15px;
+    --tile-padding-vertical:                        var(--global-medium-margin);
+
+    --tile-xsmall-padding-vertical:                 var(--global-margin);
+
+    --tile-small-padding-vertical:                  var(--global-medium-margin);
+
+    --tile-large-padding-vertical:                  var(--global-large-margin);
+
+    --tile-xlarge-padding-vertical:                 var(--global-xlarge-margin);
+
+    --tile-default-background:                      var(--global-background);
+
+    --tile-muted-background:                        var(--global-muted-background);
+
+    --tile-gradient-background:                     var(--global-gradient-background);
+
+    --tile-primary-background:                      var(--global-primary-background);
+
+    --tile-secondary-background:                    var(--global-secondary-background);
+
+}
+
+@media (--s-up) {
+
+    :root {
+
+        --tile-padding-horizontal:                  var(--global-gutter);
+
+    }
+
+}
+
+@media (--m-up) {
+
+    :root {
+
+        --tile-padding-horizontal:                  var(--global-medium-gutter);
+        --tile-padding-vertical:                    var(--global-large-margin);
+
+        --tile-large-padding-vertical:              var(--global-xlarge-margin);
+
+        --tile-xlarge-padding-vertical:             calc(var(--global-large-margin) + var(--global-xlarge-margin));
+
+    }
+
+}
+
+
+/* ========================================================================
+   Component: Tile
+ ========================================================================== */
+
+.c-tile {
+    position: relative;
+    box-sizing: border-box;
+    padding-left: var(--tile-padding-horizontal);
+    padding-right: var(--tile-padding-horizontal);
+    padding-top: var(--tile-padding-vertical);
+    padding-bottom: var(--tile-padding-vertical);
+}
+
+/*
+ * Micro clearfix
+ */
+
+.c-tile::before,
+.c-tile::after {
+    content: "";
+    display: table;
+}
+
+.c-tile::after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.c-tile > :last-child { margin-bottom: 0; }
+
+
+/* Size modifiers
+ ========================================================================== */
+
+/*
+ * XSmall
+ */
+
+.c-tile-xsmall {
+    padding-top: var(--tile-xsmall-padding-vertical);
+    padding-bottom: var(--tile-xsmall-padding-vertical);
+}
+
+/*
+ * Small
+ */
+
+.c-tile-small {
+    padding-top: var(--tile-small-padding-vertical);
+    padding-bottom: var(--tile-small-padding-vertical);
+}
+
+/*
+ * Large
+ */
+
+.c-tile-large {
+    padding-top: var(--tile-large-padding-vertical);
+    padding-bottom: var(--tile-large-padding-vertical);
+}
+
+
+/*
+ * XLarge
+ */
+
+.c-tile-xlarge {
+    padding-top: var(--tile-xlarge-padding-vertical);
+    padding-bottom: var(--tile-xlarge-padding-vertical);
+}
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+.c-tile-default {
+    background: var(--tile-default-background);
+}
+
+/*
+ * Muted
+ */
+
+.c-tile-muted {
+    background: var(--tile-muted-background);
+}
+
+/*
+ * Gradient
+ */
+
+.c-tile-gradient {
+    background: var(--tile-gradient-background);
+}
+
+/*
+ * Primary
+ */
+
+.c-tile-primary {
+    background: var(--tile-primary-background);
+}
+
+/* Color Mode
+.c-tile-primary:not(.c-preserve-color):extend(.c-light all) when (@tile-primary-color-mode = light) {}
+.c-tile-primary:not(.c-preserve-color):extend(.c-dark all) when (@tile-primary-color-mode = dark) {}
+*/
+
+/*
+ * Secondary
+ */
+
+.c-tile-secondary {
+    background: var(--tile-secondary-background);
+}
+
+/* Color Mode
+.c-tile-secondary:not(.c-preserve-color):extend(.c-light all) when (@tile-secondary-color-mode = light) {}
+.c-tile-secondary:not(.c-preserve-color):extend(.c-dark all) when (@tile-secondary-color-mode = dark) {}
+*/

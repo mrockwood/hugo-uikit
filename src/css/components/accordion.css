@@ -1,0 +1,113 @@
+/**
+ * Name:            Accordion
+ * Description:     Component to create accordions
+ *
+ * Component:       `c-accordion`
+ *
+ * Sub-objects:     `c-accordion-title`
+ *                  `c-accordion-content`
+ *
+ * States:          `c-open`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --accordion-item-margin-top:                    var(--global-margin);
+
+    --accordion-title-font-size:                    var(--global-medium-font-size);
+    --accordion-title-line-height:                  1.4;
+    --accordion-title-color:                        var(--global-emphasis-color);
+    --accordion-title-hover-color:                  var(--global-color);
+    --accordion-title-text-decoration:              inherit;
+
+    --accordion-content-margin-top:                 var(--global-margin);
+
+    --accordion-icon-margin-left:                   10px;
+
+}
+
+
+/* ========================================================================
+   Component: Accordion
+ ========================================================================== */
+
+.c-accordion {
+    padding: 0;
+    list-style: none;
+}
+
+
+/* Item
+ ========================================================================== */
+
+.c-accordion > :nth-child(n+2) {
+    margin-top: var(--accordion-item-margin-top);
+}
+
+
+/* Title
+ ========================================================================== */
+
+.c-accordion-title {
+    display: block;
+    font-size: var(--accordion-title-font-size);
+    line-height: var(--accordion-title-line-height);
+    color: var(--accordion-title-color);
+    text-decoration: var(--accordion-title-text-decoration);
+}
+
+/* Hover + Focus */
+.c-accordion-title:hover,
+.c-accordion-title:focus {
+    color: var(--accordion-title-hover-color);
+    text-decoration: none;
+    outline: none;
+}
+
+/* Icon */
+.c-accordion-title { overflow: hidden; }
+
+.c-accordion-title::before {
+    content: "";
+    width: calc(var(--accordion-title-line-height) * 1em);
+    height: calc(var(--accordion-title-line-height) * 1em);
+    margin-left: var(--accordion-icon-margin-left);
+    float: right;
+    background-image: svg-load("../../images/backgrounds/accordion-close.svg", fill=#666);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.c-open .c-accordion-title::before { background-image: svg-load("../../images/backgrounds/accordion-open.svg", fill=#666); }
+
+
+/* Content
+ ========================================================================== */
+
+.c-accordion-content {
+    margin-top: var(--accordion-content-margin-top);
+}
+
+/*
+* Micro clearfix
+*/
+
+.c-accordion-content::before,
+.c-accordion-content::after {
+    content: "";
+    display: table;
+}
+
+.c-accordion-content::after { clear: both; }
+
+/*
+* Remove margin from the last-child
+*/
+
+.c-accordion-content > :last-child { margin-bottom: 0; }

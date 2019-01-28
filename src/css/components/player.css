@@ -1,0 +1,1525 @@
+/**
+ * Name:            Player
+ * Description:     Component to create audio and video players
+ *
+ * Component:       `c-player`
+ *
+ * Sub-objects:     `c-player-badge`
+ *                  `c-player-content`
+ *
+ * States:          `c-open`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --player-color-main:                            var(--primary); /* #1aafff */
+    --player-color-gunmetal:                        #2f343d;
+    --player-color-fiord:                           #4f5b5f;
+    --player-color-lynch:                           #6b7d85;
+    --player-color-heather:                         #b7c5cd;
+
+    --player-tab-focus-default-color:               var(--player-color-main);
+
+    --player-font-family:                           Avenir, 'Avenir Next', 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, sans-serif;
+    --player-font-size-base:                        16px;
+    --player-font-size-small:                       14px;
+    --player-font-size-large:                       18px;
+    --player-font-size-xlarge:                      21px;
+
+    --player-font-size-time:                        var(--player-font-size-small);
+    --player-font-size-badge:                       9px;
+    --player-font-size-menu:                        var(--player-font-size-small);
+
+    --player-font-weight-regular:                   500;
+    --player-font-weight-bold:                      600;
+
+    --player-line-height:                           1.7;
+
+    --player-badge-bg:                              var(--player-color-fiord);
+    --player-badge-color:                           var(--white);
+
+    --player-captions-bg:                           var(--trans-black-8);
+    --player-captions-color:                        var(--white);
+    --player-font-size-captions-base:               var(--player-font-size-base);
+    --player-font-size-captions-small:              var(--player-font-size-small);
+    --player-font-size-captions-medium:             var(--player-font-size-large);
+    --player-font-size-captions-large:              var(--player-font-size-xlarge);
+
+    --player-control-icon-size:                     18px;
+    --player-control-spacing:                       10px;
+    --player-control-padding:                       calc(var(--player-control-spacing) * 0.7);
+    --player-control-radius:                        3px;
+
+    --player-video-controls-bg:                     var(--black);
+    --player-video-control-color:                   var(--white);
+    --player-video-control-color-hover:             var(--white);
+    --player-video-control-bg-hover:                var(--player-color-main);
+
+    --player-audio-controls-bg:                     var(--white);
+    --player-audio-control-color:                   var(--player-color-fiord);
+    --player-audio-control-color-hover:             var(--white);
+    --player-audio-control-bg-hover:                var(--player-color-main);
+
+    --player-menu-bg:                               var(--trans-white-9);
+    --player-menu-color:                            var(--player-color-fiord);
+    --player-menu-arrow-size:                       6px;
+    --player-menu-border-color:                     var(--player-color-heather);
+    --player-menu-border-shadow-color:              var(--white);
+    --player-menu-shadow:                           0 1px 2px var(--trans-black-2);
+
+    /* Loading */
+    --player-progress-loading-size:                 25px;
+    --player-progress-loading-bg:                   rgba(47,52,61,0.6); /* rgba(--player-color-gunmetal, 0.6) */
+
+    /* Buffered */
+    --player-video-progress-buffered-bg:            var(--trans-white-3);
+    --player-audio-progress-buffered-bg:            rgba(183,197,205,0.66); /* rgba(--player-color-heather, 0.66) */
+
+    /* Active state */
+    --player-range-thumb-active-shadow-width:       3px;
+
+    /* Thumb */
+    --player-range-thumb-height:                    14px;
+    --player-range-thumb-bg:                        var(--white);
+    --player-range-thumb-border:                    2px solid transparent;
+    --player-range-thumb-shadow:                    0 1px 1px var(--trans-black-2), 0 0 0 1px rgba(47,52,61,0.2); /* rgba(--player-color-gunmetal, 0.2) */
+
+    /* Track */
+    --player-range-track-height:                    4px;
+    --player-range-max-height:                      calc((var(--player-range-thumb-active-shadow-width) * 2) + var(--player-range-thumb-height));
+
+    /* Fill */
+    --player-range-fill-bg:                         var(--player-color-main);
+
+    /* Type specific */
+    --player-video-range-track-bg:                  var(--player-video-progress-buffered-bg);
+    --player-audio-range-track-bg:                  var(--player-audio-progress-buffered-bg);
+    --player-audio-range-thumb-shadow-color:        var(--trans-black-1);
+
+    --player-tooltip-bg:                            var(--trans-white-9);
+    --player-tooltip-color:                         var(--player-color-fiord);
+    --player-tooltip-padding:                       calc(var(--player-control-spacing) / 2);
+    --player-tooltip-arrow-size:                    4px;
+    --player-tooltip-radius:                        3px;
+    --player-tooltip-shadow:                        0 1px 2px var(--trans-black-2);
+
+}
+
+/* ========================================================================
+   Animations
+ ========================================================================== */
+
+@keyframes plyr-progress {
+    to {
+        background-position: var(--player-progress-loading-size) 0;
+    }
+}
+
+@keyframes plyr-popup {
+    0% {
+        opacity: 0.5;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes plyr-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ========================================================================
+   Component: Player
+ ========================================================================== */
+
+.c-player,
+.plyr {
+    direction: ltr;
+    /*font-family: var(--player-font-family);*/
+    font-variant-numeric: tabular-nums; /* Force monosace-esque number widths */
+    font-weight: var(--player-font-weight-regular);
+    line-height: var(--player-line-height);
+    max-width: 100%;
+    min-width: 200px;
+    position: relative;
+    text-shadow: none;
+    transition: box-shadow 0.3s ease;
+
+    /* Media elements */
+    & video,
+    & audio {
+        border-radius: inherit;
+        height: auto;
+        vertical-align: middle;
+        width: 100%;
+    }
+
+    & button {
+        font: inherit;
+        line-height: inherit;
+        width: auto;
+    }
+
+    /* Ignore focus */
+    &:focus {
+        outline: 0;
+    }
+}
+
+.c-player-full-ui,
+.plyr--full-ui {
+    & a,
+    & button,
+    & input,
+    & label {
+        touch-action: manipulation;
+    }
+}
+
+
+/* Badge
+ ========================================================================== */
+
+.c-player-badge,
+.plyr__badge {
+    background: var(--player-badge-bg);
+    border-radius: 2px;
+    color: var(--player-badge-color);
+    font-size: var(--player-font-size-badge);
+    line-height: 1;
+    padding: 3px 4px;
+}
+
+
+/* Captions
+ ========================================================================== */
+
+/* Hide default captions */
+.plyr--full-ui ::-webkit-media-text-track-container {
+    display: none;
+}
+
+.plyr__captions {
+    animation: plyr-fade-in 0.3s ease;
+    bottom: 0;
+    color: var(--player-captions-color);
+    display: none;
+    font-size: var(--player-font-size-captions-small);
+    left: 0;
+    padding: var(--player-control-spacing);
+    position: absolute;
+    text-align: center;
+    transition: transform 0.4s ease-in-out;
+    width: 100%;
+
+    & .plyr__caption {
+        background: var(--player-captions-bg);
+        border-radius: 2px;
+        box-decoration-break: clone;
+        line-height: 185%;
+        padding: 0.2em 0.5em;
+        white-space: pre-wrap;
+
+        /* Firefox adds a <div> when using getCueAsHTML() */
+        & div {
+            display: inline;
+        }
+    }
+
+    & span:empty {
+        display: none;
+    }
+}
+
+@media (--s-up) {
+
+    .plyr__captions {
+        font-size: var(--player-font-size-captions-base);
+        padding: calc(var(--player-control-spacing) * 2);
+    }
+
+}
+
+@media (--m-up) {
+
+    .plyr__captions {
+        font-size: var(--player-font-size-captions-medium);
+    }
+
+}
+
+.plyr--captions-active .plyr__captions {
+    display: block;
+}
+
+/* If the lower controls are shown and not empty */
+.plyr:not(.plyr--hide-controls) .plyr__controls:not(:empty) ~ .plyr__captions {
+    transform: translateY(calc(var(--player-control-spacing) * -4));
+}
+
+
+/* Controls
+ ========================================================================== */
+
+/* Hide native controls */
+.plyr--full-ui ::-webkit-media-controls {
+    display: none;
+}
+
+/* Playback controls */
+.plyr__controls {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    text-align: center;
+
+    /* Spacing */
+    & > .plyr__control,
+    & .plyr__progress,
+    & .plyr__time,
+    & .plyr__menu,
+    & .plyr__volume {
+        margin-left: calc(var(--player-control-spacing) / 2);
+    }
+
+    & .plyr__menu + .plyr__control,
+    & > .plyr__control + .plyr__menu,
+    & > .plyr__control + .plyr__control,
+    & .plyr__progress + .plyr__control {
+        margin-left: calc(var(--player-control-spacing) / 4);
+    }
+
+    & > .plyr__control:first-child,
+    & > .plyr__control:first-child + [data-plyr='pause'] {
+        margin-left: 0;
+        margin-right: auto;
+    }
+
+    /* Hide empty controls */
+    &:empty {
+        display: none;
+    }
+}
+
+@media (--s-up) {
+
+    .plyr__controls > .plyr__control,
+    .plyr__controls .plyr__menu,
+    .plyr__controls .plyr__progress,
+    .plyr__controls .plyr__time,
+    .plyr__controls .plyr__volume {
+        margin-left: var(--player-control-spacing);
+    }
+
+}
+
+/* Audio controls */
+.plyr--audio .plyr__controls {
+    background: var(--player-audio-controls-bg);
+    border-radius: inherit;
+    color: var(--player-audio-control-color);
+    padding: var(--player-control-spacing);
+}
+
+/* Video controls */
+.plyr--video .plyr__controls {
+    background: linear-gradient(
+        rgba(0,0,0,0),
+        rgba(0,0,0,0.7)
+    ); /* linear-gradient(rgba($plyr-video-controls-bg, 0), rgba($plyr-video-controls-bg, 0.7)) */
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+    bottom: 0;
+    color: var(--player-video-control-color);
+    left: 0;
+    padding: calc(var(--player-control-spacing) * 2) calc(var(--player-control-spacing) / 2) calc(var(--player-control-spacing) / 2);
+    position: absolute;
+    right: 0;
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    z-index: 3;
+}
+
+@media (--s-up) {
+
+    .plyr--video .plyr__controls {
+        padding: calc(var(--player-control-spacing) * 3.5) var(--player-control-spacing) var(--player-control-spacing);
+    }
+
+}
+
+/* Hide video controls */
+.plyr--video.plyr--hide-controls .plyr__controls {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(100%);
+}
+
+/* Some options are hidden by default */
+.plyr [data-plyr='captions'],
+.plyr [data-plyr='pip'],
+.plyr [data-plyr='airplay'],
+.plyr [data-plyr='fullscreen'] {
+    display: none;
+}
+.plyr--captions-enabled [data-plyr='captions'],
+.plyr--pip-supported [data-plyr='pip'],
+.plyr--airplay-supported [data-plyr='airplay'],
+.plyr--fullscreen-enabled [data-plyr='fullscreen'] {
+    display: inline-block;
+}
+
+
+/* Control buttons
+ ========================================================================== */
+
+.plyr__control {
+    background: transparent;
+    border: 0;
+    border-radius: var(--player-control-radius);
+    color: inherit;
+    cursor: pointer;
+    flex-shrink: 0;
+    overflow: visible; /* IE11 */
+    padding: var(--player-control-padding);
+    position: relative;
+    transition: all 0.3s ease;
+
+    & svg {
+        display: block;
+        fill: currentColor;
+        height: var(--player-control-icon-size);
+        pointer-events: none;
+        width: var(--player-control-icon-size);
+    }
+
+    /* Default focus */
+    &:focus {
+        outline: 0;
+    }
+
+    /* Tab focus */
+    &.plyr__tab-focus {
+        box-shadow: 0 0 0 5px var(--trans-white-2); /* rgba($plyr-tab-focus-default-color, 0.5) */
+        outline: 0;
+    }
+}
+
+/* Remove any link styling */
+a.plyr__control {
+    text-decoration: none;
+
+    &::after,
+    &::before {
+        display: none;
+    }
+}
+
+/* Change icons on state change */
+.plyr__control:not(.plyr__control--pressed) .icon--pressed,
+.plyr__control.plyr__control--pressed .icon--not-pressed,
+.plyr__control:not(.plyr__control--pressed) .label--pressed,
+.plyr__control.plyr__control--pressed .label--not-pressed {
+    display: none;
+}
+
+/* Audio control */
+.plyr--audio .plyr__control {
+    &.plyr__tab-focus,
+    &:hover,
+    &[aria-expanded='true'] {
+        background: var(--player-audio-control-bg-hover);
+        color: var(--player-audio-control-color-hover);
+    }
+}
+
+/* Video control */
+.plyr--video .plyr__control {
+    & svg {
+        filter: drop-shadow(0 1px 1px var(--trans-black-2));
+    }
+
+    /* Hover and tab focus */
+    &.plyr__tab-focus,
+    &:hover,
+    &[aria-expanded='true'] {
+        background: var(--player-video-control-bg-hover);
+        color: var(--player-video-control-color-hover);
+    }
+}
+
+/* Large play button (video only) */
+.plyr__control--overlaid {
+    background: var(--player-video-control-bg-hover); /*rgba($plyr-video-control-bg-hover, 0.8) */
+    border: 0;
+    border-radius: 100%;
+    box-shadow: 0 1px 1px var(--trans-black-2);
+    color: var(--player-video-control-color);
+    display: none;
+    left: 50%;
+    padding: calc(var(--player-control-spacing) * 1.5);
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    opacity: 0.8;
+
+    /* Offset icon to make the play button look right */
+    & svg {
+        left: 2px;
+        position: relative;
+    }
+
+    &:hover,
+    &:focus {
+        /*background: var(--player-video-control-bg-hover);*/
+        opacity: 1;
+    }
+}
+
+.plyr--playing .plyr__control--overlaid {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.plyr--full-ui.plyr--video .plyr__control--overlaid {
+    display: block;
+}
+
+
+/* Embedded players
+ * YouTube, Vimeo, etc
+ ========================================================================== */
+
+/* Default to 16:9 ratio but this is set by JavaScript based on config */
+
+.plyr__video-embed {
+    height: 0;
+    padding-bottom: 56.25%;
+    position: relative;
+
+    & iframe {
+        border: 0;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        user-select: none;
+        width: 100%;
+    }
+}
+
+/* If the full custom UI is supported */
+.plyr--full-ui .plyr__video-embed {
+    --height: 240;
+    --offset: calc( (var(--height) - 56.25) / (var(--height) / -50) );
+
+    /* Only used for Vimeo */
+    & > .plyr__video-embed__container {
+        padding-bottom: calc(var(--height) * 1%);
+        position: relative;
+        transform: translateY(var(--offset));
+    }
+}
+
+
+/* Menus
+ ========================================================================== */
+
+.plyr__menu {
+    display: flex; /* Edge fix */
+    position: relative;
+
+    /* Animate the icon */
+    & .plyr__control svg {
+        transition: transform 0.3s ease;
+    }
+    & .plyr__control[aria-expanded='true'] {
+        svg {
+            transform: rotate(90deg);
+        }
+
+        /* Hide tooltip */
+        .plyr__tooltip {
+            display: none;
+        }
+    }
+}
+
+/* The actual menu container */
+.plyr__menu__container {
+    animation: plyr-popup 0.2s ease;
+    background: var(--player-menu-bg);
+    border-radius: 4px;
+    bottom: 100%;
+    box-shadow: var(--player-menu-shadow);
+    color: var(--player-menu-color);
+    font-size: var(--player-font-size-base);
+    margin-bottom: 10px;
+    position: absolute;
+    right: -3px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 3;
+
+    & > div {
+        overflow: hidden;
+        transition: height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+            width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Arrow */
+    &::after {
+        border: 4px solid transparent;
+        border-top-color: var(--player-menu-bg);
+        content: '';
+        height: 0;
+        position: absolute;
+        right: 15px;
+        top: 100%;
+        width: 0;
+    }
+
+    & [role='menu'] {
+        padding: var(--player-control-padding);
+    }
+
+    & [role='menuitem'],
+    & [role='menuitemradio'] {
+        margin-top: 2px;
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    /* Options */
+    & .plyr__control {
+        align-items: center;
+        color: var(--player-menu-color);
+        display: flex;
+        font-size: var(--player-font-size-menu);
+        padding: calc(var(--player-control-padding) / 2) calc(var(--player-control-padding) * 1.5);
+        user-select: none;
+        width: 100%;
+
+        & > span {
+            align-items: inherit;
+            display: flex;
+            width: 100%;
+        }
+
+        &::after {
+            border: 4px solid transparent;
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    & .plyr__control--forward {
+        padding-right: calc(var(--player-control-padding) * 4);
+
+        &::after {
+            border-left-color: var(--player-menu-color); /* rgba($plyr-menu-color, 0.8); */
+            right: 5px;
+        }
+
+        &.plyr__tab-focus::after,
+        &:hover::after {
+            border-left-color: currentColor;
+        }
+    }
+
+    & .plyr__control--back {
+        font-weight: var(--player-font-weight-regular);
+        margin: var(--player-control-padding);
+        margin-bottom: calc(var(--player-control-padding) / 2);
+        padding-left: calc(var(--player-control-padding) * 4);
+        position: relative;
+        width: calc(100% - var(--player-control-padding) * 2);
+
+        &::after {
+            border-right-color: var(--player-menu-color); /*rgba($plyr-menu-color, 0.8) */
+            left: var(--player-control-padding);
+        }
+
+        &::before {
+            background: var(--player-menu-border-color);
+            box-shadow: 0 1px 0 var(--player-menu-border-shadow-color);
+            content: '';
+            height: 1px;
+            left: 0;
+            margin-top: calc(var(--player-control-padding) / 2);
+            overflow: hidden;
+            position: absolute;
+            right: 0;
+            top: 100%;
+        }
+
+        &.plyr__tab-focus::after,
+        &:hover::after {
+            border-right-color: currentColor;
+        }
+    }
+
+    & .plyr__control[role='menuitemradio'] {
+        padding-left: var(--player-control-padding);
+
+        &::before,
+        &::after {
+            border-radius: 100%;
+        }
+
+        &::before {
+            background: var(--trans-black-1);
+            content: '';
+            display: block;
+            flex-shrink: 0;
+            height: 16px;
+            margin-right: var(--player-control-spacing);
+            transition: all 0.3s ease;
+            width: 16px;
+        }
+
+        &::after {
+            background: #fff;
+            border: 0;
+            height: 6px;
+            left: 12px;
+            opacity: 0;
+            top: 50%;
+            transform: translateY(-50%) scale(0);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            width: 6px;
+        }
+
+        &[aria-checked='true'] {
+            &::before {
+                background: var(--player-color-main);
+            }
+            &::after {
+                opacity: 1;
+                transform: translateY(-50%) scale(1);
+            }
+        }
+
+        &.plyr__tab-focus::before,
+        &:hover::before {
+            background: var(--trans-black-1);
+        }
+    }
+
+    /* Option value */
+    & .plyr__menu__value {
+        align-items: center;
+        display: flex;
+        margin-left: auto;
+        margin-right: calc(-1 * var(--player-control-padding) - 2);
+        overflow: hidden;
+        padding-left: calc(var(--player-control-padding) * 3.5);
+        pointer-events: none;
+    }
+}
+
+
+/* Slider inputs - <input type="range">
+ ========================================================================== */
+
+.plyr--full-ui input[type='range'] {
+    /* WebKit */
+    -webkit-appearance: none; /* stylelint-disable-line */
+    background: transparent;
+    border: 0;
+    border-radius: calc(var(--player-range-thumb-height) * 2);
+    /* color is used in JS to populate lower fill for WebKit */
+    color: var(--player-range-fill-bg);
+    display: block;
+    height: var(--player-range-max-height);
+    margin: 0;
+    padding: 0;
+    transition: box-shadow 0.3s ease;
+    width: 100%;
+
+    &::-webkit-slider-runnable-track {
+        background: transparent;
+        border: 0;
+        border-radius: calc(var(--player-range-track-height) / 2);
+        height: var(--player-range-track-height);
+        transition: box-shadow 0.3s ease;
+        user-select: none;
+        background-image: linear-gradient(
+            to right,
+            currentColor var(--value, 0%),
+            transparent var(--value, 0%)
+        );
+    }
+
+    &::-webkit-slider-thumb {
+        background: var(--player-range-thumb-bg);
+        border: 0;
+        border-radius: 100%;
+        box-shadow: var(--player-range-thumb-shadow);
+        height: var(--player-range-thumb-height);
+        position: relative;
+        transition: all 0.2s ease;
+        width: var(--player-range-thumb-height);
+        -webkit-appearance: none; /* stylelint-disable-line */
+        margin-top: calc((var(--player-range-thumb-height) - var(--player-range-track-height)) / -2);
+    }
+
+    /* Mozilla */
+    &::-moz-range-track {
+        background: transparent;
+        border: 0;
+        border-radius: calc(var(--player-range-track-height) / 2);
+        height: var(--player-range-track-height);
+        transition: box-shadow 0.3s ease;
+        user-select: none;
+    }
+
+    &::-moz-range-thumb {
+        background: var(--player-range-thumb-bg);
+        border: 0;
+        border-radius: 100%;
+        box-shadow: var(--player-range-thumb-shadow);
+        height: var(--player-range-thumb-height);
+        position: relative;
+        transition: all 0.2s ease;
+        width: var(--player-range-thumb-height);
+    }
+
+    &::-moz-range-progress {
+        background: currentColor;
+        border-radius: calc(var(--player-range-track-height) / 2);
+        height: var(--player-range-track-height);
+    }
+
+    /* Microsoft */
+    &::-ms-track {
+        background: transparent;
+        border: 0;
+        border-radius: calc(var(--player-range-track-height) / 2);
+        height: var(--player-range-track-height);
+        transition: box-shadow 0.3s ease;
+        user-select: none;
+        color: transparent;
+    }
+
+    &::-ms-fill-upper {
+        background: transparent;
+        border: 0;
+        border-radius: calc(var(--player-range-track-height) / 2);
+        height: var(--player-range-track-height);
+        transition: box-shadow 0.3s ease;
+        user-select: none;
+    }
+
+    &::-ms-fill-lower {
+        background: transparent;
+        border: 0;
+        border-radius: calc(var(--player-range-track-height) / 2);
+        height: var(--player-range-track-height);
+        transition: box-shadow 0.3s ease;
+        user-select: none;
+
+        background: currentColor;
+    }
+
+    &::-ms-thumb {
+        background: var(--player-range-thumb-bg);
+        border: 0;
+        border-radius: 100%;
+        box-shadow: var(--player-range-thumb-shadow);
+        height: var(--player-range-thumb-height);
+        position: relative;
+        transition: all 0.2s ease;
+        width: var(--player-range-thumb-height);
+        /* For some reason, Edge uses the -webkit margin above */
+        margin-top: 0;
+    }
+
+    &::-ms-tooltip {
+        display: none;
+    }
+
+    /* Focus styles */
+    &:focus {
+        outline: 0;
+    }
+
+    &::-moz-focus-outer {
+        border: 0;
+    }
+
+    &.plyr__tab-focus {
+        &::-webkit-slider-runnable-track {
+            box-shadow: 0 0 0 5px var(--trans-white-2); /* rgba($color, 0.5) */
+            outline: 0;
+        }
+
+        &::-moz-range-track {
+            box-shadow: 0 0 0 5px var(--trans-white-2); /* rgba($color, 0.5) */
+            outline: 0;
+        }
+
+        &::-ms-track {
+            box-shadow: 0 0 0 5px var(--trans-white-2); /* rgba($color, 0.5) */
+            outline: 0;
+        }
+    }
+}
+
+/* Video range inputs */
+.plyr--full-ui.plyr--video input[type='range'] {
+    &::-webkit-slider-runnable-track {
+        background-color: var(--player-video-range-track-bg);
+    }
+
+    &::-moz-range-track {
+        background-color: var(--player-video-range-track-bg);
+    }
+
+    &::-ms-track {
+        background-color: var(--player-video-range-track-bg);
+    }
+
+    /* Pressed styles */
+    &:active {
+        &::-webkit-slider-thumb {
+            box-shadow: var(--player-range-thumb-shadow), 0 0 0 var(--player-range-thumb-active-shadow-width) var(--trans-white-5); /* rgba($plyr-range-thumb-bg, 0.5) */
+        }
+
+        &::-moz-range-thumb {
+            box-shadow: var(--player-range-thumb-shadow), 0 0 0 var(--player-range-thumb-active-shadow-width) var(--trans-white-5); /* rgba($plyr-range-thumb-bg, 0.5) */
+        }
+
+        &::-ms-thumb {
+            box-shadow: var(--player-range-thumb-shadow), 0 0 0 var(--player-range-thumb-active-shadow-width) var(--trans-white-5); /* rgba($plyr-range-thumb-bg, 0.5) */
+        }
+    }
+}
+
+/* Audio range inputs */
+.plyr--full-ui.plyr--audio input[type='range'] {
+    &::-webkit-slider-runnable-track {
+        background-color: var(--player-audio-range-track-bg);
+    }
+
+    &::-moz-range-track {
+        background-color: var(--player-audio-range-track-bg);
+    }
+
+    &::-ms-track {
+        background-color: var(--player-audio-range-track-bg);
+    }
+
+    /* Pressed styles */
+    &:active {
+        &::-webkit-slider-thumb {
+            box-shadow: var(--player-range-thumb-shadow), 0 0 0 var(--player-range-thumb-active-shadow-width) var(--trans-black-1);
+        }
+
+        &::-moz-range-thumb {
+            box-shadow: var(--player-range-thumb-shadow), 0 0 0 var(--player-range-thumb-active-shadow-width) var(--trans-black-1);
+        }
+
+        &::-ms-thumb {
+            box-shadow: var(--player-range-thumb-shadow), 0 0 0 var(--player-range-thumb-active-shadow-width) var(--trans-black-1);
+        }
+    }
+}
+
+
+/* Faux poster overlay
+ ========================================================================== */
+
+.plyr__poster {
+    background-color: #000;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transition: opacity 0.2s ease;
+    width: 100%;
+    z-index: 1;
+}
+
+.plyr--stopped.plyr__poster-enabled .plyr__poster {
+    opacity: 1;
+}
+
+
+/* Time
+ ========================================================================== */
+
+.plyr__time {
+    font-size: var(--player-font-size-time);
+}
+
+/* Media duration hidden on small screens */
+.plyr__time + .plyr__time {
+    /* Add a slash in before */
+    &::before {
+        content: '\2044';
+        margin-right: var(--player-control-spacing);
+    }
+}
+
+@media (--xs) {
+
+    .plyr__time + .plyr__time {
+        display: none;
+    }
+
+}
+
+.plyr--video .plyr__time {
+    text-shadow: 0 1px 1px var(--trans-black-2);
+}
+
+
+/* Tooltips
+ ========================================================================== */
+
+.plyr__tooltip {
+    background: var(--player-tooltip-bg);
+    border-radius: var(--player-tooltip-radius);
+    bottom: 100%;
+    box-shadow: var(--player-tooltip-shadow);
+    color: var(--player-tooltip-color);
+    font-size: var(--player-font-size-small);
+    font-weight: var(--player-font-weight-regular);
+    left: 50%;
+    line-height: 1.3;
+    margin-bottom: calc(var(--player-tooltip-padding) * 2);
+    opacity: 0;
+    padding: var(--player-tooltip-padding) calc(var(--player-tooltip-padding) * 1.5);
+    pointer-events: none;
+    position: absolute;
+    transform: translate(-50%, 10px) scale(0.8);
+    transform-origin: 50% 100%;
+    transition: transform 0.2s 0.1s ease, opacity 0.2s 0.1s ease;
+    white-space: nowrap;
+    z-index: 2;
+
+    /* The background triangle */
+    &::before {
+        border-left: var(--player-tooltip-arrow-size) solid transparent;
+        border-right: var(--player-tooltip-arrow-size) solid transparent;
+        border-top: var(--player-tooltip-arrow-size) solid var(--player-tooltip-bg);
+        bottom: calc(var(--player-tooltip-arrow-size) * -1);
+        content: '';
+        height: 0;
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%);
+        width: 0;
+        z-index: 2;
+    }
+}
+
+/* Displaying */
+.plyr .plyr__control:hover .plyr__tooltip,
+.plyr .plyr__control.plyr__tab-focus .plyr__tooltip,
+.plyr__tooltip--visible {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+}
+
+.plyr .plyr__control:hover .plyr__tooltip {
+    z-index: 3;
+}
+
+/* First tooltip */
+.plyr__controls > .plyr__control:first-child .plyr__tooltip,
+.plyr__controls > .plyr__control:first-child + .plyr__control .plyr__tooltip {
+    left: 0;
+    transform: translate(0, 10px) scale(0.8);
+    transform-origin: 0 100%;
+
+    &::before {
+        left: calc(var(--player-control-icon-size) / 2) + var(--player-control-padding));
+    }
+}
+
+/* Last tooltip */
+.plyr__controls > .plyr__control:last-child .plyr__tooltip {
+    left: auto;
+    right: 0;
+    transform: translate(0, 10px) scale(0.8);
+    transform-origin: 100% 100%;
+
+    &::before {
+        left: auto;
+        right: calc(var(--player-control-icon-size) / 2) + var(--player-control-padding));
+        transform: translateX(50%);
+    }
+}
+
+.plyr__controls > .plyr__control:first-child,
+.plyr__controls > .plyr__control:first-child + .plyr__control,
+.plyr__controls > .plyr__control:last-child {
+    &:hover .plyr__tooltip,
+    &.plyr__tab-focus .plyr__tooltip,
+    & .plyr__tooltip--visible {
+        transform: translate(0, 0) scale(1);
+    }
+}
+
+
+/* Video styles
+ ========================================================================== */
+
+.plyr--video {
+    background: #000;
+    overflow: hidden;
+
+    /* Menu open */
+    &.plyr--menu-open {
+        overflow: visible;
+    }
+}
+
+.plyr__video-wrapper {
+    background: #000;
+    border-radius: inherit;
+    overflow: hidden;
+    position: relative;
+    /* Require z-index to force border-radius */
+    z-index: 0;
+}
+
+
+/* Playback progress
+ ========================================================================== */
+
+.plyr__progress {
+    flex: 1;
+    left: calc(var(--player-range-thumb-height) / 2);
+    margin-right: var(--player-range-thumb-height);
+    position: relative;
+
+    & input[type='range'],
+    &__buffer {
+        margin-left: calc(var(--player-range-thumb-height) / -2);
+        margin-right: calc(var(--player-range-thumb-height) / -2);
+        /* Offset the range thumb in order to be able to calculate the relative progress (#954) */
+        width: calc(100% + var(--player-range-thumb-height));
+    }
+
+    & input[type='range'] {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Seek tooltip to show time */
+    & .plyr__tooltip {
+        font-size: var(--player-font-size-time);
+        left: 0;
+    }
+}
+
+.plyr__progress__buffer {
+    -webkit-appearance: none; /* stylelint-disable-line */
+    background: transparent;
+    border: 0;
+    border-radius: 100px;
+    height: var(--player-range-track-height);
+    left: 0;
+    margin-top: calc(var(--player-range-track-height) / -2);
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    max-width: 100%;
+
+    &::-webkit-progress-bar {
+        background: transparent;
+        transition: width 0.2s ease;
+    }
+
+    &::-webkit-progress-value {
+        background: currentColor;
+        border-radius: 100px;
+        min-width: var(--player-range-track-height);
+    }
+
+    /* Mozilla */
+    &::-moz-progress-bar {
+        background: currentColor;
+        border-radius: 100px;
+        min-width: var(--player-range-track-height);
+        transition: width 0.2s ease;
+    }
+
+    /* Microsoft */
+    &::-ms-fill {
+        border-radius: 100px;
+        transition: width 0.2s ease;
+    }
+}
+
+.plyr--video .plyr__progress__buffer {
+    box-shadow: 0 1px 1px var(--trans-black-2);
+    color: var(--player-video-progress-buffered-bg);
+}
+
+.plyr--audio .plyr__progress__buffer {
+    color: var(--player-audio-progress-buffered-bg);
+}
+
+/* Loading state */
+.plyr--loading .plyr__progress__buffer {
+    animation: plyr-progress 1s linear infinite;
+    background-image: linear-gradient(
+        -45deg,
+        var(--player-progress-loading-bg) 25%,
+        transparent 25%,
+        transparent 50%,
+        var(--player-progress-loading-bg) 50%,
+        var(--player-progress-loading-bg) 75%,
+        transparent 75%,
+        transparent
+    );
+    background-repeat: repeat-x;
+    background-size: var(--player-progress-loading-size) var(--player-progress-loading-size);
+    color: transparent;
+}
+
+.plyr--video.plyr--loading .plyr__progress__buffer {
+    background-color: var(--player-video-progress-buffered-bg);
+}
+
+.plyr--audio.plyr--loading .plyr__progress__buffer {
+    background-color: var(--player-audio-progress-buffered-bg);
+}
+
+
+/* Volume
+ ========================================================================== */
+
+.plyr__volume {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    position: relative;
+
+    & input[type='range'] {
+        margin-left: calc(var(--player-control-spacing) / 2);
+        position: relative;
+        z-index: 2;
+    }
+}
+
+@media (--s-up) {
+
+    .plyr__volume {
+        max-width: 90px;
+    }
+
+}
+
+@media (--m-up) {
+
+    .plyr__volume {
+        max-width: 110px;
+    }
+
+}
+
+/* Hide sound controls on iOS
+ * It's not supported to change volume using JavaScript:
+ * https://developer.apple.com/library/safari/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/Device-SpecificConsiderations/Device-SpecificConsiderations.html */
+.plyr--is-ios .plyr__volume {
+    display: none !important;
+}
+
+/* Vimeo has no toggle mute method so hide mute button
+ * https://github.com/vimeo/player.js/issues/236#issuecomment-384663183 */
+.plyr--is-ios.plyr--vimeo [data-plyr='mute'] {
+    display: none !important;
+}
+
+
+/* ========================================================================
+   State: Fullscreen
+ ========================================================================== */
+
+.plyr:fullscreen {
+    background: #000;
+    border-radius: 0 !important;
+    height: 100%;
+    margin: 0;
+    width: 100%;
+
+    & video {
+        height: 100%;
+    }
+
+    & .plyr__video-wrapper {
+        height: 100%;
+        width: 100%;
+    }
+
+    & .plyr__video-embed {
+        /* Revert overflow change */
+        overflow: visible;
+    }
+
+    /* Vimeo requires some different styling */
+    &.plyr--vimeo .plyr__video-wrapper,
+    &.plyr--youtube .plyr__video-wrapper {
+        height: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    /* Display correct icon */
+    & .plyr__control .icon--exit-fullscreen {
+        display: block;
+
+        & + svg {
+            display: none;
+        }
+    }
+
+    /* Hide cursor in fullscreen when controls hidden */
+    &.plyr--hide-controls {
+        cursor: none;
+    }
+}
+
+/* stylelint-disable-next-line */
+.plyr:-webkit-full-screen {
+    background: #000;
+    border-radius: 0 !important;
+    height: 100%;
+    margin: 0;
+    width: 100%;
+
+    & video {
+        height: 100%;
+    }
+
+    & .plyr__video-wrapper {
+        height: 100%;
+        width: 100%;
+    }
+
+    & .plyr__video-embed {
+        /* Revert overflow change */
+        overflow: visible;
+    }
+
+    /* Vimeo requires some different styling */
+    &.plyr--vimeo .plyr__video-wrapper {
+        height: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    /* Display correct icon */
+    & .plyr__control .icon--exit-fullscreen {
+        display: block;
+
+        + svg {
+            display: none;
+        }
+    }
+
+    /* Hide cursor in fullscreen when controls hidden */
+    &.plyr--hide-controls {
+        cursor: none;
+    }
+}
+
+/* stylelint-disable-next-line */
+.plyr:-moz-full-screen {
+    background: #000;
+    border-radius: 0 !important;
+    height: 100%;
+    margin: 0;
+    width: 100%;
+
+    & video {
+        height: 100%;
+    }
+
+    & .plyr__video-wrapper {
+        height: 100%;
+        width: 100%;
+    }
+
+    & .plyr__video-embed {
+        /* Revert overflow change */
+        overflow: visible;
+    }
+
+    /* Vimeo requires some different styling */
+    &.plyr--vimeo .plyr__video-wrapper {
+        height: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    /* Display correct icon */
+    & .plyr__control .icon--exit-fullscreen {
+        display: block;
+
+        + svg {
+            display: none;
+        }
+    }
+
+    /* Hide cursor in fullscreen when controls hidden */
+    &.plyr--hide-controls {
+        cursor: none;
+    }
+}
+
+/* stylelint-disable-next-line */
+.plyr:-ms-fullscreen {
+    background: #000;
+    border-radius: 0 !important;
+    height: 100%;
+    margin: 0;
+    width: 100%;
+
+    & video {
+        height: 100%;
+    }
+
+    & .plyr__video-wrapper {
+        height: 100%;
+        width: 100%;
+    }
+
+    & .plyr__video-embed {
+        /* Revert overflow change */
+        overflow: visible;
+    }
+
+    /* Vimeo requires some different styling */
+    &.plyr--vimeo .plyr__video-wrapper {
+        height: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    /* Display correct icon */
+    & .plyr__control .icon--exit-fullscreen {
+        display: block;
+
+        + svg {
+            display: none;
+        }
+    }
+
+    /* Hide cursor in fullscreen when controls hidden */
+    &.plyr--hide-controls {
+        cursor: none;
+    }
+}
+
+/* Fallback for unsupported browsers */
+.plyr--fullscreen-fallback {
+    background: #000;
+    border-radius: 0 !important;
+    height: 100%;
+    margin: 0;
+    width: 100%;
+
+    & video {
+        height: 100%;
+    }
+
+    & .plyr__video-wrapper {
+        height: 100%;
+        width: 100%;
+    }
+
+    & .plyr__video-embed {
+        /* Revert overflow change */
+        overflow: visible;
+    }
+
+    /* Vimeo requires some different styling */
+    &.plyr--vimeo .plyr__video-wrapper {
+        height: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    /* Display correct icon */
+    & .plyr__control .icon--exit-fullscreen {
+        display: block;
+
+        + svg {
+            display: none;
+        }
+    }
+
+    /* Hide cursor in fullscreen when controls hidden */
+    &.plyr--hide-controls {
+        cursor: none;
+    }
+
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 10000000;
+}
+
+/* ========================================================================
+   Utils
+ ========================================================================== */
+
+
+/* Animation utils
+ ========================================================================== */
+
+.plyr--no-transition {
+    transition: none !important;
+}
+
+
+/* Hiding content nicely
+ ========================================================================== */
+
+/* Screen reader only elements */
+.plyr__sr-only {
+    clip: rect(1px, 1px, 1px, 1px);
+    overflow: hidden;
+
+    /* !important is not always needed */
+    border: 0 !important;
+    height: 1px !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+}
+
+.plyr [hidden] {
+    display: none !important;
+}

@@ -1,0 +1,51 @@
+/**
+ * Name:            Sticky
+ * Description:     Component to make elements sticky in the viewport
+ *
+ * Component:       `c-sticky`
+ *
+ * Modifier:        `c-sticky-fixed`
+ *
+ * States:          `c-active`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --sticky-z-index:                                calc(var(--global-z-index) - 20);
+
+    --sticky-animation-duration:                     0.2s;
+    --sticky-reverse-animation-duration:             0.2s;
+
+}
+
+
+/* ========================================================================
+   Component: Sticky
+ ========================================================================== */
+
+/*
+ * 1. Resolve frame rate issues on devices with lower frame rates by forcing hardware acceleration
+ */
+
+.c-sticky-fixed {
+    z-index: var(--sticky-z-index);
+    box-sizing: border-box;
+    margin: 0 !important;
+    /* 1 */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/*
+ * Faster animations
+ */
+
+.c-sticky[class*='c-animation-'] { animation-duration: var(--sticky-animation-duration); }
+
+.c-sticky.c-animation-reverse { animation-duration: var(--sticky-reverse-animation-duration); }

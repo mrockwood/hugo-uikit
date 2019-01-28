@@ -1,0 +1,68 @@
+/**
+ * Name:            Description list
+ * Description:     Styles for description lists
+ *
+ * Component:       `c-description-list`
+ *
+ * Modifiers:       `c-description-list-divider`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --description-list-term-color:                   var(--global-emphasis-color);
+    --description-list-term-margin-top:              var(--global-margin);
+    /*--description-list-term-font-size:               var(--global-small-font-size);
+    --description-list-term-font-weight:             bold;
+    --description-list-term-text-transform:          uppercase;*/
+
+    --description-list-divider-term-margin-top:      var(--global-margin);
+    --description-list-divider-term-border-width:    var(--global-border-width);
+    --description-list-divider-term-border:          var(--global-border);
+
+}
+
+
+/* ========================================================================
+   Component: Description list
+ ========================================================================== */
+
+/*
+ * Term
+ */
+
+.c-description-list > dt {
+    color: var(--description-list-term-color);
+    /*font-size: var(--description-list-term-font-size);
+    font-weight: var(--description-list-term-font-weight);
+    text-transform: var(--description-list-term-text-transform);*/
+}
+
+.c-description-list > dt:nth-child(n+2) {
+    margin-top: var(--description-list-term-margin-top);
+}
+
+/*
+ * Description
+ */
+
+.c-description-list > dd {}
+
+
+/* Style modifier
+ ========================================================================== */
+
+/*
+ * Line
+ */
+
+.c-description-list-divider > dt:nth-child(n+2) {
+    margin-top: var(--description-list-divider-term-margin-top);
+    padding-top: var(--description-list-divider-term-margin-top);
+    border-top: var(--description-list-divider-term-border-width) solid var(--description-list-divider-term-border);
+}

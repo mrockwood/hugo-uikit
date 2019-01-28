@@ -1,0 +1,401 @@
+/**
+ * Name:            Animation
+ * Description:     Utilities for keyframe animations
+ *
+ * Component:       `c-animation-*`
+ *
+ * Modifiers:       `c-animation-reverse`
+ *                  `c-animation-fast`
+ *                  `c-animation-fade`
+ *                  `c-animation-scale-up`
+ *                  `c-animation-scale-down`
+ *                  `c-animation-slide-top-*`
+ *                  `c-animation-slide-bottom-*`
+ *                  `c-animation-slide-left-*`
+ *                  `c-animation-slide-right-*`
+ *                  `c-animation-kenburns`
+ *                  `c-animation-shake`
+ *
+ * Sub-objects:     `c-animation-toggle`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --animation-duration:                            0.5s;
+    --animation-fade-duration:                       0.8s;
+    --animation-kenburns-duration:                   15s;
+    --animation-fast-duration:                       0.1s;
+
+    --animation-slide-small-translate:               10px;
+    --animation-slide-medium-translate:              50px;
+
+}
+
+
+/* ========================================================================
+   Component: Animation
+ ========================================================================== */
+
+[class*='c-animation-'] {
+    animation-duration: var(--animation-duration);
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+}
+
+
+/* Direction modifier
+ ========================================================================== */
+
+.c-animation-reverse {
+    animation-direction: reverse;
+    animation-timing-function: ease-in;
+}
+
+
+/* Toggle (Hover + Focus)
+========================================================================== */
+
+/*
+ * The toggle is triggered on touch devices using `:focus` and tabindex
+ */
+
+.c-animation-toggle:not(:hover):not(:focus) [class*='c-animation-'] { animation-name: none; }
+
+/*
+ * 1. Prevent tab highlighting on iOS.
+ */
+
+.c-animation-toggle {
+    /* 1 */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/*
+ * Remove outline for `tabindex`
+ */
+
+.c-animation-toggle:focus { outline: none; }
+
+
+/* Animations
+ ========================================================================== */
+
+/*
+ * Fade
+ */
+
+.c-animation-fade {
+    animation-name: c-fade;
+    animation-duration: var(--animation-fade-duration);
+    animation-timing-function: linear;
+}
+
+/*
+ * Scale
+ */
+
+.c-animation-scale-up { animation-name: c-fade-scale-02; }
+.c-animation-scale-down { animation-name: c-fade-scale-18; }
+
+/*
+ * Slide
+ */
+
+.c-animation-slide-top { animation-name: c-fade-top; }
+.c-animation-slide-bottom { animation-name: c-fade-bottom; }
+.c-animation-slide-left { animation-name: c-fade-left; }
+.c-animation-slide-right { animation-name: c-fade-right; }
+
+/*
+ * Slide Small
+ */
+
+.c-animation-slide-top-small { animation-name: c-fade-top-small; }
+.c-animation-slide-bottom-small { animation-name: c-fade-bottom-small; }
+.c-animation-slide-left-small { animation-name: c-fade-left-small; }
+.c-animation-slide-right-small { animation-name: c-fade-right-small; }
+
+/*
+ * Slide Medium
+ */
+
+.c-animation-slide-top-medium { animation-name: c-fade-top-medium; }
+.c-animation-slide-bottom-medium { animation-name: c-fade-bottom-medium; }
+.c-animation-slide-left-medium { animation-name: c-fade-left-medium; }
+.c-animation-slide-right-medium { animation-name: c-fade-right-medium; }
+
+/*
+ * Kenburns
+ */
+
+.c-animation-kenburns {
+    animation-name: c-scale-kenburns;
+    animation-duration: var(--animation-kenburns-duration);
+}
+
+/*
+ * Shake
+ */
+
+.c-animation-shake { animation-name: c-shake; }
+
+
+/* Duration modifier
+ ========================================================================== */
+
+.c-animation-fast { animation-duration: var(--animation-fast-duration); }
+
+
+/* Keyframes used by animation classes
+ ========================================================================== */
+
+/*
+ * Fade
+ */
+
+@keyframes c-fade {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/*
+ * Slide Top
+ */
+
+@keyframes c-fade-top {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Bottom
+ */
+
+@keyframes c-fade-bottom {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Left
+ */
+
+@keyframes c-fade-left {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Slide Right
+ */
+
+@keyframes c-fade-right {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Slide Top Small
+ */
+
+@keyframes c-fade-top-small {
+    0% {
+        opacity: 0;
+        transform: translateY(calc(var(--animation-slide-small-translate) * -1));
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Bottom Small
+ */
+
+@keyframes c-fade-bottom-small {
+    0% {
+        opacity: 0;
+        transform: translateY(var(--animation-slide-small-translate));
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Left Small
+ */
+
+@keyframes c-fade-left-small {
+    0% {
+        opacity: 0;
+        transform: translateX(calc(var(--animation-slide-small-translate) * -1));
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Slide Right Small
+ */
+
+@keyframes c-fade-right-small {
+    0% {
+        opacity: 0;
+        transform: translateX(var(--animation-slide-small-translate));
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Slide Top Medium
+ */
+
+@keyframes c-fade-top-medium {
+    0% {
+        opacity: 0;
+        transform: translateY(calc(var(--animation-slide-medium-translate) * -1));
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Bottom Medium
+ */
+
+@keyframes c-fade-bottom-medium {
+    0% {
+        opacity: 0;
+        transform: translateY(var(--animation-slide-medium-translate));
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Left Medium
+ */
+
+@keyframes c-fade-left-medium {
+    0% {
+        opacity: 0;
+        transform: translateX(calc(var(--animation-slide-medium-translate) * -1));
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Slide Right Medium
+ */
+
+@keyframes c-fade-right-medium {
+    0% {
+        opacity: 0;
+        transform: translateX(var(--animation-slide-medium-translate));
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Scale Up
+ */
+
+@keyframes c-fade-scale-02 {
+    0% {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/*
+ * Scale Down
+ */
+
+@keyframes c-fade-scale-18 {
+    0% {
+        opacity: 0;
+        transform: scale(1.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/*
+ * Kenburns
+ */
+
+@keyframes c-scale-kenburns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.2); }
+}
+
+/*
+ * Shake
+ */
+
+@keyframes c-shake {
+    0%, 100% { transform: translateX(0); }
+    10% { transform: translateX(-9px); }
+    20% { transform: translateX(8px); }
+    30% { transform: translateX(-7px); }
+    40% { transform: translateX(6px); }
+    50% { transform: translateX(-5px); }
+    60% { transform: translateX(4px); }
+    70% { transform: translateX(-3px); }
+    80% { transform: translateX(2px); }
+    90% { transform: translateX(-1px); }
+}

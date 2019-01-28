@@ -1,0 +1,104 @@
+/**
+ * Name:            Pagination
+ * Description:     Component to create a page navigation
+ *
+ * Component:       `c-pagination`
+ *
+ * Adopted:         `c-pagination-next`
+ *                  `c-pagination-previous`
+ *
+ * States:          `c-active`
+ *                  `c-disabled`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --pagination-margin-horizontal:                  20px;
+
+    --pagination-item-color:                         var(--global-muted-color);
+    --pagination-item-hover-color:                   var(--global-color);
+    --pagination-item-hover-text-decoration:         none;
+    --pagination-item-active-color:                  var(--global-color);
+    --pagination-item-disabled-color:                var(--global-muted-color);
+    --pagination-item-transition:                    color 0.1s ease-in-out;
+    --pagination-item-text-decoration:               none;
+
+}
+
+
+/* ========================================================================
+   Component: Pagination
+ ========================================================================== */
+
+/*
+ * 1. Allow items to wrap into the next line
+ * 2. Gutter
+ * 3. Reset list
+ */
+
+.c-pagination {
+    display: flex;
+    /* 1 */
+    flex-wrap: wrap;
+    /* 2 */
+    margin-left: calc(var(--pagination-margin-horizontal) * -1);
+    /* 3 */
+    padding: 0;
+    list-style: none;
+}
+
+/*
+ * 1. Space is allocated solely based on content dimensions: 0 0 auto
+ * 2. Gutter
+ * 3. Create position context for dropdowns
+ */
+
+.c-pagination > * {
+    /* 1 */
+    flex: none;
+    /* 2 */
+    padding-left: var(--pagination-margin-horizontal);
+    /* 3 */
+    position: relative;
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * 1. Prevent gap if child element is `inline-block`, e.g. an icon
+ * 2. Style
+ */
+
+.c-pagination > * > * {
+    /* 1 */
+    display: block;
+    /* 2 */
+    color: var(--pagination-item-color);
+    transition: var(--pagination-item-transition);
+    text-decoration: var(--pagination-item-text-decoration);
+}
+
+/* Hover + Focus */
+.c-pagination > * > :hover,
+.c-pagination > * > :focus {
+    color: var(--pagination-item-hover-color);
+    text-decoration: var(--pagination-item-hover-text-decoration);
+}
+
+/* Active */
+.c-pagination > .c-active > * {
+    color: var(--pagination-item-active-color);
+}
+
+/* Disabled */
+.c-pagination > .c-disabled > * {
+    color: var(--pagination-item-disabled-color);
+}

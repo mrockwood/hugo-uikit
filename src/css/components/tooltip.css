@@ -1,0 +1,80 @@
+/**
+ * Name:            Tooltip
+ * Description:     Component to create tooltips
+ *
+ * Component:       `c-tooltip`
+ *
+ * Modifiers        `c-tooltip-top`
+ *                  `c-tooltip-top-left`
+ *                  `c-tooltip-top-right`
+ *                  `c-tooltip-bottom`
+ *                  `c-tooltip-bottom-left`
+ *                  `c-tooltip-bottom-right`
+ *                  `c-tooltip-left`
+ *                  `c-tooltip-right`
+ *
+ * States:          `c-active`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --tooltip-z-index:                               calc(var(--@global-z-index) + 30);
+    --tooltip-max-width:                             200px;
+    --tooltip-padding-vertical:                      3px;
+    --tooltip-padding-horizontal:                    6px;
+    --tooltip-background:                            #666;
+    --tooltip-border-radius:                         2px;
+    --tooltip-color:                                 var(--global-inverse-color);
+    --tooltip-font-size:                             12px;
+
+    --tooltip-margin:                                10px;
+
+}
+
+
+/* ========================================================================
+   Component: Tooltip
+ ========================================================================== */
+
+/*
+ * 1. Hide by default
+ * 2. Position
+ * 3. Dimensions
+ * 4. Style
+ */
+
+.c-tooltip {
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: absolute;
+    z-index: var(--tooltip-z-index);
+    /* 3 */
+    box-sizing: border-box;
+    max-width: var(--tooltip-max-width);
+    padding: var(--tooltip-padding-vertical) var(--tooltip-padding-horizontal);
+    /* 4 */
+    background: var(--tooltip-background);
+    border-radius: var(--tooltip-border-radius);
+    color: var(--tooltip-color);
+    font-size: var(--tooltip-font-size);
+}
+
+/* Show */
+.c-tooltip.c-active { display: block; }
+
+
+/* Direction / Alignment modifiers
+ ========================================================================== */
+
+/* Direction */
+[class*='c-tooltip-top'] { margin-top: calc(var(--tooltip-margin) * -1); }
+[class*='c-tooltip-bottom'] { margin-top: var(--tooltip-margin); }
+[class*='c-tooltip-left'] { margin-left: calc(var(--tooltip-margin) * -1); }
+[class*='c-tooltip-right'] { margin-left: var(--tooltip-margin); }

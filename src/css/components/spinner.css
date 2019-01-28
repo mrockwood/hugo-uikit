@@ -1,0 +1,69 @@
+/**
+ * Name:            Spinner
+ * Description:     Component to create a loading spinner
+ *
+ * Component:       `c-spinner`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --spinner-size:                                  30px;
+    --spinner-stroke-width:                          1px;
+    --spinner-radius:                                calc((var(--spinner-size) - var(--spinner-stroke-width)) / 2); /* Minus stroke width to prevent overflow clipping */
+    --spinner-circumference:                         calc(2 * 3.141 * var(--spinner-radius));
+    --spinner-duration:                              1.4s;
+
+}
+
+
+/* ========================================================================
+   Component: Spinner
+ ========================================================================== */
+
+/*
+ * Adopts `c-icon`
+ */
+
+.c-spinner {}
+
+
+/* SVG
+ ========================================================================== */
+
+.c-spinner > * { animation: c-spinner-rotate var(--spinner-duration) linear infinite; }
+
+@keyframes c-spinner-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(270deg); }
+}
+
+/*
+ * Circle
+ */
+
+.c-spinner > * > * {
+    stroke-dasharray: var(--spinner-circumference);
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: c-spinner-dash var(--spinner-duration) ease-in-out infinite;
+    stroke-width: var(--spinner-stroke-width);
+    stroke-linecap: round;
+}
+
+@keyframes c-spinner-dash {
+    0% { stroke-dashoffset: var(--spinner-circumference); }
+    50% {
+        stroke-dashoffset: calc(var(--spinner-circumference) / 4);
+        transform:rotate(135deg);
+    }
+    100% {
+        stroke-dashoffset: var(--spinner-circumference);
+        transform:rotate(450deg);
+    }
+}

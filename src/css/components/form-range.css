@@ -1,0 +1,178 @@
+/**
+ * Name:            Form Range
+ * Description:     Styles for the range input type
+ *
+ * Component:       `c-range`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --form-range-thumb-height:                       15px;
+    --form-range-thumb-border-radius:                500px;
+    --form-range-thumb-background:                   var(--global-background);
+    --form-range-thumb-border-width:                 var(--global-border-width);
+    --form-range-thumb-border:                       var(--gray-4);
+
+    --form-range-track-height:                       3px;
+    --form-range-track-background:                   var(--gray-1);
+    --form-range-track-focus-background:             var(--gray-3);
+    --form-range-track-border-radius:                500px;
+
+}
+
+
+/* ========================================================================
+   Component: Form Range
+ ========================================================================== */
+
+/*
+ * 1. Normalize and defaults
+ * 2. Prevent content overflow if a fixed width is used
+ * 3. Take the full width
+ * 4. Remove default style
+ * 5. Remove white background in Chrome
+ * 6. Remove padding in IE11
+ */
+
+.c-range {
+    /* 1 */
+    box-sizing: border-box;
+    margin: 0;
+    vertical-align: middle;
+    /* 2 */
+    max-width: 100%;
+    /* 3 */
+    width: 100%;
+    /* 4 */
+    -webkit-appearance: none;
+    /* 5 */
+    background: transparent;
+    /* 6 */
+    padding: 0;
+}
+
+/* Focus */
+.c-range:focus { outline: none; }
+.c-range::-moz-focus-outer { border: none; }
+
+/* IE11 Reset */
+.c-range::-ms-track {
+    height: var(--form-range-thumb-height);
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+/*
+ * Improves consistency of cursor style for clickable elements
+ */
+
+.c-range:not(:disabled)::-webkit-slider-thumb { cursor: pointer; }
+.c-range:not(:disabled)::-moz-range-thumb { cursor: pointer; }
+.c-range:not(:disabled)::-ms-thumb { cursor: pointer; }
+
+
+/* Thumb
+ ========================================================================== */
+
+/*
+ * 1. Reset
+ * 2. Style
+ */
+
+/* Webkit */
+.c-range::-webkit-slider-thumb {
+    /* 1 */
+    -webkit-appearance: none;
+    margin-top: calc(var(--form-range-thumb-height) / -2);
+    /* 2 */
+    height: var(--form-range-thumb-height);
+    width: var(--form-range-thumb-height);
+    border-radius: var(--form-range-thumb-border-radius);
+    background: var(--form-range-thumb-background);
+    border: var(--form-range-thumb-border-width) solid var(--form-range-thumb-border);
+}
+
+/* Firefox */
+.c-range::-moz-range-thumb {
+    /* 1 */
+    border: none;
+    /* 2 */
+    height: var(--form-range-thumb-height);
+    width: var(--form-range-thumb-height);
+    border-radius: var(--form-range-thumb-border-radius);
+    background: var(--form-range-thumb-background);
+    border: var(--form-range-thumb-border-width) solid var(--form-range-thumb-border);
+}
+
+/* Edge */
+.c-range::-ms-thumb {
+    /* 1 */
+    margin-top: 0;
+}
+
+/* IE11 */
+.c-range::-ms-thumb {
+    /* 1 */
+    border: none;
+    /* 2 */
+    height: var(--form-range-thumb-height);
+    width: var(--form-range-thumb-height);
+    border-radius: var(--form-range-thumb-border-radius);
+    background: var(--form-range-thumb-background);
+    border: var(--form-range-thumb-border-width) solid var(--form-range-thumb-border);
+}
+
+/* Edge + IE11 */
+.c-range::-ms-tooltip { display: none; }
+
+
+/* Track
+ ========================================================================== */
+
+/*
+ * 1. Safari doesn't have a focus state. Using active instead.
+ */
+
+/* Webkit */
+.c-range::-webkit-slider-runnable-track {
+    height: var(--form-range-track-height);
+    background: var(--form-range-track-background);
+    border-radius: var(--form-range-track-border-radius);
+}
+
+.c-range:focus::-webkit-slider-runnable-track,
+/* 1 */
+.c-range:active::-webkit-slider-runnable-track {
+    background: var(--form-range-track-focus-background);
+}
+
+/* Firefox */
+.c-range::-moz-range-track {
+    height: var(--form-range-track-height);
+    background: var(--form-range-track-background);
+    border-radius: var(--form-range-track-border-radius);
+}
+
+.c-range:focus::-moz-range-track {
+    background: var(--form-range-track-focus-background);
+}
+
+/* Edge */
+.c-range::-ms-fill-lower,
+.c-range::-ms-fill-upper {
+    height: var(--form-range-track-height);
+    background: var(--form-range-track-background);
+    border-radius: var(--form-range-track-border-radius);
+}
+
+.c-range:focus::-ms-fill-lower,
+.c-range:focus::-ms-fill-upper {
+    background: var(--form-range-track-focus-background);
+}

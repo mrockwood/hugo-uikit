@@ -1,0 +1,142 @@
+/**
+ * Name:            Dropdown
+ * Description:     Component to create dropdown menus
+ *
+ * Component:       `c-dropdown`
+ *
+ * Adopted:         `c-dropdown-nav`
+ *
+ * Modifiers:       `c-dropdown-top-*`
+ *                  `c-dropdown-bottom-*`
+ *                  `c-dropdown-left-*`
+ *                  `c-dropdown-right-*`
+ *                  `c-dropdown-stack`
+ *                  `c-dropdown-grid`
+ *
+ * States:          `c-active`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --dropdown-z-index:                              calc(var(--global-z-index) + 20);
+    --dropdown-min-width:                            200px;
+    --dropdown-padding:                              25px;
+    --dropdown-background:                           var(--global-background);
+    --dropdown-color:                                var(--global-color);
+    --dropdown-margin:                               var(--global-small-margin);
+    --dropdown-box-shadow:                           0 5px 12px rgba(0,0,0,0.15);
+
+    --dropdown-nav-font-size:                        var(--global-small-font-size);
+    --dropdown-nav-item-color:                       var(--global-muted-color);
+    --dropdown-nav-item-hover-color:                 var(--global-color);
+    --dropdown-nav-header-color:                     var(--global-emphasis-color);
+    --dropdown-nav-divider-border-width:             var(--global-border-width);
+    --dropdown-nav-divider-border:                   var(--global-border);
+    --dropdown-nav-sublist-item-color:               var(--global-muted-color);
+    --dropdown-nav-sublist-item-hover-color:         var(--global-color);
+
+}
+
+
+/* ========================================================================
+   Component: Dropdown
+ ========================================================================== */
+
+/*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Set a default width
+ * 4. Style
+ */
+
+.c-dropdown {
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: absolute;
+    z-index: var(--dropdown-z-index);
+    /* 3 */
+    box-sizing: border-box;
+    min-width: var(--dropdown-min-width);
+    /* 4 */
+    padding: var(--dropdown-padding);
+    background: var(--dropdown-background);
+    color: var(--dropdown-color);
+    box-shadow: var(--dropdown-box-shadow);
+}
+
+/* Show */
+.c-dropdown.c-open { display: block; }
+
+
+/* Nav
+ * Adopts `c-nav`
+ ========================================================================== */
+
+.c-dropdown-nav {
+    font-size: var(--dropdown-nav-font-size);
+    white-space: nowrap;
+}
+
+/*
+ * Items
+ */
+
+.c-dropdown-nav > li > a {
+    color: var(--dropdown-nav-item-color);
+}
+
+/* Hover + Focus + Active */
+.c-dropdown-nav > li > a:hover,
+.c-dropdown-nav > li > a:focus,
+.c-dropdown-nav > li.c-active > a {
+    color: var(--dropdown-nav-item-hover-color);
+}
+
+/*
+ * Header
+ */
+
+.c-dropdown-nav .c-nav-header {
+    color: var(--dropdown-nav-header-color);
+}
+
+/*
+ * Divider
+ */
+
+.c-dropdown-nav .c-nav-divider {
+    border-top: var(--dropdown-nav-divider-border-width) solid var(--dropdown-nav-divider-border);
+}
+
+/*
+ * Sublists
+ */
+
+.c-dropdown-nav .c-nav-sub a { color: var(--dropdown-nav-sublist-item-color); }
+
+.c-dropdown-nav .c-nav-sub a:hover,
+.c-dropdown-nav .c-nav-sub a:focus,
+.c-dropdown-nav .c-nav-sub li.c-active > a { color: var(--dropdown-nav-sublist-item-hover-color); }
+
+
+/* Direction / Alignment modifiers
+ ========================================================================== */
+
+/* Direction */
+[class*='c-dropdown-top'] { margin-top: calc(var(--dropdown-margin) * -1); }
+[class*='c-dropdown-bottom'] { margin-top: var(--dropdown-margin); }
+[class*='c-dropdown-left'] { margin-left: calc(var(--dropdown-margin) * -1); }
+[class*='c-dropdown-right'] { margin-left: var(--dropdown-margin); }
+
+
+/* Grid modifiers
+ ========================================================================== */
+
+.c-dropdown-stack .c-dropdown-grid > * { width: 100% !important; }

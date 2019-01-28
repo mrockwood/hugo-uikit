@@ -1,0 +1,419 @@
+/**
+ * Name:            Card
+ * Description:     Component to create boxed content containers
+ *
+ * Component:       `c-card`
+ *
+ * Sub-objects:     `c-card-body`
+ *                  `c-card-header`
+ *                  `c-card-footer`
+ *                  `c-card-media-*`
+ *                  `c-card-title`
+ *                  `c-card-badge`
+ *
+ * Modifiers:       `c-card-hover`
+ *                  `c-card-default`
+ *                  `c-card-primary`
+ *                  `c-card-secondary`
+ *                  `c-card-small`
+ *                  `c-card-large`
+ *
+ * Uses:            `c-grid-stack`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --card-body-padding-horizontal:                 var(--global-gutter);
+    --card-body-padding-vertical:                   var(--global-gutter);
+
+    --card-header-padding-horizontal:               var(--global-gutter);
+    --card-header-padding-vertical:                 calc(var(--global-gutter) / 2);
+
+    --card-footer-padding-horizontal:               var(--global-gutter);
+    --card-footer-padding-vertical:                 calc(var(--global-gutter) / 2);
+
+    --card-title-font-size:                         var(--global-large-font-size);
+    --card-title-line-height:                       1.4;
+
+    --card-badge-top:                               var(--global-gutter);
+    --card-badge-right:                             var(--card-badge-top);
+
+    --card-hover-background:                        var(--global-background);
+    --card-hover-box-shadow:                        var(--global-large-box-shadow);
+
+    --card-default-background:                      var(--global-background);
+    --card-default-color:                           var(--global-color);
+    --card-default-title-color:                     var(--global-emphasis-color);
+    --card-default-hover-background:                var(--card-default-background);
+    --card-default-box-shadow:                      var(--global-medium-box-shadow);
+    --card-default-hover-box-shadow:                var(--global-large-box-shadow);
+    --card-default-header-border-width:             var(--global-border-width);
+    --card-default-header-border:                   var(--global-border);
+    --card-default-footer-border-width:             var(--global-border-width);
+    --card-default-footer-border:                   var(--global-border);
+
+    --card-primary-background:                      var(--global-primary-background);
+    --card-primary-color:                           var(--global-inverse-color);
+    --card-primary-title-color:                     var(--card-primary-color);
+    --card-primary-hover-background:                var(--card-primary-background);
+    --card-primary-box-shadow:                      var(--global-medium-box-shadow);
+    --card-primary-hover-box-shadow:                var(--global-large-box-shadow);
+
+    --card-secondary-background:                    var(--global-secondary-background);
+    --card-secondary-color:                         var(--global-inverse-color);
+    --card-secondary-title-color:                   var(--card-secondary-color);
+    --card-secondary-hover-background:              var(--card-secondary-background);
+    --card-secondary-box-shadow:                    var(--global-medium-box-shadow);
+    --card-secondary-hover-box-shadow:              var(--global-large-box-shadow);
+
+    --card-small-body-padding-horizontal:           var(--global-margin);
+    --card-small-body-padding-vertical:             var(--global-margin);
+    --card-small-header-padding-horizontal:         var(--global-margin);
+    --card-small-header-padding-vertical:           calc(var(--global-margin) / 1.5);
+    --card-small-footer-padding-horizontal:         var(--global-margin);
+    --card-small-footer-padding-vertical:           calc(var(--global-margin) / 1.5);
+
+}
+
+@media (--l-up) {
+
+    :root {
+
+        --card-body-padding-horizontal:             var(--global-medium-gutter);
+        --card-body-padding-vertical:               var(--global-medium-gutter);
+
+        --card-header-padding-horizontal:           var(--global-medium-gutter);
+        --card-header-padding-vertical:             calc(var(--global-medium-gutter) / 2);
+
+        --card-footer-padding-horizontal:           var(--global-medium-gutter);
+        --card-footer-padding-vertical:             calc(var(--global-medium-gutter) / 2);
+
+        --card-large-body-padding-horizontal:       var(--global-large-gutter);
+        --card-large-body-padding-vertical:         var(--global-large-gutter);
+        --card-large-header-padding-horizontal:     var(--global-large-gutter);
+        --card-large-header-padding-vertical:       calc(var(--global-large-gutter) / 2);
+        --card-large-footer-padding-horizontal:     var(--global-large-gutter);
+        --card-large-footer-padding-vertical:       calc(var(--global-large-gutter) / 2);
+
+    }
+
+}
+
+
+/* ========================================================================
+   Component: Card
+ ========================================================================== */
+
+.c-card {
+    position: relative;
+    box-sizing: border-box;
+    transition: box-shadow 0.1s ease-in-out;
+}
+
+
+/* Sections
+ ========================================================================== */
+
+.c-card-body {
+    padding: var(--card-body-padding-vertical) var(--card-body-padding-horizontal);
+}
+
+.c-card-header {
+    padding: var(--card-header-padding-vertical) var(--card-header-padding-horizontal);
+}
+
+.c-card-footer {
+    padding: var(--card-footer-padding-vertical) var(--card-footer-padding-horizontal);
+}
+
+/*
+ * Micro clearfix
+ */
+
+.c-card-body::before,
+.c-card-body::after,
+.c-card-header::before,
+.c-card-header::after,
+.c-card-footer::before,
+.c-card-footer::after {
+    content: "";
+    display: table;
+}
+
+.c-card-body::after,
+.c-card-header::after,
+.c-card-footer::after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.c-card-body > :last-child,
+.c-card-header > :last-child,
+.c-card-footer > :last-child { margin-bottom: 0; }
+
+
+/* Media
+ ========================================================================== */
+
+/*
+ * Reserved alignment modifier to style the media element, e.g. with `border-radius`
+ * Implemented by the theme
+ */
+
+[class*='c-card-media'] {}
+
+.c-card-media-top,
+.c-grid-stack > .c-card-media-left,
+.c-grid-stack > .c-card-media-right  {}
+
+.c-card-media-bottom {}
+
+:not(.c-grid-stack) > .c-card-media-left {}
+
+:not(.c-grid-stack) > .c-card-media-right {}
+
+
+/* Title
+ ========================================================================== */
+
+.c-card-title {
+    font-size: var(--card-title-font-size);
+    line-height: var(--card-title-line-height);
+}
+
+
+/* Badge
+ ========================================================================== */
+
+.c-card-badge {
+    position: absolute;
+    top: var(--card-badge-top);
+    right: var(--card-badge-right);
+    z-index: 1;
+}
+
+/*
+ * Remove margin from adjacent element
+ */
+
+.c-card-badge:first-child + * { margin-top: 0; }
+
+
+/* Hover modifier
+ ========================================================================== */
+
+.c-card-hover:not(.c-card-default):not(.c-card-primary):not(.c-card-secondary):hover {
+    background: var(--card-hover-background);
+    box-shadow: var(--card-hover-box-shadow);
+}
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Default
+ * Note: Header and Footer are only implemented for the default style
+ */
+
+.c-card-default {
+    background: var(--card-default-background);
+    color: var(--card-default-color);
+    box-shadow: var(--card-default-box-shadow);
+}
+
+.c-card-default .c-card-title {
+    color: var(--card-default-title-color);
+}
+
+.c-card-default.c-card-hover:hover {
+    background-color: var(--card-default-hover-background);
+    box-shadow: var(--card-default-hover-box-shadow);
+}
+
+.c-card-default .c-card-header { border-bottom: var(--card-default-header-border-width) solid var(--card-default-header-border); }
+
+.c-card-default .c-card-footer { border-top: var(--card-default-footer-border-width) solid var(--card-default-footer-border); }
+
+/*
+ * Primary
+ */
+
+.c-card-primary {
+    background: var(--card-primary-background);
+    color: var(--card-primary-color);
+    box-shadow: var(--card-primary-box-shadow);
+}
+
+/* Dumb specificity hack to override inverse styles */
+.c-card-primary .c-card-title.c-card-title {
+    color: var(--card-primary-title-color);
+}
+
+.c-card-primary.c-card-hover:hover {
+    background-color: var(--card-primary-hover-background);
+    box-shadow: var(--card-primary-hover-box-shadow);
+}
+
+/* Color Mode
+.c-card-primary.c-card-body:extend(.c-light all) when (var(--card-primary-color-mode = light) {}
+.c-card-primary > :not([class*='c-card-media']):extend(.c-light all) when (var(--card-primary-color-mode = light) {}
+.c-card-primary.c-card-body:extend(.c-dark all) when (var(--card-primary-color-mode = dark) {}
+.c-card-primary > :not([class*='c-card-media']):extend(.c-dark all) when (var(--card-primary-color-mode = dark) {}
+*/
+
+/*
+ * Secondary
+ */
+
+.c-card-secondary {
+    background: var(--card-secondary-background);
+    color: var(--card-secondary-color);
+    box-shadow: var(--card-secondary-box-shadow);
+}
+
+/* Dumb specificity hack to override inverse styles */
+.c-card-secondary .c-card-title.c-card-title {
+    color: var(--card-secondary-title-color);
+}
+
+.c-card-secondary.c-card-hover:hover {
+    background-color: var(--card-secondary-hover-background);
+    box-shadow: var(--card-secondary-hover-box-shadow);
+}
+
+/* Color Mode
+.c-card-secondary.c-card-body:extend(.c-light all) when (var(--card-secondary-color-mode = light) {}
+.c-card-secondary > :not([class*='c-card-media']):extend(.c-light all) when (var(--card-secondary-color-mode = light) {}
+.c-card-secondary.c-card-body:extend(.c-dark all) when (var(--card-secondary-color-mode = dark) {}
+.c-card-secondary > :not([class*='c-card-media']):extend(.c-dark all) when (var(--card-secondary-color-mode = dark) {}
+*/
+
+/* Size modifier
+ ========================================================================== */
+
+/*
+ * Small
+ */
+
+.c-card-small.c-card-body,
+.c-card-small .c-card-body { padding: var(--card-small-body-padding-vertical) var(--card-small-body-padding-horizontal); }
+
+.c-card-small .c-card-header { padding: var(--card-small-header-padding-vertical) var(--card-small-header-padding-horizontal); }
+.c-card-small .c-card-footer { padding: var(--card-small-footer-padding-vertical) var(--card-small-footer-padding-horizontal); }
+
+
+/*
+ * Large
+ */
+
+/* Desktop and bigger */
+@media (--l-up) {
+
+    .c-card-large.c-card-body,
+    .c-card-large .c-card-body { padding: var(--card-large-body-padding-vertical) var(--card-large-body-padding-horizontal); }
+
+    .c-card-large .c-card-header { padding: var(--card-large-header-padding-vertical) var(--card-large-header-padding-horizontal); }
+    .c-card-large .c-card-footer { padding: var(--card-large-footer-padding-vertical) var(--card-large-footer-padding-horizontal); }
+
+}
+
+
+/* Nav
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+.c-card-body > .c-nav-default {
+    margin-left: calc(var(--card-body-padding-horizontal) * -1);
+    margin-right: calc(var(--card-body-padding-horizontal) * -1);
+}
+.c-card-body > .c-nav-default:only-child {
+    margin-top: calc(var(--card-body-padding-vertical) * -1 + 15px);
+    margin-bottom: calc(var(--card-body-padding-vertical) * -1 + 15px);
+}
+
+.c-card-body .c-nav-default > li > a,
+.c-card-body .c-nav-default .c-nav-header,
+.c-card-body .c-nav-default .c-nav-divider {
+    padding-left: var(--card-body-padding-horizontal);
+    padding-right: var(--card-body-padding-horizontal);
+}
+
+.c-card-body .c-nav-default .c-nav-sub { padding-left: calc(var(--nav-sublist-deeper-padding-left) + var(--card-body-padding-horizontal)); }
+
+
+/* Desktop and bigger */
+@media (--l-up) {
+
+    .c-card-body > .c-nav-default {
+        margin-left: calc(var(--card-body-padding-horizontal) * -1);
+        margin-right: calc(var(--card-body-padding-horizontal) * -1);
+    }
+    .c-card-body > .c-nav-default:only-child {
+        margin-top: calc(var(--card-body-padding-vertical) * -1 + 15px);
+        margin-bottom: calc(var(--card-body-padding-vertical) * -1 + 15px);
+    }
+
+    .c-card-body .c-nav-default > li > a,
+    .c-card-body .c-nav-default .c-nav-header,
+    .c-card-body .c-nav-default .c-nav-divider {
+        padding-left: var(--card-body-padding-horizontal);
+        padding-right: var(--card-body-padding-horizontal);
+    }
+
+    .c-card-body .c-nav-default .c-nav-sub { padding-left: calc(var(--nav-sublist-deeper-padding-left) + var(--card-body-padding-horizontal)); }
+
+}
+
+/*
+ * Small
+ */
+
+.c-card-small > .c-nav-default {
+    margin-left: calc(var(--card-small-body-padding-horizontal) * -1);
+    margin-right: calc(var(--card-small-body-padding-horizontal) * -1);
+}
+.c-card-small > .c-nav-default:only-child {
+    margin-top: calc(var(--card-small-body-padding-vertical) * -1 + 15px);
+    margin-bottom: calc(var(--@card-small-body-padding-vertical) * -1 + 15px);
+}
+
+.c-card-small .c-nav-default > li > a,
+.c-card-small .c-nav-default .c-nav-header,
+.c-card-small .c-nav-default .c-nav-divider {
+    padding-left: var(--card-small-body-padding-horizontal);
+    padding-right: var(--card-small-body-padding-horizontal);
+}
+
+.c-card-small .c-nav-default .c-nav-sub { padding-left: calc(var(--nav-sublist-deeper-padding-left) + var(--card-small-body-padding-horizontal)); }
+
+/*
+ * Large
+ */
+
+/* Desktop and bigger */
+@media (--l-up) {
+
+    .c-card-large > .c-nav-default { margin: 0; }
+    .c-card-large > .c-nav-default:only-child { margin: 0; }
+
+    .c-card-large .c-nav-default > li > a,
+    .c-card-large .c-nav-default .c-nav-header,
+    .c-card-large .c-nav-default .c-nav-divider {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .c-card-large .c-nav-default .c-nav-sub { padding-left: var(--nav-sublist-deeper-padding-left); }
+
+}

@@ -1,0 +1,84 @@
+/**
+ * Name:            Sortable
+ * Description:     Component to create sortable grids and lists
+ *
+ * Component:       `c-sortable`
+ *
+ * Sub-objects:     `c-sortable-drag`
+ *                  `c-sortable-placeholder`
+ *                  `c-sortable-handle`
+ *
+ * Modifiers:       `c-sortable-empty`
+ *
+ * States:          `c-drag`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --sortable-dragged-z-index:                      calc(var(--@global-z-index) + 50);
+
+    --sortable-placeholder-opacity:                  0;
+
+    --sortable-empty-height:                         50px;
+
+}
+
+
+/* ========================================================================
+   Component: Sortable
+ ========================================================================== */
+
+.c-sortable {
+    position: relative;
+}
+
+/*
+ * Deactivate pointer-events on SVGs in Safari
+ */
+
+.c-sortable svg { pointer-events: none; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.c-sortable > :last-child { margin-bottom: 0; }
+
+
+/* Drag
+ ========================================================================== */
+
+.c-sortable-drag {
+    position: absolute !important;
+    z-index: var(--sortable-dragged-z-index) !important;
+    pointer-events: none;
+}
+
+
+/* Placeholder
+ ========================================================================== */
+
+.c-sortable-placeholder {
+    opacity: var(--sortable-placeholder-opacity);
+}
+
+
+/* Empty modifier
+ ========================================================================== */
+
+.c-sortable-empty {
+    min-height: var(--sortable-empty-height);
+}
+
+
+/* Handle
+ ========================================================================== */
+
+/* Hover */
+.c-sortable-handle:hover { cursor: move; }

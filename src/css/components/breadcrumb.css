@@ -1,0 +1,92 @@
+/**
+ * Name:            Breadcrumb
+ * Description:     Component to create a breadcrumb navigation
+ *
+ * Component:       `c-breadcrumb`
+ *
+ * States:          `c-disabled`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --breadcrumb-item-font-size:                         var(--global-small-font-size);
+    --breadcrumb-item-color:                             var(--global-muted-color);
+    --breadcrumb-text-decoration:                        none;
+    --breadcrumb-item-hover-color:                       var(--global-color);
+    --breadcrumb-item-hover-text-decoration:             none;
+    --breadcrumb-item-active-color:                      var(--global-color);
+
+    --breadcrumb-divider:                                "/";
+    --breadcrumb-divider-margin-horizontal:              20px;
+    --breadcrumb-divider-color:                          var(--global-muted-color);
+
+}
+
+
+/* ========================================================================
+   Component: Breadcrumb
+ ========================================================================== */
+
+/*
+ * 1. Allow items to wrap into the next line
+ * 2. Reset list
+ */
+
+.c-breadcrumb {
+    display: flex;
+    /* 1 */
+    flex-wrap: wrap;
+    /* 2 */
+    padding: 0;
+    list-style: none;
+}
+
+/*
+ * Space is allocated solely based on content dimensions: 0 0 auto
+ */
+
+.c-breadcrumb > * { flex: none; }
+
+
+/* Items
+ ========================================================================== */
+
+.c-breadcrumb > * > * {
+    display: inline-block;
+    font-size: var(--breadcrumb-item-font-size);
+    color: var(--breadcrumb-item-color);
+    text-decoration: var(--breadcrumb-text-decoration);
+}
+
+/* Hover + Focus */
+.c-breadcrumb > * > :hover,
+.c-breadcrumb > * > :focus {
+    color: var(--breadcrumb-item-hover-color);
+    text-decoration: var(--breadcrumb-item-hover-text-decoration);
+}
+
+/* Disabled */
+.c-breadcrumb > .c-disabled > * {}
+
+/* Active */
+.c-breadcrumb > :last-child > * {
+    color: var(--breadcrumb-item-active-color);
+}
+
+/*
+ * Divider
+ * `nth-child` makes it also work without JS if it's only one row
+ */
+
+.c-breadcrumb > :nth-child(n+2):not(.c-first-column)::before {
+    content: var(--breadcrumb-divider);
+    display: inline-block;
+    margin: 0 var(--breadcrumb-divider-margin-horizontal);
+    color: var(--breadcrumb-divider-color);
+}

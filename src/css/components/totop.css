@@ -1,0 +1,52 @@
+/**
+ * Name:            Totop
+ * Description:     Component to create an icon to scroll back to top
+ *
+ * Component:       `c-totop`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --totop-padding:                                 5px;
+    --totop-color:                                   var(--global-muted-color);
+
+    --totop-transition:                              color 0.1s ease-in-out;
+
+    --totop-hover-color:                             var(--global-color);
+
+    --totop-active-color:                            var(--global-emphasis-color);
+
+}
+
+
+/* ========================================================================
+   Component: Totop
+ ========================================================================== */
+
+/*
+ * Addopts `c-icon`
+ */
+
+.c-totop {
+    padding: var(--totop-padding);
+    color: var(--totop-color);
+    transition: var(--totop-transition);
+}
+
+/* Hover + Focus */
+.c-totop:hover,
+.c-totop:focus {
+    color: var(--totop-hover-color);
+    outline: none;
+}
+
+/* OnClick */
+.c-totop:active {
+    color: var(--totop-active-color);
+}

@@ -4,4 +4,4 @@ import "./fonts/LibreBaskerville-Regular.ttf";
 
 import "./css/main.css";
 
-import "./scripts/script.js";
+import "./scripts/app.core.js";

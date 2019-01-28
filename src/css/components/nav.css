@@ -1,0 +1,294 @@
+/**
+ * Name:            Nav
+ * Description:     Defines styles for list navigations
+ *
+ * Component:       `c-nav`
+ *
+ * Sub-objects:     `c-nav-header`
+ *                  `c-nav-divider`
+ *                  `c-nav-sub`
+ *
+ * Modifiers:       `c-nav-parent-icon`
+ *                  `c-nav-default`
+ *                  `c-nav-primary`
+ *                  `c-nav-center`
+ *
+ * States:          `c-active`
+ *                  `c-parent`
+ *                  `c-open`
+ *                  `c-touch`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --nav-item-padding-vertical:                     5px;
+    --nav-item-padding-horizontal:                   0;
+
+    --nav-sublist-padding-vertical:                  5px;
+    --nav-sublist-padding-left:                      15px;
+    --nav-sublist-deeper-padding-left:               15px;
+    --nav-sublist-item-padding-vertical:             2px;
+
+    --nav-parent-icon-width:                         calc(var(--global-line-height) * 1em);
+    --nav-parent-icon-height:                        var(--nav-parent-icon-width);
+    --nav-parent-icon-color:                         var(--global-color);
+
+    --nav-header-padding-vertical:                   var(--nav-item-padding-vertical);
+    --nav-header-padding-horizontal:                 var(--nav-item-padding-horizontal);
+    --nav-header-font-size:                          var(--global-small-font-size);
+    --nav-header-text-transform:                     uppercase;
+    --nav-header-margin-top:                         var(--global-margin);
+
+    --nav-divider-margin-vertical:                   5px;
+    --nav-divider-margin-horizontal:                 0;
+
+    --nav-default-font-size:                         var(--global-small-font-size);
+    --nav-default-item-color:                        var(--global-muted-color);
+    --nav-default-item-hover-color:                  var(--global-color);
+    --nav-default-item-active-color:                 var(--global-emphasis-color);
+    --nav-default-header-color:                      var(--global-emphasis-color);
+    --nav-default-divider-border-width:              var(--global-border-width);
+    --nav-default-divider-border:                    var(--global-border);
+    --nav-default-sublist-item-color:                var(--global-muted-color);
+    --nav-default-sublist-item-hover-color:          var(--global-color);
+    --nav-default-sublist-item-active-color:         var(--global-emphasis-color);
+
+    --nav-primary-item-font-size:                    var(--global-large-font-size);
+    --nav-primary-item-line-height:                  var(--global-line-height);
+    --nav-primary-item-color:                        var(--global-muted-color);
+    --nav-primary-item-hover-color:                  var(--global-color);
+    --nav-primary-item-active-color:                 var(--global-emphasis-color);
+    --nav-primary-header-color:                      var(--global-emphasis-color);
+    --nav-primary-divider-border-width:              var(--global-border-width);
+    --nav-primary-divider-border:                    var(--global-border);
+    --nav-primary-sublist-item-color:                var(--global-muted-color);
+    --nav-primary-sublist-item-hover-color:          var(--global-color);
+    --nav-primary-sublist-item-active-color:         var(--global-emphasis-color);
+
+}
+
+
+/* ========================================================================
+   Component: Nav
+ ========================================================================== */
+
+/*
+ * Reset
+ * 1. Prepare lists
+ * 2. Prepare links
+ * 3. Remove default focus style
+ */
+
+/* 1 */
+.c-nav,
+.c-nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* 2 */
+.c-nav li > a {
+    display: block;
+    text-decoration: none;
+}
+
+/* 3 */
+.c-nav li > a:focus { outline: none; }
+
+/*
+ * Items
+ * Must target `a` elements to exclude other elements (e.g. lists)
+ */
+
+.c-nav > li > a { padding: var(--nav-item-padding-vertical) var(--nav-item-padding-horizontal); }
+
+
+/* Sublists
+ ========================================================================== */
+
+/*
+ * Level 2
+ * `ul` needed for higher specificity to override padding
+ */
+
+ul.c-nav-sub {
+    padding: var(--nav-sublist-padding-vertical) 0 var(--nav-sublist-padding-vertical) var(--nav-sublist-padding-left);
+}
+
+/*
+ * Level 3 and deeper
+ */
+
+.c-nav-sub ul { padding-left: var(--nav-sublist-deeper-padding-left); }
+
+/*
+ * Items
+ */
+
+.c-nav-sub a { padding: var(--nav-sublist-item-padding-vertical) 0; }
+
+
+/* Parent icon modifier
+ ========================================================================== */
+
+.c-nav-parent-icon > .c-parent > a::after {
+    content: "";
+    width: var(--nav-parent-icon-width);
+    height: var(--nav-parent-icon-height);
+    float: right;
+    background-image: svg-load("../../images/backgrounds/nav-parent-close.svg", stroke=#666, fill=none);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.c-nav-parent-icon > .c-parent.c-open > a::after {
+    background-image: svg-load("../../images/backgrounds/nav-parent-open.svg", stroke=#666, fill=none);
+}
+
+
+/* Header
+ ========================================================================== */
+
+.c-nav-header {
+    padding: var(--nav-header-padding-vertical) var(--nav-header-padding-horizontal);
+    text-transform: var(--nav-header-text-transform);
+    font-size: var(--nav-header-font-size);
+}
+
+.c-nav-header:not(:first-child) { margin-top: var(--nav-header-margin-top); }
+
+
+/* Divider
+ ========================================================================== */
+
+.c-nav-divider {
+    margin: var(--nav-divider-margin-vertical) var(--nav-divider-margin-horizontal);
+}
+
+
+/* Default modifier
+ ========================================================================== */
+
+.c-nav-default {
+    font-size: var(--nav-default-font-size);
+}
+
+/*
+ * Items
+ */
+
+.c-nav-default > li > a {
+    color: var(--nav-default-item-color);
+}
+
+/* Hover + Focus */
+.c-nav-default > li > a:hover,
+.c-nav-default > li > a:focus {
+    color: var(--nav-default-item-hover-color);
+}
+
+/* Active */
+.c-nav-default > li.c-active > a {
+    color: var(--nav-default-item-active-color);
+}
+
+/*
+ * Header
+ */
+
+.c-nav-default .c-nav-header {
+    color: var(--nav-default-header-color);
+}
+
+/*
+ * Divider
+ */
+
+.c-nav-default .c-nav-divider {
+    border-top: var(--nav-default-divider-border-width) solid var(--nav-default-divider-border);
+}
+
+/*
+ * Sublists
+ */
+
+.c-nav-default .c-nav-sub a { color: var(--nav-default-sublist-item-color); }
+
+.c-nav-default .c-nav-sub a:hover,
+.c-nav-default .c-nav-sub a:focus { color: var(--nav-default-sublist-item-hover-color); }
+
+.c-nav-default .c-nav-sub li.c-active > a { color: var(--nav-default-sublist-item-active-color); }
+
+
+/* Primary modifier
+ ========================================================================== */
+
+.c-nav-primary {}
+
+/*
+ * Items
+ */
+
+.c-nav-primary > li > a {
+    font-size: var(--nav-primary-item-font-size);
+    line-height: var(--nav-primary-item-line-height);
+    color: var(--nav-primary-item-color);
+}
+
+/* Hover + Focus */
+.c-nav-primary > li > a:hover,
+.c-nav-primary > li > a:focus {
+    color: var(--nav-primary-item-hover-color);
+}
+
+/* Active */
+.c-nav-primary > li.c-active > a {
+    color: var(--nav-primary-item-active-color);
+}
+
+/*
+ * Header
+ */
+
+.c-nav-primary .c-nav-header {
+    color: var(--nav-primary-header-color);
+}
+
+/*
+ * Divider
+ */
+
+.c-nav-primary .c-nav-divider {
+    border-top: var(--nav-primary-divider-border-width) solid var(--nav-primary-divider-border);
+}
+
+/*
+ * Sublists
+ */
+
+.c-nav-primary .c-nav-sub a { color: var(--nav-primary-sublist-item-color); }
+
+.c-nav-primary .c-nav-sub a:hover,
+.c-nav-primary .c-nav-sub a:focus { color: var(--nav-primary-sublist-item-hover-color); }
+
+.c-nav-primary .c-nav-sub li.c-active > a { color: var(--nav-primary-sublist-item-active-color); }
+
+
+/* Alignment modifier
+ ========================================================================== */
+
+.c-nav-center { text-align: center; }
+
+/* Sublists */
+.c-nav-center .c-nav-sub,
+.c-nav-center .c-nav-sub ul { padding-left: 0; }
+
+/* Parent icon modifier  */
+.c-nav-center.c-nav-parent-icon > .c-parent > a::after { position: absolute; }

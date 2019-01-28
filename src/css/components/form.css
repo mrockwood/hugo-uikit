@@ -1,0 +1,722 @@
+/**
+ * Name:            Form
+ * Description:     Styles for forms
+ *
+ * Component:       `c-form-*`
+ *                  `c-input`
+ *                  `c-select`
+ *                  `c-textarea`
+ *                  `c-radio`
+ *                  `c-checkbox`
+ *                  `c-legend`
+ *                  `c-fieldset`
+ *
+ * Sub-objects:     `c-form-custom`
+ *                  `c-form-stacked`
+ *                  `c-form-horizontal`
+ *                  `c-form-label`
+ *                  `c-form-controls`
+ *                  `c-form-icon`
+ *                  `c-form-icon-flip`
+ *
+ * Modifiers:       `c-form-small`
+ *                  `c-form-large`
+ *                  `c-form-danger`
+ *                  `c-form-success`
+ *                  `c-form-blank`
+ *                  `c-form-width-xsmall`
+ *                  `c-form-width-small`
+ *                  `c-form-width-medium`
+ *                  `c-form-width-large`
+ *                  `c-form-controls-text`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --form-height:                                   var(--global-control-height);
+    --form-line-height:                              calc(var(--form-height) - (2 * var(--form-border-width)));
+    --form-padding-horizontal:                       10px;
+    --form-padding-vertical:                         4px;
+
+    --form-background:                               var(--global-background);
+    --form-color:                                    var(--global-color);
+
+    --form-border-width:                             1px; /* FIXME: global variable doesn't work for some reason */
+    --form-border:                                   var(--global-border);
+
+    --form-focus-background:                         var(--global-background);
+    --form-focus-color:                              var(--global-color);
+    --form-focus-border:                             var(--global-primary-background);
+
+    --form-disabled-background:                      var(--global-muted-background);
+    --form-disabled-color:                           var(--global-muted-color);
+    --form-disabled-border:                          var(--global-border);
+
+    --form-placeholder-color:                        var(--global-muted-color);
+
+    --form-small-height:                             calc(var(--form-small-height) - (2 * var(--form-border-width)));
+    --form-small-padding-horizontal:                 8px;
+    --form-small-line-height:                        var(--form-small-height);
+    --form-small-font-size:                          var(--global-small-font-size);
+
+    --form-large-height:                             calc(var(--form-large-height) - (2 * var(--form-border-width)));
+    --form-large-padding-horizontal:                 12px;
+    --form-large-line-height:                        var(--form-large-height);
+    --form-large-font-size:                          var(--global-medium-font-size);
+
+    --form-danger-color:                             var(--global-danger-background);
+    --form-danger-border:                            var(--global-danger-background);
+
+    --form-success-color:                            var(--global-success-background);
+    --form-success-border:                           var(--global-success-background);
+
+    --form-blank-focus-border:                       var(--global-border);
+    --form-blank-focus-border-style:                 dashed;
+
+    --form-width-xsmall:                             50px;
+    --form-width-small:                              130px;
+    --form-width-medium:                             200px;
+    --form-width-large:                              500px;
+
+    --form-select-padding-right:                     20px;
+    --form-select-icon-color:                        var(--global-color);
+    --form-select-option-color:                      #444;
+    --form-select-disabled-icon-color:               var(--global-muted-color);
+
+    --form-radio-size:                               16px;
+    --form-radio-margin-top:                         -4px;
+    --form-radio-background:                         transparent;
+    --form-radio-border-width:                       var(--global-border-width);
+    --form-radio-border:                             var(--gray-4);
+
+    --form-radio-focus-border:                       var(--global-primary-background);
+    --form-radio-checked-border:                     transparent;
+    --form-radio-disabled-border:                    var(--global-border);
+
+    --form-radio-checked-background:                 var(--global-primary-background);
+    --form-radio-checked-icon-color:                 var(--global-inverse-color);
+
+    --form-radio-checked-focus-background:           var(--primary-6);
+
+    --form-radio-disabled-background:                var(--global-muted-background);
+    --form-radio-disabled-icon-color:                var(--global-muted-color);
+
+    --form-legend-font-size:                         var(--global-large-font-size);
+    --form-legend-line-height:                       1.4;
+
+    --form-stacked-margin-bottom:                    5px;
+
+    --form-label-color:                              var(--global-emphasis-color);
+    --form-label-font-size:                          var(--global-small-font-size);
+
+    --form-horizontal-label-width:                   200px;
+    --form-horizontal-label-margin-top:              7px;
+    --form-horizontal-controls-margin-left:          215px;
+    --form-horizontal-controls-text-padding-top:     7px;
+
+    --form-icon-width:                               var(--form-height);
+    --form-icon-color:                               var(--global-muted-color);
+    --form-icon-hover-color:                         var(--global-color);
+
+}
+
+
+/* ========================================================================
+   Component: Form
+ ========================================================================== */
+
+/*
+ * 1. Define consistent box sizing.
+ *    Default is `content-box` with following exceptions set to `border-box`
+ *    `select`, `input[type="checkbox"]` and `input[type="radio"]`
+ *    `input[type="search"]` in Chrome, Safari and Opera
+ *    `input[type="color"]` in Firefox
+ * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
+ * 3. Remove `border-radius` in iOS.
+ * 4. Change font properties to `inherit` in all browsers.
+ */
+
+.c-input,
+.c-select,
+.c-textarea,
+.c-radio,
+.c-checkbox {
+    /* 1 */
+    box-sizing: border-box;
+    /* 2 */
+    margin: 0;
+    /* 3 */
+    border-radius: 0;
+    /* 4 */
+    font: inherit;
+}
+
+/*
+ * Show the overflow in Edge.
+ */
+
+.c-input { overflow: visible; }
+
+/*
+ * Remove the inheritance of text transform in Firefox.
+ */
+
+.c-select { text-transform: none; }
+
+/*
+ * 1. Change font properties to `inherit` in all browsers
+ * 2. Don't inherit the `font-weight` and use `bold` instead.
+ * NOTE: Both declarations don't work in Chrome, Safari and Opera.
+ */
+
+.c-select optgroup {
+    /* 1 */
+    font: inherit;
+    /* 2 */
+    font-weight: bold;
+}
+
+/*
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+
+.c-textarea { overflow: auto; }
+
+/*
+ * Remove the inner padding and cancel buttons in Chrome on OS X and Safari on OS X.
+ */
+
+.c-input[type="search"]::-webkit-search-cancel-button,
+.c-input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+
+
+/*
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+
+.c-input[type="number"]::-webkit-inner-spin-button,
+.c-input[type="number"]::-webkit-outer-spin-button { height: auto; }
+
+/*
+ * Removes placeholder transparency in Firefox.
+ */
+
+.c-input::-moz-placeholder,
+.c-textarea::-moz-placeholder { opacity: 1; }
+
+/*
+ * Improves consistency of cursor style for clickable elements
+ */
+
+.c-radio:not(:disabled),
+.c-checkbox:not(:disabled) { cursor: pointer; }
+
+/*
+ * Define consistent border, margin, and padding.
+ */
+
+.c-fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Input, select and textarea
+ * Allowed: `text`, `password`, `datetime`, `datetime-local`, `date`,  `month`,
+            `time`, `week`, `number`, `email`, `url`, `search`, `tel`, `color`
+ * Disallowed: `range`, `radio`, `checkbox`, `file`, `submit`, `reset` and `image`
+ ========================================================================== */
+
+/*
+ * Remove default style in iOS.
+ */
+
+.c-input,
+.c-textarea { -webkit-appearance: none; }
+
+/*
+ * 1. Prevent content overflow if a fixed width is used
+ * 2. Take the full width
+ * 3. Style
+ */
+
+.c-input,
+.c-select,
+.c-textarea {
+    /* 1 */
+    max-width: 100%;
+    /* 2 */
+    width: 100%;
+    /* 3 */
+    padding: 0 var(--form-padding-horizontal);
+    background: var(--form-background);
+    color: var(--form-color);
+    border: var(--form-border-width) solid var(--form-border);
+    transition: 0.2s ease-in-out;
+    transition-property: color, background-color, border;
+}
+
+/*
+ * Single-line
+ * 1. Allow any element to look like an `input` or `select` element
+ * 2. Make sure line-height is not larger than height
+ *    Also needed to center the text vertically
+ */
+
+.c-input,
+.c-select:not([multiple]):not([size]) {
+    height: var(--form-height);
+    vertical-align: middle;
+    /* 1 */
+    display: inline-block;
+}
+
+/* 2 */
+.c-input:not(input),
+.c-select:not(select) { line-height: var(--form-line-height); }
+
+/*
+ * Multi-line
+ */
+
+.c-select[multiple],
+.c-select[size],
+.c-textarea {
+    padding-top: var(--form-padding-vertical);
+    padding-bottom: var(--form-padding-vertical);
+    vertical-align: top;
+}
+
+/* Focus */
+.c-input:focus,
+.c-select:focus,
+.c-textarea:focus {
+    outline: none;
+    background-color: var(--form-focus-background);
+    color: var(--form-focus-color);
+    border-color: var(--form-focus-border);
+}
+
+/* Disabled */
+.c-input:disabled,
+.c-select:disabled,
+.c-textarea:disabled {
+    background-color: var(--form-disabled-background);
+    color: var(--form-disabled-color);
+    border-color: var(--form-disabled-border);
+}
+
+/*
+ * Placeholder
+ */
+
+.c-input::-ms-input-placeholder { color: var(--form-placeholder-color) !important; }
+.c-input::placeholder { color: var(--form-placeholder-color); }
+
+.c-textarea::-ms-input-placeholder { color: var(--form-placeholder-color) !important; }
+.c-textarea::placeholder { color: var(--form-placeholder-color); }
+
+
+/* Style modifier (`c-input`, `c-select` and `c-textarea`)
+ ========================================================================== */
+
+/*
+ * Small
+ */
+
+.c-form-small { font-size: var(--form-small-font-size); }
+
+.c-form-small:not(textarea):not([multiple]):not([size]) {
+    height: var(--form-small-height);
+    padding-left: var(--form-small-padding-horizontal);
+    padding-right: var(--form-small-padding-horizontal);
+}
+
+.c-form-small:not(select):not(input):not(textarea) { line-height: var(--form-small-line-height); }
+
+/*
+ * Large
+ */
+
+.c-form-large { font-size: var(--form-large-font-size); }
+
+.c-form-large:not(textarea):not([multiple]):not([size]) {
+    height: var(--form-large-height);
+    padding-left: var(--form-large-padding-horizontal);
+    padding-right: var(--form-large-padding-horizontal);
+}
+
+.c-form-large:not(select):not(input):not(textarea) { line-height: var(--form-large-line-height); }
+
+
+/* Style modifier (`c-input`, `c-select` and `c-textarea`)
+ ========================================================================== */
+
+/*
+ * Error
+ */
+
+.c-form-danger,
+.c-form-danger:focus {
+    color: var(--form-danger-color);
+    border-color: var(--form-danger-border);
+}
+
+/*
+ * Success
+ */
+
+.c-form-success,
+.c-form-success:focus  {
+    color: var(--form-success-color);
+    border-color: var(--form-success-border);
+}
+
+/*
+ * Blank
+ */
+
+.c-form-blank {
+    background: none;
+    border-color: transparent;
+}
+
+.c-form-blank:focus {
+    border-color: var(--form-blank-focus-border);
+    border-style: var(--form-blank-focus-border-style);
+}
+
+
+/* Width modifiers (`c-input`, `c-select` and `c-textarea`)
+ ========================================================================== */
+
+/*
+ * Fixed widths
+ * Different widths for mini sized `input` and `select` elements
+ */
+
+input.c-form-width-xsmall { width: var(--form-width-xsmall); }
+
+select.c-form-width-xsmall { width: (--form-width-xsmall) + 25px); }
+
+.c-form-width-small { width: var(--form-width-small); }
+
+.c-form-width-medium { width: var(--form-width-medium); }
+
+.c-form-width-large { width: var(--form-width-large); }
+
+
+/* Select
+ ========================================================================== */
+
+/*
+ * 1. Remove default style. Also works in Firefox
+ * 2. Style
+ * 3. Remove default style in IE 10/11
+ * 4. Set `color` for options in the select dropdown, because the inherited `color` might be too light.
+ */
+
+.c-select:not([multiple]):not([size]) {
+    /* 1 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* 2 */
+    padding-right: var(--form-select-padding-right);
+    background-image: svg-load("../../images/backgrounds/form-select.svg", fill=#666);
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+}
+
+/* 3 */
+.c-select:not([multiple]):not([size])::-ms-expand { display: none; }
+
+/* 4 */
+.c-select:not([multiple]):not([size]) option { color: var(--form-select-option-color); }
+
+/*
+ * Disabled
+ */
+
+.c-select:not([multiple]):not([size]):disabled { background-image: svg-load("../../images/backgrounds/form-select.svg", fill=#999); }
+
+
+/* Radio and checkbox
+ * Note: Does not work in IE11
+ ========================================================================== */
+
+/*
+ * 1. Style
+ * 2. Make box more robust so it clips the child element
+ * 3. Vertical alignment
+ * 4. Remove default style
+ * 5. Fix black background on iOS
+ * 6. Center icons
+ */
+
+.c-radio,
+.c-checkbox {
+    /* 1 */
+    display: inline-block;
+    height: var(--form-radio-size);
+    width: var(--form-radio-size);
+    /* 2 */
+    overflow: hidden;
+    /* 3 */
+    margin-top: var(--form-radio-margin-top);
+    vertical-align: middle;
+    /* 4 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* 5 */
+    background-color: var(--form-radio-background);
+    /* 6 */
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border: var(--form-radio-border-width) solid var(--form-radio-border);
+    transition: 0.2s ease-in-out;
+    transition-property: background-color, border;
+}
+
+.c-radio { border-radius: 50%; }
+
+/* Focus */
+.c-radio:focus,
+.c-checkbox:focus {
+    outline: none;
+    border-color: var(--form-radio-focus-border);
+}
+
+/*
+ * Checked
+ */
+
+.c-radio:checked,
+.c-checkbox:checked,
+.c-checkbox:indeterminate {
+    background-color: var(--form-radio-checked-background);
+    border-color: var(--form-radio-checked-border);
+}
+
+/* Focus */
+.c-radio:checked:focus,
+.c-checkbox:checked:focus,
+.c-checkbox:indeterminate:focus {
+    background-color: var(--form-radio-checked-focus-background);
+}
+
+/*
+ * Icons
+ */
+
+.c-radio:checked { background-image: svg-load("../../images/backgrounds/form-radio.svg", fill=#fff); }
+.c-checkbox:checked { background-image: svg-load("../../images/backgrounds/form-checkbox.svg", fill=#fff); }
+.c-checkbox:indeterminate { background-image: svg-load("../../images/backgrounds/form-checkbox-indeterminate.svg", fill=#fff); }
+
+/*
+ * Disabled
+ */
+
+.c-radio:disabled,
+.c-checkbox:disabled {
+    background-color: var(--form-radio-disabled-background);
+    border-color: var(--form-radio-disabled-border);
+}
+
+.c-radio:disabled:checked { background-image: svg-load("../../images/backgrounds/form-radio.svg", fill=#999); }
+.c-checkbox:disabled:checked { background-image: svg-load("../../images/backgrounds/form-checkbox.svg", fill=#999); }
+.c-checkbox:disabled:indeterminate { background-image: svg-load("../../images/backgrounds/form-checkbox-indeterminate.svg", fill=#999); }
+
+
+/* Legend
+ ========================================================================== */
+
+/*
+ * Legend
+ * 1. Behave like block element
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove padding so people aren't caught out if they zero out fieldsets.
+ * 4. Style
+ */
+
+.c-legend {
+    /* 1 */
+    width: 100%;
+    /* 2 */
+    color: inherit;
+    /* 3 */
+    padding: 0;
+    /* 4 */
+    font-size: var(--form-legend-font-size);
+    line-height: var(--form-legend-line-height);
+}
+
+
+/* Custom controls
+ ========================================================================== */
+
+/*
+ * 1. Container fits its content
+ * 2. Create position context
+ * 3. Prevent content overflow
+ * 4. Behave like most inline-block elements
+ */
+
+.c-form-custom {
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    position: relative;
+    /* 3 */
+    max-width: 100%;
+    /* 4 */
+    vertical-align: middle;
+}
+
+/*
+ * 1. Position and resize the form control to always cover its container
+ * 2. Required for Firefox for positioning to the left
+ * 3. Required for Webkit to make `height` work
+ * 4. Hide controle and show cursor
+ * 5. Needed for the cursor
+ * 6. Clip height caused by 5. Needed for Webkit only
+ */
+
+.c-form-custom select,
+.c-form-custom input[type="file"] {
+    /* 1 */
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    /* 2 */
+    left: 0;
+    /* 3 */
+    -webkit-appearance: none;
+    /* 4 */
+    opacity: 0;
+    cursor: pointer;
+}
+
+.c-form-custom input[type="file"] {
+    /* 5 */
+    font-size: 500px;
+    /* 6 */
+    overflow: hidden;
+}
+
+
+/* Label
+ ========================================================================== */
+
+.c-form-label {
+    color: var(--form-label-color);
+    font-size: var(--form-label-font-size);
+}
+
+
+/* Layout
+ ========================================================================== */
+
+/*
+ * Stacked
+ */
+
+.c-form-stacked .c-form-label {
+    display: block;
+    margin-bottom: var(--form-stacked-margin-bottom);
+}
+
+/*
+ * Horizontal
+ */
+
+/* Tablet portrait and smaller */
+@media (--xs) {
+
+    /* Behave like `c-form-stacked` */
+    .c-form-horizontal .c-form-label {
+        display: block;
+        margin-bottom: var(--form-stacked-margin-bottom);
+    }
+
+}
+
+/* Tablet landscape and bigger */
+@media (--m-up) {
+
+    .c-form-horizontal .c-form-label {
+        width: var(--form-horizontal-label-width);
+        margin-top: var(--form-horizontal-label-margin-top);
+        float: left;
+    }
+
+    .c-form-horizontal .c-form-controls { margin-left: var(--form-horizontal-controls-margin-left); }
+
+    /* Better vertical alignment if controls are checkboxes and radio buttons with text */
+    .c-form-horizontal .c-form-controls-text { padding-top: var(--form-horizontal-controls-text-padding-top); }
+
+}
+
+
+/* Icons
+ ========================================================================== */
+
+/*
+ * 1. Set position
+ * 2. Set width
+ * 3. Center icon vertically and horizontally
+ * 4. Style
+ */
+
+.c-form-icon {
+    /* 1 */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    /* 2 */
+    width: var(--form-icon-width);
+    /* 3 */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    /* 4 */
+    color: var(--form-icon-color);
+}
+
+/*
+ * Required for `a`.
+ */
+
+.c-form-icon:hover { color: var(--form-icon-hover-color); }
+
+/*
+ * Make `input` element clickable through icon, e.g. if it's a `span`
+ */
+
+.c-form-icon:not(a):not(button):not(input) { pointer-events: none; }
+
+/*
+ * Input padding
+ */
+
+.c-form-icon:not(.c-form-icon-flip) ~ .c-input { padding-left: var(--form-icon-width) !important; }
+
+/*
+ * Position modifier
+ */
+
+.c-form-icon-flip {
+    right: 0;
+    left: auto;
+}
+
+.c-form-icon-flip ~ .c-input { padding-right: var(--form-icon-width) !important; }

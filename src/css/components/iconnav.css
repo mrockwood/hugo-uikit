@@ -1,0 +1,174 @@
+/**
+ * Name:            Iconnav
+ * Description:     Component to create icon navigations
+ *
+ * Component:       `c-iconnav`
+ *
+ * Modifier:        `c-iconnav-vertical`
+ *
+ * States:          `c-active`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --iconnav-margin-horizontal:                      var(--global-small-margin);
+    --iconnav-margin-vertical:                        calc(var(--iconnav-margin-horizontal) + 5px);
+
+    --iconnav-item-color:                             var(--global-muted-color);
+
+    --iconnav-item-hover-color:                       var(--global-color);
+
+    --iconnav-item-active-color:                      var(--global-color);
+
+}
+
+
+/* ========================================================================
+   Component: Iconnav
+ ========================================================================== */
+
+/*
+ * 1. Allow items to wrap into the next line
+ * 2. Reset list
+ * 3. Gutter
+ */
+
+.c-iconnav {
+    display: flex;
+    /* 1 */
+    flex-wrap: wrap;
+    /* 2 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* 3 */
+    margin-left: calc(var(--iconnav-margin-horizontal) * -1);
+}
+
+/*
+ * Space is allocated based on content dimensions, but shrinks: 0 1 auto
+ * 1. Gutter
+ */
+
+.c-iconnav > * {
+    /* 1 */
+    padding-left: var(--iconnav-margin-horizontal);
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * Items must target `a` elements to exclude other elements (e.g. dropdowns)
+ * 1. Prevent gap if child element is `inline-block`, e.g. an icon
+ * 2. Style
+ */
+
+.c-iconnav > * > a {
+    /* 1 */
+    display: block;
+    /* 2 */
+    color: var(--iconnav-item-color);
+}
+
+/* Hover + Focus */
+.c-iconnav > * > a:hover,
+.c-iconnav > * > a:focus {
+    color: var(--iconnav-item-hover-color);
+    outline: none;
+}
+
+/* Active */
+.c-iconnav > .c-active > a {
+    color: var(--iconnav-item-active-color);
+}
+
+
+/* Modifier: 'c-iconnav-vertical'
+ ========================================================================== */
+
+/*
+ * 1. Change direction
+ * 2. Gutter
+ */
+
+.c-iconnav-vertical {
+    /* 1 */
+    flex-direction: column;
+    /* 2 */
+    margin-left: 0;
+    margin-top: calc(var(--iconnav-margin-vertical) * -1);
+}
+
+/* 2 */
+.c-iconnav-vertical > * {
+    padding-left: 0;
+    padding-top: var(--iconnav-margin-vertical);
+}
+
+/* Phone landscape and bigger */
+@media (--s-up) {
+
+    .c-iconnav-vertical\@s {
+        flex-direction: column;
+        margin-left: 0;
+        margin-top: calc(var(--iconnav-margin-vertical) * -1);
+    }
+    .c-iconnav-vertical\@s > * {
+        padding-left: 0;
+        padding-top: var(--iconnav-margin-vertical);
+    }
+
+}
+
+/* Tablet landscape and bigger */
+@media (--m-up) {
+
+    .c-iconnav-vertical\@m {
+        flex-direction: column;
+        margin-left: 0;
+        margin-top: calc(var(--iconnav-margin-vertical) * -1);
+    }
+    .c-iconnav-vertical\@m > * {
+        padding-left: 0;
+        padding-top: var(--iconnav-margin-vertical);
+    }
+
+}
+
+/* Desktop and bigger */
+@media (--l-up) {
+
+    .c-iconnav-vertical\@l {
+        flex-direction: column;
+        margin-left: 0;
+        margin-top: calc(var(--iconnav-margin-vertical) * -1);
+    }
+    .c-iconnav-vertical\@l > * {
+        padding-left: 0;
+        padding-top: var(--iconnav-margin-vertical);
+    }
+
+}
+
+/* Large screen and bigger */
+@media (--xl) {
+
+    .c-iconnav-vertical\@xl {
+        flex-direction: column;
+        margin-left: 0;
+        margin-top: calc(var(--iconnav-margin-vertical) * -1);
+    }
+    .c-iconnav-vertical\@xl > * {
+        padding-left: 0;
+        padding-top: var(--iconnav-margin-vertical);
+    }
+
+}

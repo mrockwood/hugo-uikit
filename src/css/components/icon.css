@@ -1,0 +1,188 @@
+/**
+ * Name:            Icon
+ * Description:     Component to create icons
+ *
+ * Component:       `c-icon`
+ *
+ * Modifiers:       `c-icon-image`
+ *                  `c-icon-link`
+ *                  `c-icon-button`
+ *
+ * States:          `c-preserve`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --icon-image-size:                               20px;
+
+    --icon-link-color:                               var(--global-muted-color);
+    --icon-link-hover-color:                         var(--global-color);
+    --icon-link-active-color:                        var(--gray-8);
+
+    --icon-button-size:                              48px;
+    --icon-button-border-radius:                     500px;
+    --icon-button-background:                        var(--global-muted-background);
+    --icon-button-color:                             var(--global-muted-color);
+
+    --icon-button-hover-background:                  var(--gray-1);
+    --icon-button-hover-color:                       var(--global-color);
+
+    --icon-button-active-background:                 var(--gray-2);
+    --icon-button-active-color:                      var(--global-color);
+
+}
+
+
+/* ========================================================================
+   Component: Icon
+ ========================================================================== */
+
+/*
+ * Note: 1. - 7. is required for `button` elements. Needed for Close and Form Icon component.
+ * 1. Remove margins in Chrome, Safari and Opera.
+ * 2. Remove borders for `button`.
+ * 3. Remove border-radius in Chrome.
+ * 4. Address `overflow` set to `hidden` in IE.
+ * 5. Correct `font` properties and `color` not being inherited for `button`.
+ * 6. Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 7. Remove default `button` padding and background color
+ * 8. Style
+ * 9. Fill all SVG elements with the current text color if no `fill` attribute is set
+ * 10. Let the container fit the height of the icon
+ * 11. Adjust vertical alignment
+ */
+
+.c-icon {
+    /* 1 */
+    margin: 0;
+    /* 2 */
+    border: none;
+    /* 3 */
+    border-radius: 0;
+    /* 4 */
+    overflow: visible;
+    /* 5 */
+    font: inherit;
+    color: inherit;
+    /* 6 */
+    text-transform: none;
+    /* 7. */
+    padding: 0;
+    background-color: transparent;
+    /* 8 */
+    display: inline-block;
+    /* 9 */
+    fill: currentcolor;
+    /* 10 */
+    line-height: 0;
+    /* 11 */
+    transform: translateY(-1px);
+}
+
+/* Required for `button`. */
+button.c-icon:not(:disabled) { cursor: pointer; }
+
+/*
+ * Remove the inner border and padding in Firefox.
+ */
+
+.c-icon::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/*
+ * Set the fill and stroke color of all SVG elements to the current text color
+ */
+
+.c-icon:not(.c-preserve) [fill*='#']:not(.c-preserve) { fill: currentcolor; }
+.c-icon:not(.c-preserve) [stroke*='#']:not(.c-preserve) { stroke: currentcolor; }
+
+/*
+ * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
+ */
+
+.c-icon > * { transform: translate(0,0); }
+
+
+/* Image modifier
+ ========================================================================== */
+
+/*
+ * Display images in icon dimensions
+ */
+
+.c-icon-image {
+    width: var(--icon-image-size);
+    height: var(--icon-image-size);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    vertical-align: middle;
+}
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Link
+ */
+
+.c-icon-link {
+    color: var(--icon-link-color);
+}
+
+.c-icon-link:hover,
+.c-icon-link:focus {
+    color: var(--icon-link-hover-color);
+    outline: none;
+}
+
+/* OnClick + Active */
+.c-icon-link:active,
+.c-active > .c-icon-link {
+    color: var(--icon-link-active-color);
+}
+
+/*
+ * Button
+ * 1. Center icon vertically and horizontally
+ */
+
+.c-icon-button {
+    box-sizing: border-box;
+    width: var(--icon-button-size);
+    height: var(--icon-button-size);
+    border-radius: var(--icon-button-border-radius);
+    background: var(--icon-button-background);
+    color: var(--icon-button-color);
+    vertical-align: middle;
+    transition: 0.1s ease-in-out;
+    transition-property: color, background-color;
+    /* 1 */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hover + Focus */
+.c-icon-button:hover,
+.c-icon-button:focus {
+    background-color: var(--icon-button-hover-background);
+    color: var(--icon-button-hover-color);
+    outline: none;
+}
+
+/* OnClick + Active */
+.c-icon-button:active,
+.c-active > .c-icon-button {
+    background-color: var(--icon-button-active-background);
+    color: var(--icon-button-active-color);
+}

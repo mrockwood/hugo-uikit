@@ -1,0 +1,140 @@
+/**
+ * Name:            Align
+ * Description:     Utilities to align embedded content
+ *
+ * Component:       `c-align-left-*`
+ *                  `c-align-right-*`
+ *                  `c-align-center`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --align-margin-horizontal:                       var(--global-gutter);
+    --align-margin-vertical:                         var(--global-gutter);
+
+}
+
+@media (--l-up) {
+
+    :root {
+
+        --align-margin-horizontal:                   var(--global-medium-gutter);
+
+    }
+
+}
+
+
+/* ========================================================================
+   Component: Align
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+[class*='c-align'] {
+    display: block;
+    margin-bottom: var(--align-margin-vertical);
+}
+
+* + [class*='c-align'] { margin-top: var(--align-margin-vertical); }
+
+/*
+ * Center
+ */
+
+.c-align-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*
+ * Left/Right
+ */
+
+.c-align-left {
+    margin-top: 0;
+    margin-right: var(--align-margin-horizontal);
+    float: left;
+}
+
+.c-align-right {
+    margin-top: 0;
+    margin-left: var(--align-margin-horizontal);
+    float: right;
+}
+
+/* Phone landscape and bigger */
+@media (--s-up) {
+
+    .c-align-left\@s {
+        margin-top: 0;
+        margin-right: var(--align-margin-horizontal);
+        float: left;
+    }
+
+    .c-align-right\@s {
+        margin-top: 0;
+        margin-left: var(--align-margin-horizontal);
+        float: right;
+    }
+
+}
+
+/* Tablet landscape and bigger */
+@media (--m-up) {
+
+    .c-align-left\@m {
+        margin-top: 0;
+        margin-right: var(--align-margin-horizontal);
+        float: left;
+    }
+
+    .c-align-right\@m {
+        margin-top: 0;
+        margin-left: var(--align-margin-horizontal);
+        float: right;
+    }
+
+}
+
+/* Desktop and bigger */
+@media (--l-up) {
+
+    .c-align-left\@l {
+        margin-top: 0;
+        margin-right: var(--align-margin-horizontal);
+        float: left;
+    }
+
+    .c-align-right\@l {
+        margin-top: 0;
+        margin-left: var(--align-margin-horizontal);
+        float: right;
+    }
+
+}
+
+/* Large screen and bigger */
+@media (--xl) {
+
+    .c-align-left\@xl {
+        margin-top: 0;
+        margin-right: var(--align-margin-horizontal);
+        float: left;
+    }
+
+    .c-align-right\@xl {
+        margin-top: 0;
+        margin-left: var(--align-margin-horizontal);
+        float: right;
+    }
+
+}

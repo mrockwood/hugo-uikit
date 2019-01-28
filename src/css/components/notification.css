@@ -1,0 +1,185 @@
+/**
+ * Name:            Notification
+ * Description:     Component to create notification messages
+ *
+ * Component:       `c-notification`
+ *
+ * Sub-objects:     `c-notification-message`
+ *
+ * Adopted:         `c-notification-close`
+ *
+ * Modifiers:       `c-notification-top-center`
+ *                  `c-notification-top-right`
+ *                  `c-notification-bottom-left`
+ *                  `c-notification-bottom-center`
+ *                  `c-notification-bottom-right`
+ *                  `c-notification-message-primary`
+ *                  `c-notification-message-info`
+ *                  `c-notification-message-success`
+ *                  `c-notification-message-warning`
+ *                  `c-notification-message-danger`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --notification-position:                               10px;
+    --notification-z-index:                                calc(var(--global-z-index) + 40);
+    --notification-width:                                  350px;
+
+    --notification-message-margin-top:                     10px;
+    --notification-message-padding:                        var(--global-small-gutter);
+    --notification-message-background:                     var(--global-muted-background);
+    --notification-message-color:                          var(--global-color);
+    --notification-message-font-size:                      var(--global-medium-font-size);
+    --notification-message-line-height:                    1.4;
+
+    --notification-close-top:                              calc(var(--notification-message-padding) + 5px);
+    --notification-close-right:                            var(--notification-message-padding);
+
+    --notification-message-primary-color:                  var(--global-primary-background);
+    --notification-message-info-color:                     var(--global-info-background);
+    --notification-message-success-color:                  var(--global-success-background);
+    --notification-message-warning-color:                  var(--global-warning-background);
+    --notification-message-danger-color:                   var(--global-danger-background);
+
+}
+
+
+/* ========================================================================
+   Component: Notification
+ ========================================================================== */
+
+/*
+ * 1. Set position
+ * 2. Dimensions
+ */
+
+.c-notification {
+    /* 1 */
+    position: fixed;
+    top: var(--notification-position);
+    left: var(--notification-position);
+    z-index: var(--notification-z-index);
+    /* 2 */
+    box-sizing: border-box;
+    width: var(--notification-width);
+}
+
+
+/* Position modifiers
+========================================================================== */
+
+.c-notification-top-right,
+.c-notification-bottom-right {
+    left: auto;
+    right: var(--notification-position);
+}
+
+.c-notification-top-center,
+.c-notification-bottom-center {
+    left: 50%;
+    margin-left: calc(var(--notification-width) / -2);
+}
+
+.c-notification-bottom-left,
+.c-notification-bottom-right,
+.c-notification-bottom-center {
+    top: auto;
+    bottom: var(--notification-position);
+}
+
+
+/* Responsiveness
+========================================================================== */
+
+/* Phones portrait and smaller */
+@media (--xs) {
+
+    .c-notification {
+        left: var(--notification-position);
+        right: var(--notification-position);
+        width: auto;
+        margin: 0;
+    }
+
+}
+
+
+/* Message
+========================================================================== */
+
+.c-notification-message {
+    position: relative;
+    padding: var(--notification-message-padding);
+    background: var(--notification-message-background);
+    color: var(--notification-message-color);
+    font-size: var(--notification-message-font-size);
+    line-height: var(--notification-message-line-height);
+    cursor: pointer;
+}
+
+* + .c-notification-message { margin-top: var(--notification-message-margin-top); }
+
+
+/* Close
+ * Adopts `c-close`
+ ========================================================================== */
+
+.c-notification-close {
+    display: none;
+    position: absolute;
+    top: var(--notification-close-top);
+    right: var(--notification-close-right);
+}
+
+.c-notification-message:hover .c-notification-close { display: block; }
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Primary
+ */
+
+.c-notification-message-primary {
+    color: var(--notification-message-primary-color);
+}
+
+/*
+ * Info
+ */
+
+.c-notification-message-info {
+    color: var(--notification-message-info-color);
+}
+
+/*
+ * Success
+ */
+
+.c-notification-message-success {
+    color: var(--notification-message-success-color);
+}
+
+/*
+ * Warning
+ */
+
+.c-notification-message-warning {
+    color: var(--notification-message-warning-color);
+}
+
+/*
+ * Danger
+ */
+
+.c-notification-message-danger {
+    color: var(--notification-message-danger-color);
+}

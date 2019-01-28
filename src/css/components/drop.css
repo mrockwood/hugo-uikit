@@ -1,0 +1,71 @@
+/**
+ * Name:            Drop
+ * Description:     Component to position any element next to any other element.
+ *
+ * Component:       `c-drop`
+ *
+ * Modifiers:       `c-drop-top-*`
+ *                  `c-drop-bottom-*`
+ *                  `c-drop-left-*`
+ *                  `c-drop-right-*`
+ *                  `c-drop-stack`
+ *                  `c-drop-grid`
+ *
+ * States:          `c-open`
+ *
+ * Uses:            Animation
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --drop-z-index:                              calc(var(--global-z-index) + 20);
+    --drop-width:                                300px;
+    --drop-margin:                               var(--global-margin);
+
+}
+
+
+/* ========================================================================
+   Component: Drop
+ ========================================================================== */
+
+/*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Set a default width
+ */
+
+.c-drop {
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: absolute;
+    z-index: var(--drop-z-index);
+    /* 3 */
+    box-sizing: border-box;
+    width: var(--drop-width);
+}
+
+/* Show */
+.c-drop.c-open { display: block; }
+
+
+/* Direction / Alignment modifiers
+ ========================================================================== */
+
+/* Direction */
+[class*='c-drop-top'] { margin-top: calc(var(--drop-margin) * -1); }
+[class*='c-drop-bottom'] { margin-top: var(--drop-margin); }
+[class*='c-drop-left'] { margin-left: calc(var(--drop-margin) * -1); }
+[class*='c-drop-right'] { margin-left: var(--drop-margin); }
+
+/* Grid modifiers
+ ========================================================================== */
+
+.c-drop-stack .c-drop-grid > * { width: 100% !important; }

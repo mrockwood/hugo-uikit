@@ -1,0 +1,95 @@
+/**
+ * Name:            Article
+ * Description:     Component to create articles
+ *
+ * Component:       `c-article`
+ *
+ * Sub-objects:     `c-article-title`
+ *                  `c-article-meta`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --article-margin-top:                            var(--global-large-margin);
+
+    --article-title-font-size:                       var(--global-xlarge-font-size);
+    --article-title-line-height:                     1.2;
+
+    --article-meta-font-size:                        var(--global-small-font-size);
+    --article-meta-line-height:                      1.4;
+    --article-meta-color:                            var(--global-muted-color);
+    --article-meta-link-color:                       var(--article-meta-color);
+    --article-meta-link-hover-color:                 var(--global-color);
+
+}
+
+@media (--m-up) {
+
+    :root {
+
+        --article-title-font-size:                   var(--global-xxlarge-font-size);
+
+    }
+
+}
+
+
+/* ========================================================================
+   Component: Article
+ ========================================================================== */
+
+.c-article {}
+
+/*
+ * Micro clearfix
+ */
+
+.c-article::before,
+.c-article::after {
+    content: "";
+    display: table;
+}
+
+.c-article::after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.c-article > :last-child { margin-bottom: 0; }
+
+
+/* Adjacent sibling
+ ========================================================================== */
+
+.c-article + .c-article {
+    margin-top: var(--article-margin-top);
+}
+
+
+/* Title
+ ========================================================================== */
+
+.c-article-title {
+    font-size: var(--article-title-font-size);
+    line-height: var(--article-title-line-height);
+}
+
+
+/* Meta
+ ========================================================================== */
+
+.c-article-meta {
+    font-size: var(--article-meta-font-size);
+    line-height: var(--article-meta-line-height);
+    color: var(--article-meta-color);
+}
+
+.c-article-meta a { color: var(--article-meta-link-color); }
+.c-article-meta a:hover { color: var(--article-meta-link-hover-color); }

@@ -1,0 +1,52 @@
+/**
+ * Name:            Height
+ * Description:     Utilities for heights
+ *
+ * Component:       `c-height-*`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --height-small-height:                           150px;
+    --height-medium-height:                          300px;
+    --height-large-height:                           450px;
+
+}
+
+
+/* ========================================================================
+   Component: Height
+ ========================================================================== */
+
+[class*='c-height'] { box-sizing: border-box; }
+
+/*
+ * Only works if parent element has a height set
+ */
+
+.c-height-1-1 { height: 100%; }
+
+/*
+ * Useful to create image teasers
+ */
+
+.c-height-viewport { min-height: 100vh; }
+
+/*
+ * Pixel
+ * Useful for `overflow: auto`
+ */
+
+.c-height-small { height: var(--height-small-height); }
+.c-height-medium { height: var(--height-medium-height); }
+.c-height-large { height: var(--height-large-height); }
+
+.c-height-max-small { max-height: var(--height-small-height); }
+.c-height-max-medium { max-height: var(--height-medium-height); }
+.c-height-max-large { max-height: var(--height-large-height); }

@@ -1,0 +1,164 @@
+/**
+ * Name:            List
+ * Description:     Styles for lists
+ *
+ * Component:       `c-list`
+ *
+ * Modifiers:       `c-list-divider`
+ *                  `c-list-striped`
+ *                  `c-list-bullet`
+ *                  `c-list-large`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --list-margin-top:                               var(--global-small-margin);
+
+    --list-nested-padding-left:                      var(--global-gutter);
+
+    --list-divider-margin-top:                       var(--global-small-margin);
+    --list-divider-border-width:                     var(--global-border-width);
+    --list-divider-border:                           var(--global-border);
+
+    --list-striped-padding-vertical:                 var(--global-small-margin);
+    --list-striped-padding-horizontal:               var(--global-small-margin);
+    --list-striped-background:                       var(--global-muted-background);
+
+    --list-bullet-width:                             calc(var(--global-line-height) * 1em);
+    --list-bullet-height:                            var(--list-bullet-width);
+    --list-bullet-margin-right:                      var(--global-small-margin);
+    --list-bullet-icon-color:                        var(--global-color);
+
+    --list-large-margin-top:                         var(--global-margin);
+    --list-large-divider-margin-top:                 var(--global-margin);
+    --list-large-striped-padding-vertical:           var(--global-margin);
+    --list-large-striped-padding-horizontal:         var(--global-small-margin);
+
+}
+
+
+/* ========================================================================
+   Component: List
+ ========================================================================== */
+
+.c-list {
+    padding: 0;
+    list-style: none;
+}
+
+/*
+ * Micro clearfix
+ */
+
+.c-list > li::before,
+.c-list > li::after {
+    content: "";
+    display: table;
+}
+
+.c-list > li::after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.c-list > li > :last-child { margin-bottom: 0; }
+
+/*
+ * Nested lists
+ */
+
+.c-list ul {
+    margin: 0;
+    padding-left: var(--list-nested-padding-left);
+    list-style: none;
+}
+
+/*
+ * Style
+ */
+
+.c-list > li:nth-child(n+2),
+.c-list > li > ul { margin-top: var(--list-margin-top); }
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Divider
+ */
+
+.c-list-divider > li:nth-child(n+2) {
+    margin-top: var(--list-divider-margin-top);
+    padding-top: var(--list-divider-margin-top);
+    border-top: var(--list-divider-border-width) solid var(--list-divider-border);
+}
+
+/*
+ * Striped
+ */
+
+.c-list-striped > li {
+    padding: var(--list-striped-padding-vertical) var(--list-striped-padding-horizontal);
+}
+
+.c-list-striped > li:nth-of-type(odd) { background: var(--list-striped-background); }
+
+.c-list-striped > li:nth-child(n+2) { margin-top: 0; }
+
+/*
+ * Bullet
+ * 1. Reset display `table` which causes issues in combination with multi column layouts.
+ */
+
+.c-list-bullet > li {
+    position: relative;
+    padding-left: calc(var(--list-bullet-width) + var(--list-bullet-margin-right));
+}
+
+.c-list-bullet > li::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--list-bullet-width);
+    height: var(--list-bullet-height);
+    background-image: svg-load("../../images/backgrounds/list-bullet.svg", fill=#666);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    /* 1 */
+    display: block;
+}
+
+
+/* Size modifier
+ ========================================================================== */
+
+.c-list-large > li:nth-child(n+2),
+.c-list-large > li > ul { margin-top: var(--list-large-margin-top); }
+
+/*
+ * Divider
+ */
+
+.c-list-large.c-list-divider > li:nth-child(n+2) {
+    margin-top: var(--list-large-divider-margin-top);
+    padding-top: var(--list-large-divider-margin-top);
+}
+
+/*
+ * Striped
+ */
+
+.c-list-large.c-list-striped > li {
+    padding: var(--list-large-striped-padding-vertical) var(--list-large-striped-padding-horizontal);
+}
+
+.c-list-large.c-list-striped > li:nth-child(n+2) { margin-top: 0; }

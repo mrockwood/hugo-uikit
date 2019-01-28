@@ -1,0 +1,120 @@
+/**
+ * Name:            Divider
+ * Description:     Styles for dividers
+ *
+ * Component:       `c-divider-icon`
+ *                  `c-divider-small`
+ *                  `c-divider-vertical`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --divider-margin-vertical:                       var(--global-margin);
+
+    --divider-icon-width:                            50px;
+    --divider-icon-height:                           20px;
+    --divider-icon-color:                            var(--global-border);
+    --divider-icon-line-top:                         50%;
+    --divider-icon-line-width:                       100%;
+    --divider-icon-line-border-width:                var(--global-border-width);
+    --divider-icon-line-border:                      var(--global-border);
+
+    --divider-small-width:                           100px;
+    --divider-small-border-width:                    var(--global-border-width);
+    --divider-small-border:                          var(--global-border);
+
+    --divider-vertical-height:                       100px;
+    --divider-vertical-border-width:                 var(--global-border-width);
+    --divider-vertical-border:                       var(--global-border);
+
+}
+
+
+/* ========================================================================
+   Component: Divider
+ ========================================================================== */
+
+/*
+ * 1. Reset default `hr`
+ * 2. Set margin if a `div` is used for semantical reason
+ */
+
+[class*='c-divider'] {
+    /* 1 */
+    border: none;
+    /* 2 */
+    margin-bottom: var(--divider-margin-vertical);
+}
+
+/* Add margin if adjacent element */
+* + [class*='c-divider'] { margin-top: var(--divider-margin-vertical); }
+
+
+/* Icon
+ ========================================================================== */
+
+.c-divider-icon {
+    position: relative;
+    height: var(--divider-icon-height);
+    background-image: svg-load("../../images/backgrounds/divider-icon.svg", stroke=#dee2e6, fill=none);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.c-divider-icon::before,
+.c-divider-icon::after {
+    content: "";
+    position: absolute;
+    top: var(--divider-icon-line-top);
+    max-width: calc(50% - (var(--divider-icon-width) / 2));
+    border-bottom: var(--divider-icon-line-border-width) solid var(--divider-icon-line-border);
+}
+
+.c-divider-icon::before {
+    right: calc(50% + (var(--divider-icon-width) / 2));
+    width: var(--divider-icon-line-width);
+}
+
+.c-divider-icon::after {
+    left: calc(50% + (var(--divider-icon-width) / 2));
+    width: var(--divider-icon-line-width);
+}
+
+
+/* Small
+ ========================================================================== */
+
+.
+/*
+ * Fix height of `hr` element not being expanded by child border width.
+ * `height` also needed to reset the child `line-height` caused by `inline-block`
+ */
+
+.c-divider-small { height: var(--divider-small-border-width); }
+
+.c-divider-small::after {
+    content: "";
+    display: inline-block;
+    width: var(--divider-small-width);
+    max-width: 100%;
+    border-top: var(--divider-small-border-width) solid var(--divider-small-border);
+    vertical-align: top;
+}
+
+
+/* Vertical
+ ========================================================================== */
+
+.c-divider-vertical {
+    width: 1px;
+    height: var(--divider-vertical-height);
+    margin-left: auto;
+    margin-right: auto;
+    border-left: var(--divider-vertical-border-width) solid var(--divider-vertical-border);
+}

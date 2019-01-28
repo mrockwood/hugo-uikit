@@ -1,0 +1,74 @@
+/**
+ * Name:            Overlay
+ * Description:     Component to create content areas overlaying an image
+ *
+ * Component:       `c-overlay`
+ *
+ * Adopted:         `c-overlay-icon`
+ *
+ * Modifier:        `c-overlay-default`
+ *                  `c-overlay-primary`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --overlay-padding-horizontal:                    var(--global-gutter);
+    --overlay-padding-vertical:                      var(--global-gutter);
+
+    --overlay-default-background:                    color-mod(var(--global-background) alpha(80%));
+
+    --overlay-primary-background:                    color-mod(var(--global-secondary-background) alpha(80%));
+
+}
+
+
+/* ========================================================================
+   Component: Overlay
+ ========================================================================== */
+
+.c-overlay {
+    padding: var(--overlay-padding-vertical) var(--overlay-padding-horizontal);
+}
+
+/*
+ * Remove margin from the last-child
+ */
+
+.c-overlay > :last-child { margin-bottom: 0; }
+
+
+/* Icon
+ ========================================================================== */
+
+.c-overlay-icon {}
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+.c-overlay-default {
+    background: var(--overlay-default-background);
+}
+
+/*
+ * Primary
+ */
+
+.c-overlay-primary {
+    background: var(--overlay-primary-background);
+}
+
+/* Color Mode
+.c-overlay-primary:extend(.c-light all) when (var(--overlay-primary-color-mode = light) {)}
+.c-overlay-primary:extend(.c-dark all) when (var(--overlay-primary-color-mode = dark) {)}
+*/

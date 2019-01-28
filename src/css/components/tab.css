@@ -1,0 +1,212 @@
+/**
+ * Name:            Tab
+ * Description:     Component to create a tabbed navigation
+ *
+ * Component:       `c-tab`
+ *
+ * Modifiers:       `c-tab-bottom`
+ *                  `c-tab-left`
+ *                  `c-tab-right`
+ *
+ * States:          `c-active`
+ *                  `c-disabled`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --tab-margin-horizontal:                  20px;
+
+    --tab-border-width:                       var(--global-border-width);
+    --tab-border:                             var(--global-border);
+
+    --tab-item-padding-horizontal:            10px;
+    --tab-item-padding-vertical:              5px;
+    --tab-item-color:                         var(--global-muted-color);
+    --tab-item-hover-color:                   var(--global-color);
+    --tab-item-hover-text-decoration:         none;
+    --tab-item-active-color:                  var(--global-emphasis-color);
+    --tab-item-disabled-color:                var(--global-muted-color);
+    --tab-item-text-decoration:               inherit;
+    --tab-item-border-width:                  var(--global-border-width);
+    --tab-item-font-size:                     var(--global-small-font-size);
+    --tab-item-text-transform:                uppercase;
+    --tab-item-active-border:                 var(--global-primary-background);
+
+}
+
+
+/* ========================================================================
+   Component: Tab
+ ========================================================================== */
+
+/*
+ * 1. Allow items to wrap into the next line
+ * 2. Gutter
+ * 3. Reset list
+ */
+
+.c-tab {
+    display: flex;
+    /* 1 */
+    flex-wrap: wrap;
+    /* 2 */
+    margin-left: calc(var(--tab-margin-horizontal) * -1);
+    /* 3 */
+    padding: 0;
+    list-style: none;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: var(--tab-margin-horizontal);
+        right: 0;
+        border-bottom: var(--tab-border-width) solid var(--tab-border);
+    }
+}
+
+/*
+ * 1. Space is allocated solely based on content dimensions: 0 0 auto
+ * 2. Gutter
+ * 3. Create position context for dropdowns
+ */
+
+.c-tab > * {
+    /* 1 */
+    flex: none;
+    /* 2 */
+    padding-left: var(--tab-margin-horizontal);
+    /* 3 */
+    position: relative;
+}
+
+/*
+ * 1. Make active tab as tall as tallest tab
+ */
+
+.c-tab > .c-active {
+    /* 1 */
+    display: flex;
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * Items must target `a` elements to exclude other elements (e.g. dropdowns)
+ * 1. Center text if a width is set
+ * 2. Style
+ * 3. Inherit width on active tab
+ */
+
+.c-tab > * > a {
+    /* 1 */
+    display: block;
+    text-align: center;
+    /* 2 */
+    padding: var(--tab-item-padding-vertical) var(--tab-item-padding-horizontal);
+    color: var(--tab-item-color);
+    text-decoration: var(--tab-item-text-decoration);
+    border-bottom: var(--tab-item-border-width) solid transparent;
+    font-size: var(--tab-item-font-size);
+    text-transform: var(--tab-item-text-transform);
+    transition: color 0.1s ease-in-out;
+}
+
+/* Hover + Focus */
+.c-tab > * > a:hover,
+.c-tab > * > a:focus {
+    color: var(--tab-item-hover-color);
+    text-decoration: var(--tab-item-hover-text-decoration);
+}
+
+/* Active */
+.c-tab > .c-active > a {
+    color: var(--tab-item-active-color);
+    border-color: var(--tab-item-active-border);
+    /* 3 */
+    flex-grow: 1;
+}
+
+/* Disabled */
+.c-tab > .c-disabled > a {
+    color: var(--tab-item-disabled-color);
+}
+
+
+/* Position modifier
+ ========================================================================== */
+
+/*
+ * Bottom
+ */
+
+.c-tab-bottom::before {
+    top: 0;
+    bottom: auto;
+}
+
+.c-tab-bottom > * > a {
+    border-top: var(--tab-item-border-width) solid transparent;
+    border-bottom: none;
+}
+
+/*
+ * Left + Right
+ * 1. Reset Gutter
+ */
+
+.c-tab-left,
+.c-tab-right {
+    flex-direction: column;
+    /* 1 */
+    margin-left: 0;
+}
+
+/* 1 */
+.c-tab-left > *,
+.c-tab-right > * { padding-left: 0; }
+
+.c-tab-left::before {
+    top: 0;
+    bottom: 0;
+    left: auto;
+    right: 0;
+    border-left: var(--tab-border-width) solid var(--tab-border);
+    border-bottom: none;
+}
+
+.c-tab-right::before {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    border-left: var(--tab-border-width) solid var(--tab-border);
+    border-bottom: none;
+}
+
+.c-tab-left > * > a {
+    text-align: left;
+    border-right: var(--tab-item-border-width) solid transparent;
+    border-bottom: none;
+}
+
+.c-tab-right > * > a {
+    text-align: left;
+    border-left: var(--tab-item-border-width) solid transparent;
+    border-bottom: none;
+}
+
+
+/* Items
+ ========================================================================== */
+
+.c-tab .c-dropdown { margin-left: calc(var(--tab-margin-horizontal) + var(--tab-item-padding-horizontal)) }

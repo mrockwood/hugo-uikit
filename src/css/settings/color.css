@@ -1,0 +1,234 @@
+/**
+ * Name:            Color
+ * Description:     Default color scheme optimized for UI like font, background, border, etc.
+ *
+ * Component:       `t-uofuhealth`
+ *
+ * ======================================================================== */
+
+
+:root {
+
+/*  General
+ *  ======================================================================= */
+
+    --white:            #ffffff;
+    --black:            #000000;
+
+
+/*  Transparency
+ *  ======================================================================= */
+
+    --trans-white-1:    rgba(255, 255, 255, 0.1);
+    --trans-white-2:    rgba(255, 255, 255, 0.2);
+    --trans-white-3:    rgba(255, 255, 255, 0.3);
+    --trans-white-4:    rgba(255, 255, 255, 0.4);
+    --trans-white-5:    rgba(255, 255, 255, 0.5);
+    --trans-white-6:    rgba(255, 255, 255, 0.6);
+    --trans-white-7:    rgba(255, 255, 255, 0.7);
+    --trans-white-8:    rgba(255, 255, 255, 0.8);
+    --trans-white-9:    rgba(255, 255, 255, 0.9);
+
+    --trans-black-1:    rgba(0, 0, 0, 0.1);
+    --trans-black-2:    rgba(0, 0, 0, 0.2);
+    --trans-black-3:    rgba(0, 0, 0, 0.3);
+    --trans-black-4:    rgba(0, 0, 0, 0.4);
+    --trans-black-5:    rgba(0, 0, 0, 0.5);
+    --trans-black-6:    rgba(0, 0, 0, 0.6);
+    --trans-black-7:    rgba(0, 0, 0, 0.7);
+    --trans-black-8:    rgba(0, 0, 0, 0.8);
+    --trans-black-9:    rgba(0, 0, 0, 0.9);
+
+
+/*  Grayscale
+ *  ======================================================================= */
+
+    --gray-0:           #f8f9fa;
+    --gray-1:           #f1f3f5;
+    --gray-2:           #e9ecef;
+    --gray-3:           #dee2e6;
+    --gray-4:           #ced4da;
+    --gray-5:           #adb5bd;
+    --gray-6:           #868e96;
+    --gray-7:           #495057;
+    --gray-8:           #343a40;
+    --gray-9:           #212529;
+
+
+/*  Gradient
+ *  ======================================================================= */
+
+    --gradient:         linear-gradient(180deg,#FFF 0,#F2F2F2 100%);
+
+
+/*  Indicators
+ *  ======================================================================= */
+
+    /* Success */
+    --success:          #74b816;
+    --success-0:        #e9fac8;
+    --success-1:        #c0eb75;
+    --success-2:        #a9e34b;
+    --success-3:        #94d82d;
+    --success-4:        #82c91e;
+    --success-5:        var(--success);
+    --success-6:        #66a80f;
+    --success-7:        #5c940d;
+    --success-8:        #5c940d;
+    --success-9:        #5c940d;
+    --success-hover:    var(--success-4);
+    --success-active:   var(--success-6);
+
+    /* Warning */
+    --warning:          #f76707;
+    --warning-0:        #ffe8cc;
+    --warning-1:        #ffc078;
+    --warning-2:        #ffa94d;
+    --warning-3:        #ff922b;
+    --warning-4:        #fd7e14;
+    --warning-5:        var(--warning);
+    --warning-6:        #e8590c;
+    --warning-7:        #d9480f;
+    --warning-8:        #d9480f;
+    --warning-9:        #d9480f;
+    --warning-hover:    var(--warning-4);
+    --warning-active:   var(--warning-6);
+
+    /* Danger */
+    --danger:           #d6336c;
+    --danger-0:         #ffdeeb;
+    --danger-1:         #faa2c1;
+    --danger-2:         #f783ac;
+    --danger-3:         #f06595;
+    --danger-4:         #e64980;
+    --danger-5:         var(--danger);
+    --danger-6:         #c2255c;
+    --danger-7:         #a61e4d;
+    --danger-8:         #a61e4d;
+    --danger-9:         #a61e4d;
+    --danger-hover:     var(--danger-4);
+    --danger-active:    var(--danger-6);
+
+    /* Info */
+    --info:             #4263eb;
+    --info-0:           #dbe4ff;
+    --info-1:           #91a7ff;
+    --info-2:           #748ffc;
+    --info-3:           #5c7cfa;
+    --info-4:           #4c6ef5;
+    --info-5:           var(--info);
+    --info-6:           #3b5bdb;
+    --info-7:           #364fc7;
+    --info-8:           #364fc7;
+    --info-9:           #364fc7;
+    --info-hover:       var(--info-4);
+    --info-active:      var(--info-6);
+
+}
+
+
+:root {
+
+/*  Palette
+ *  ======================================================================= */
+
+    /* Primary */
+    --primary:          #a6192e;
+    --primary-0:        hsl(351, 100%, 92%);
+    --primary-1:        hsl(351, 100%, 81%);
+    --primary-2:        hsl(351, 100%, 68%);
+    --primary-3:        hsl(351, 72%, 55%);
+    --primary-4:        hsl(351, 67%, 44%);
+    --primary-5:        var(--primary);
+    --primary-6:        hsl(351, 89%, 32%);
+    --primary-7:        hsl(351, 100%, 25%);
+    --primary-8:        hsl(351, 100%, 19%);
+    --primary-9:        hsl(351, 100%, 13%);
+    --primary-hover:    var(--primary-4);
+    --primary-active:   var(--primary-6);
+
+    /* Secondary */
+    --secondary:        #1098ad;
+    --secondary-0:      hsl(188, 100%, 92%);
+    --secondary-1:      hsl(188, 100%, 81%);
+    --secondary-2:      hsl(188, 100%, 68%);
+    --secondary-3:      hsl(188, 77%, 55%);
+    --secondary-4:      hsl(188, 74%, 43%);
+    --secondary-5:      var(--secondary);
+    --secondary-6:      hsl(188, 98%, 32%);
+    --secondary-7:      hsl(188, 100%, 25%);
+    --secondary-8:      hsl(188, 100%, 19%);
+    --secondary-9:      hsl(188, 100%, 13%);
+    --secondary-hover:  var(--secondary-4);
+    --secondary-active: var(--secondary-6);
+
+    /* Tertiary */
+    --tertiary:         #ae3ec9;
+    --tertiary-0:       hsl(288, 100%, 94%);
+    --tertiary-1:       hsl(288, 100%, 85%);
+    --tertiary-2:       hsl(288, 100%, 76%);
+    --tertiary-3:       hsl(288, 86%, 65%);
+    --tertiary-4:       hsl(288, 66%, 56%);
+    --tertiary-5:       var(--tertiary);
+    --tertiary-6:       hsl(288, 68%, 44%);
+    --tertiary-7:       hsl(288, 88%, 35%);
+    --tertiary-8:       hsl(288, 100%, 26%);
+    --tertiary-9:       hsl(288, 100%, 18%);
+    --tertiary-hover:   var(--tertiary-4);
+    --tertiary-active:  var(--tertiary-6);
+
+}
+
+
+.t-huntsman,
+[data-theme="huntsman"] {
+
+/*  Palette
+ *  ======================================================================= */
+
+    /* Primary */
+    --primary:          #1c7ed6;
+    --primary-0:        #d0ebff;
+    --primary-1:        #74c0fc;
+    --primary-2:        #4dabf7;
+    --primary-3:        #339af0;
+    --primary-4:        #228be6;
+    --primary-5:        var(--primary);
+    --primary-6:        #1971c2;
+    --primary-7:        #1864ab;
+    --primary-8:        #1864ab;
+    --primary-9:        #1864ab;
+    --primary-hover:    var(--primary-4);
+    --primary-active:   var(--primary-6);
+
+    /* Secondary */
+    --secondary:        #0ca678;
+    --secondary-0:      #c3fae8;
+    --secondary-1:      #63e6be;
+    --secondary-2:      #38d9a9;
+    --secondary-3:      #20c997;
+    --secondary-4:      #12b886;
+    --secondary-5:      var(--secondary);
+    --secondary-6:      #099268;
+    --secondary-7:      #087f5b;
+    --secondary-8:      #087f5b;
+    --secondary-9:      #087f5b;
+    --secondary-hover:  var(--secondary-4);
+    --secondary-active: var(--secondary-6);
+
+    /* Tertiary */
+    --tertiary:         #ae3ec9;
+    --tertiary-0:       #f3d9fa;
+    --tertiary-1:       #e599f7;
+    --tertiary-2:       #da77f2;
+    --tertiary-3:       #cc5de8;
+    --tertiary-4:       #be4bdb;
+    --tertiary-5:       var(--tertiary);
+    --tertiary-6:       #9c36b5;
+    --tertiary-7:       #862e9c;
+    --tertiary-8:       #862e9c;
+    --tertiary-9:       #862e9c;
+    --tertiary-hover:   var(--tertiary-4);
+    --tertiary-active:  var(--tertiary-6);
+
+}

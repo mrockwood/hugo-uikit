@@ -1,0 +1,240 @@
+/**
+ * Name:            Text
+ * Description:     Utilities for text
+ *
+ * Component:       `c-text-*`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --text-lead-font-size:                           var(--global-large-font-size);
+    --text-lead-line-height:                         1.5;
+    --text-lead-color:                               var(--global-emphasis-color);
+
+    --text-meta-font-size:                           var(--global-small-font-size);
+    --text-meta-line-height:                         1.4;
+    --text-meta-color:                               var(--global-muted-color);
+    --text-meta-link-color:                          var(--text-meta-color);
+    --text-meta-link-hover-color:                    var(--global-color);
+
+    --text-small-font-size:                          var(--global-small-font-size);
+    --text-small-line-height:                        1.5;
+
+    --text-large-font-size:                          var(--global-large-font-size);
+    --text-large-line-height:                        1.5;
+
+    --text-bold-font-weight:                         bolder;
+
+    --text-muted-color:                              var(--global-muted-color);
+    --text-emphasis-color:                           var(--global-emphasis-color);
+    --text-primary-color:                            var(--global-primary-background);
+    --text-info-color:                               var(--global-info-background);
+    --text-success-color:                            var(--global-success-background);
+    --text-warning-color:                            var(--global-warning-background);
+    --text-danger-color:                             var(--global-danger-background);
+
+    --text-background-color:                         var(--global-primary-background);
+
+}
+
+
+/* ========================================================================
+   Component: Text
+ ========================================================================== */
+
+
+/* Style modifiers
+ ========================================================================== */
+
+.c-text-lead {
+    font-size: var(--text-lead-font-size);
+    line-height: var(--text-lead-line-height);
+    color: var(--text-lead-color);
+}
+
+.c-text-meta {
+    font-size: var(--text-meta-font-size);
+    line-height: var(--text-meta-line-height);
+    color: var(--text-meta-color);
+}
+
+.c-text-meta a { color: var(--text-meta-link-color); }
+.c-text-meta a:hover { color: var(--text-meta-link-hover-color); }
+
+
+/* Size modifiers
+ ========================================================================== */
+
+.c-text-small {
+    font-size: var(--text-small-font-size);
+    line-height: var(--text-small-line-height);
+}
+
+.c-text-large {
+    font-size: var(--text-large-font-size);
+    line-height: var(--text-large-line-height);
+}
+
+
+/* Weight modifier
+ ========================================================================== */
+
+.c-text-bold { font-weight: var(--text-bold-font-weight); }
+
+
+/* Transform modifier
+ ========================================================================== */
+
+.c-text-uppercase { text-transform: uppercase !important; }
+.c-text-capitalize { text-transform: capitalize !important; }
+.c-text-lowercase { text-transform: lowercase !important; }
+
+
+/* Color modifiers
+ ========================================================================== */
+
+.c-text-muted { color: var(--text-muted-color) !important; }
+.c-text-emphasis { color: var(--text-emphasis-color) !important; }
+.c-text-primary { color: var(--text-primary-color) !important; }
+.c-text-info { color: var(--text-info-color) !important; }
+.c-text-success { color: var(--text-success-color) !important; }
+.c-text-warning { color: var(--text-warning-color) !important; }
+.c-text-danger { color: var(--text-danger-color) !important; }
+
+
+/* Background modifier
+ ========================================================================== */
+
+/*
+ * 1. The background clips to the foreground text. Works in Chrome, Firefox, Safari, Edge and Opera
+ *    Default color is set to transparent
+ * 2. Container fits the text
+ * 3. Fallback color for IE11
+ */
+
+.c-text-background {
+    /* 1 */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* 2 */
+    display: inline-block;
+    /* 3 */
+    color: var(--text-background-color) !important;
+}
+
+@supports (-webkit-background-clip: text) {
+
+    .c-text-background {
+        background-color: var(--text-background-color);
+    }
+
+}
+
+
+/* Alignment modifiers
+ ========================================================================== */
+
+.c-text-left { text-align: left !important; }
+.c-text-right { text-align: right !important; }
+.c-text-center { text-align: center !important; }
+.c-text-justify { text-align: justify !important; }
+
+/* Phone landscape and bigger */
+@media (--s-up) {
+
+    .c-text-left\@s { text-align: left !important; }
+    .c-text-right\@s { text-align: right !important; }
+    .c-text-center\@s { text-align: center !important; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (--m-up) {
+
+    .c-text-left\@m { text-align: left !important; }
+    .c-text-right\@m { text-align: right !important; }
+    .c-text-center\@m { text-align: center !important; }
+
+}
+
+/* Desktop and bigger */
+@media (--l-up) {
+
+    .c-text-left\@l { text-align: left !important; }
+    .c-text-right\@l { text-align: right !important; }
+    .c-text-center\@l { text-align: center !important; }
+
+}
+
+/* Large screen and bigger */
+@media (--xl) {
+
+    .c-text-left\@xl { text-align: left !important; }
+    .c-text-right\@xl { text-align: right !important; }
+    .c-text-center\@xl { text-align: center !important; }
+
+}
+
+/*
+ * Vertical
+ */
+
+.c-text-top { vertical-align: top !important; }
+.c-text-middle { vertical-align: middle !important; }
+.c-text-bottom { vertical-align: bottom !important; }
+.c-text-baseline { vertical-align: baseline !important; }
+
+
+/* Wrap modifiers
+ ========================================================================== */
+
+/*
+ * Prevent text from wrapping onto multiple lines
+ */
+
+.c-text-nowrap { white-space: nowrap; }
+
+/*
+ * 1. Make sure a max-width is set after which truncation can occur
+ * 2. Prevent text from wrapping onto multiple lines, and truncate with an ellipsis
+ * 3. Fix for table cells
+ */
+
+.c-text-truncate {
+    /* 1 */
+    max-width: 100%;
+    /* 2 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 2 */
+th.c-text-truncate,
+td.c-text-truncate { max-width: 0; }
+
+
+/*
+ * 1. Wrap long words onto the next line and break them if they are too long to fit
+ * 2. Legacy `word-wrap` as fallback for `overflow-wrap`
+ * 3. Fix `overflow-wrap` which doesn't work with table cells in Chrome, Opera, IE11 and Edge
+ *    Must use `break-all` to support IE11 and Edge
+ * Note: Not using `hyphens: auto;` because it hyphenates text even if not needed
+ */
+
+.c-text-break {
+    /* 1 */
+    overflow-wrap: break-word;
+    /* 2 */
+    word-wrap: break-word;
+}
+
+/* 3 */
+th.c-text-break,
+td.c-text-break { word-break: break-all; }

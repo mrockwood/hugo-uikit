@@ -1,0 +1,44 @@
+/**
+ * Name:            Placeholder
+ * Description:     Component to create placeholder boxes
+ *
+ * Component:       `c-placeholder`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --placeholder-margin-vertical:                   var(--global-margin);
+    --placeholder-padding-vertical:                  var(--global-gutter);
+    --placeholder-padding-horizontal:                var(--global-gutter);
+    --placeholder-background:                        transparent;
+    --placeholder-border-width:                      var(--global-border-width);
+    --placeholder-border:                            var(--global-border);
+
+}
+
+
+/* ========================================================================
+   Component: Placeholder
+ ========================================================================== */
+
+.c-placeholder {
+    margin-bottom: var(--placeholder-margin-vertical);
+    padding: var(--placeholder-padding-vertical) var(--placeholder-padding-horizontal);
+    background: var(--placeholder-background);
+    border: var(--placeholder-border-width) dashed var(--placeholder-border);
+}
+
+/* Add margin if adjacent element */
+* + .c-placeholder { margin-top: var(--placeholder-margin-vertical); }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.c-placeholder > :last-child { margin-bottom: 0; }

@@ -1,0 +1,75 @@
+/**
+ * Name:            Padding
+ * Description:     Utilities for padding
+ *
+ * Component:       `c-padding`
+ *                  `c-padding-large`
+ *                  `c-padding-remove-*`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --padding-padding:                                       var(--global-gutter);
+
+    --padding-small-padding:                                 var(--global-small-gutter);
+
+    --padding-large-padding:                                 var(--global-gutter);
+
+}
+
+@media (--l-up) {
+
+    :root {
+
+        --padding-padding:                                   var(--global-medium-gutter);
+
+        --padding-large-padding:                             var(--global-large-gutter);
+
+    }
+
+}
+
+
+/* ========================================================================
+   Component: Padding
+ ========================================================================== */
+
+.c-padding { padding: var(--padding-padding); }
+
+
+/* Small
+ ========================================================================== */
+
+.c-padding-small { padding: var(--padding-small-padding); }
+
+
+/* Large
+ ========================================================================== */
+
+.c-padding-large { padding: var(--padding-large-padding); }
+
+
+/* Remove
+ ========================================================================== */
+
+.c-padding-remove { padding: 0 !important; }
+.c-padding-remove-top { padding-top: 0 !important; }
+.c-padding-remove-bottom { padding-bottom: 0 !important; }
+.c-padding-remove-left { padding-left: 0 !important; }
+.c-padding-remove-right { padding-right: 0 !important; }
+
+.c-padding-remove-vertical {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.c-padding-remove-horizontal {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}

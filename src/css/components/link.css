@@ -1,0 +1,91 @@
+/**
+ * Name:            Link
+ * Description:     Styles for links
+ *
+ * Component:       `c-link-muted`
+ *                  `c-link-text`
+ *                  `c-link-heading`
+ *                  `c-link-reset`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --link-muted-color:                              var(--global-muted-color);
+    --link-muted-hover-color:                        var(--global-color);
+
+    --link-text-hover-color:                         var(--global-muted-color);
+
+    --link-heading-hover-color:                      var(--global-primary-background);
+    --link-heading-hover-text-decoration:            none;
+
+}
+
+
+/* ========================================================================
+   Component: Link
+ ========================================================================== */
+
+
+/* Muted
+ ========================================================================== */
+
+a.c-link-muted,
+.c-link-muted a {
+    color: var(--link-muted-color);
+}
+
+a.c-link-muted:hover,
+.c-link-muted a:hover {
+    color: var(--link-muted-hover-color);
+}
+
+
+/* Text
+ ========================================================================== */
+
+a.c-link-text:not(:hover),
+.c-link-text a:not(:hover) {
+    color: inherit;
+}
+
+a.c-link-text:hover,
+.c-link-text a:hover {
+    color: var(--link-text-hover-color);
+}
+
+
+/* Heading
+ ========================================================================== */
+
+a.c-link-heading:not(:hover),
+.c-link-heading a:not(:hover) {
+    color: inherit;
+}
+
+a.c-link-heading:hover,
+.c-link-heading a:hover {
+    color: var(--link-heading-hover-color);
+    text-decoration: var(--link-heading-hover-text-decoration);
+}
+
+
+/* Reset
+ ========================================================================== */
+
+/*
+ * `!important` needed to override inverse component
+ */
+
+a.c-link-reset,
+a.c-link-reset:hover,
+.c-link-reset a,
+.c-link-reset a:hover {
+    color: inherit !important;
+    text-decoration: none !important;
+}

@@ -1,0 +1,93 @@
+/**
+ * Name:            Countdown
+ * Description:     Component to create countdown timers
+ *
+ * Component:       `c-countdown`
+ *
+ * Sub-objects:     `c-countdown-number`
+ *                  `c-countdown-separator`
+ *                  `c-countdown-label`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --countdown-item-line-height:                    70px;
+
+    --countdown-number-font-size:                    2rem; /* 32px */
+
+    --countdown-separator-font-size:                 1rem; /* 16px */
+
+}
+
+@media (--s-up) {
+
+    :root {
+
+        --countdown-number-font-size:                4rem; /* 64px */
+
+        --countdown-separator-font-size:             2rem; /* 32px */
+
+    }
+
+}
+
+@media (--m-up) {
+
+    :root {
+
+        --countdown-number-font-size:                6rem; /* 96px */
+
+        --countdown-separator-font-size:             3rem; /* 48px */
+
+    }
+
+}
+
+
+/* ========================================================================
+   Component: Countdown
+ ========================================================================== */
+
+.c-countdown {}
+
+
+/* Item
+ ========================================================================== */
+
+/*
+ * 1. Center numbers and separators vertically
+ */
+
+.c-countdown-number,
+.c-countdown-separator {
+    /* 1 */
+    line-height: var(--countdown-item-line-height);
+}
+
+
+/* Number
+ ========================================================================== */
+
+.c-countdown-number {
+    font-size: var(--countdown-number-font-size);
+}
+
+
+/* Separator
+ ========================================================================== */
+
+.c-countdown-separator {
+    font-size: var(--countdown-separator-font-size);
+}
+
+
+/* Label
+ ========================================================================== */
+
+.c-countdown-label {}

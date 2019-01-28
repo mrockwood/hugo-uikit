@@ -1,0 +1,511 @@
+/**
+ * Name:            Navbar
+ * Description:     Component to create horizontal navigation bars
+ *
+ * Component:       `c-navbar`
+ *
+ * Sub-objects:     `c-navbar-container`
+ *                  `c-navbar-left`
+ *                  `c-navbar-right`
+ *                  `c-navbar-center`
+ *                  `c-navbar-center-left`
+ *                  `c-navbar-center-right`
+ *                  `c-navbar-nav`
+ *                  `c-navbar-item`
+ *                  `c-navbar-toggle`
+ *                  `c-navbar-subtitle`
+ *                  `c-navbar-dropbar`
+ *
+ * Adopted:         `c-navbar-dropdown` + Modifiers
+ *                  `c-navbar-dropdown-nav`
+ *                  `c-navbar-dropdown-grid`
+ *                  `c-navbar-toggle-icon`
+ *
+ * Modifiers:       `c-navbar-transparent`
+ *                  `c-navbar-sticky`
+ *                  `c-navbar-dropdown-stack`
+ *
+ * States:          `c-active`
+ *                  `c-parent`
+ *                  `c-open`
+ *
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --navbar-background:                             var(--global-background);
+    --navbar-color-mode:                             none;
+
+    --navbar-nav-item-height:                        80px;
+    --navbar-nav-item-padding-horizontal:            15px;
+    --navbar-nav-item-color:                         var(--global-muted-color);
+    --navbar-nav-item-font-size:                     var(--global-small-font-size);
+    --navbar-nav-item-font-family:                   var(--global-font-family);
+    --navbar-nav-item-hover-color:                   var(--global-color);
+    --navbar-nav-item-onclick-color:                 var(--global-emphasis-color);
+    --navbar-nav-item-active-color:                  var(--global-emphasis-color);
+    --navbar-nav-item-text-transform:                uppercase;
+
+    --navbar-item-color:                             var(--global-color);
+
+    --navbar-toggle-color:                           var(--global-muted-color);
+    --navbar-toggle-hover-color:                     var(--global-color);
+
+    --navbar-subtitle-font-size:                     var(--global-small-font-size);
+
+    --navbar-dropdown-z-index:                       calc(var(--global-z-index) + 20);
+    --navbar-dropdown-width:                         200px;
+    --navbar-dropdown-margin:                        15px;
+    --navbar-dropdown-padding:                       25px;
+    --navbar-dropdown-background:                    var(--global-background);
+    --navbar-dropdown-color:                         var(--global-color);
+    --navbar-dropdown-grid-gutter-horizontal:        calc(var(--navbar-dropdown-padding) * 2);
+    --navbar-dropdown-grid-gutter-vertical:          var(--navbar-dropdown-grid-gutter-horizontal);
+    --navbar-dropdown-grid-divider-border-width:     var(--global-border-width);
+    --navbar-dropdown-grid-divider-border:           var(--navbar-dropdown-nav-divider-border);
+    --navbar-dropdown-box-shadow:                    0 5px 12px rgba(0,0,0,0.15);
+
+    --navbar-dropdown-dropbar-margin-top:            0;
+    --navbar-dropdown-dropbar-margin-bottom:         var(--navbar-dropdown-dropbar-margin-top);
+
+    --navbar-dropdown-nav-item-color:                var(--global-muted-color);
+    --navbar-dropdown-nav-item-hover-color:          var(--global-color);
+    --navbar-dropdown-nav-item-active-color:         var(--global-emphasis-color);
+    --navbar-dropdown-nav-header-color:              var(--global-emphasis-color);
+    --navbar-dropdown-nav-divider-border-width:      var(--global-border-width);
+    --navbar-dropdown-nav-divider-border:            var(--global-border);
+    --navbar-dropdown-nav-sublist-item-color:        var(--global-muted-color);
+    --navbar-dropdown-nav-sublist-item-hover-color:  var(--global-color);
+    --navbar-dropdown-nav-sublist-item-active-color: var(--global-emphasis-color);
+    --navbar-dropdown-nav-font-size:                 var(--global-small-font-size);
+
+    --navbar-dropbar-background:                     var(--navbar-dropdown-background);
+    --navbar-dropbar-z-index:                        calc(var(--global-z-index) - 20);
+    --navbar-dropbar-box-shadow:                     0 5px 7px rgba(0, 0, 0, 0.05);
+
+}
+
+
+/* ========================================================================
+   Component: Navbar
+ ========================================================================== */
+
+/*
+ * 1. Create position context to center navbar group
+ */
+
+.c-navbar {
+    display: flex;
+    /* 1 */
+    position: relative;
+}
+
+
+/* Container
+ ========================================================================== */
+
+.c-navbar-container:not(.c-navbar-transparent) {
+    background: var(--navbar-background);
+}
+
+/* Color Mode
+.c-navbar-container:not(.c-navbar-transparent):extend(.c-light all) when (var(--navbar-color-mode = light) {}
+.c-navbar-container:not(.c-navbar-transparent):extend(.c-dark all) when (var(--navbar-color-mode = dark) {}
+*/
+
+/*
+ * Remove pseudo elements created by micro clearfix as precaution (if Container component is used)
+ */
+
+.c-navbar-container > ::before,
+.c-navbar-container > ::after { display: none !important; }
+
+.c-navbar-container > .c-container .c-navbar-left {
+    margin-left: calc(var(--navbar-nav-item-padding-horizontal) * -1);
+    margin-right: calc(var(--navbar-nav-item-padding-horizontal) * -1);
+}
+.c-navbar-container > .c-container .c-navbar-right { margin-right: calc(var(--navbar-nav-item-padding-horizontal) * -1); }
+
+
+/* Groups
+ ========================================================================== */
+
+/*
+ * 1. Align navs and items vertically if they have a different height
+ * 2. Note: IE 11 requires an extra `div` which affects the center selector
+ */
+
+.c-navbar-left,
+.c-navbar-right,
+/* 2. [class*='c-navbar-center'], */
+.c-navbar-center,
+.c-navbar-center-left > *,
+.c-navbar-center-right > * {
+    display: flex;
+    /* 1 */
+    align-items: center;
+}
+
+/*
+ * Horizontal alignment
+ * 1. Create position context for centered navbar with sub groups (left/right)
+ * 2. Needed for dropdowns because a new position context is created
+ *    `z-index` must be smaller than off-canvas
+ * 3. Fix text wrapping if the centered section is larger than 50% of the navbar
+ * 4. Align sub groups for centered navbar
+ */
+
+.c-navbar-right { margin-left: auto; }
+
+.c-navbar-center:only-child {
+    margin-left: auto;
+    margin-right: auto;
+    /* 1 */
+    position: relative;
+}
+
+.c-navbar-center:not(:only-child) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    /* 2 */
+    z-index: calc(var(--global-z-index) - 10);
+}
+
+/* 3 */
+.c-navbar-center:not(:only-child) .c-navbar-nav > li > a,
+.c-navbar-center:not(:only-child) .c-navbar-item,
+.c-navbar-center:not(:only-child) .c-navbar-toggle { white-space: nowrap; }
+
+/* 4 */
+.c-navbar-center-left,
+.c-navbar-center-right {
+   position: absolute;
+   top: 0;
+}
+
+.c-navbar-center-left { right: 100%; }
+.c-navbar-center-right { left: 100%; }
+
+[class*='c-navbar-center-'] .c-navbar-nav > li > a,
+[class*='c-navbar-center-'] .c-navbar-item,
+[class*='c-navbar-center-'] .c-navbar-toggle { white-space: nowrap; }
+
+
+/* Nav
+ ========================================================================== */
+
+/*
+ * 1. Reset list
+ */
+
+.c-navbar-nav {
+    display: flex;
+    /* 1 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/*
+ * Allow items to wrap into the next line
+ * Only not `absolute` positioned groups
+ */
+
+.c-navbar-left,
+.c-navbar-right,
+.c-navbar-center:only-child { flex-wrap: wrap; }
+
+/*
+ * Items
+ * 1. Center content vertically and horizontally
+ * 2. Dimensions
+ * 3. Style
+ * 4. Required for `a`
+ */
+
+.c-navbar-nav > li > a,    /* Nav item */
+.c-navbar-item,            /* Content item */
+.c-navbar-toggle {         /* Clickable item */
+    /* 1 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 2 */
+    box-sizing: border-box;
+    min-height: var(--navbar-nav-item-height);
+    padding: 0 var(--navbar-nav-item-padding-horizontal);
+    /* 3 */
+    font-size: var(--navbar-nav-item-font-size);
+    font-family: var(--navbar-nav-item-font-family);
+    /* 4 */
+    text-decoration: none;
+}
+
+/*
+ * Nav items
+ */
+
+.c-navbar-nav > li > a {
+    color: var(--navbar-nav-item-color);
+    text-transform: var(--navbar-nav-item-text-transform);
+    transition: 0.1s ease-in-out;
+    transition-property: color, background-color;
+}
+
+/*
+ * Hover
+ * Apply hover style also to focus state and if dropdown is opened
+ */
+
+.c-navbar-nav > li:hover > a,
+.c-navbar-nav > li > a:focus,
+.c-navbar-nav > li > a.c-open {
+    color: var(--navbar-nav-item-hover-color);
+    outline: none;
+}
+
+/* OnClick */
+.c-navbar-nav > li > a:active {
+    color: var(--navbar-nav-item-onclick-color);
+}
+
+/* Active */
+.c-navbar-nav > li.c-active > a {
+    color: var(--navbar-nav-item-active-color);
+}
+
+
+/* Item
+ ========================================================================== */
+
+.c-navbar-item {
+    color: var(--navbar-item-color);
+}
+
+
+/* Toggle
+ ========================================================================== */
+
+.c-navbar-toggle {
+    color: var(--navbar-toggle-color);
+}
+
+.c-navbar-toggle:hover,
+.c-navbar-toggle:focus,
+.c-navbar-toggle.c-open {
+    color: var(--navbar-toggle-hover-color);
+    outline: none;
+    text-decoration: none;
+}
+
+/*
+ * Icon
+ * Adopts `c-icon`
+ */
+
+.c-navbar-toggle-icon {}
+
+/* Hover + Focus */
+:hover > .c-navbar-toggle-icon,
+:focus > .c-navbar-toggle-icon {}
+
+
+/* Subtitle
+ ========================================================================== */
+
+.c-navbar-subtitle {
+    font-size: var(--navbar-subtitle-font-size);
+}
+
+
+/* Style modifiers
+ ========================================================================== */
+
+.c-navbar-transparent {}
+
+.c-navbar-sticky {
+    box-shadow: rgba(30, 30, 30, 0.09) 0px 2px 5px 0px;
+}
+
+
+/* Dropdown
+ ========================================================================== */
+
+/*
+ * Adopts `c-dropdown`
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Set a default width
+ * 4. Style
+ */
+
+.c-navbar-dropdown {
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: absolute;
+    z-index: var(--navbar-dropdown-z-index);
+    /* 3 */
+    box-sizing: border-box;
+    width: var(--navbar-dropdown-width);
+    /* 4 */
+    padding: var(--navbar-dropdown-padding);
+    background: var(--navbar-dropdown-background);
+    color: var(--navbar-dropdown-color);
+    box-shadow: var(--navbar-dropdown-box-shadow);
+}
+
+/* Show */
+.c-navbar-dropdown.c-open { display: block; }
+
+/*
+ * Direction / Alignment modifiers
+ */
+
+/* Direction */
+[class*='c-navbar-dropdown-top'] { margin-top: calc(var(--navbar-dropdown-margin) * -1); }
+[class*='c-navbar-dropdown-bottom'] { margin-top: var(--navbar-dropdown-margin); }
+[class*='c-navbar-dropdown-left'] { margin-left: calc(var(--navbar-dropdown-margin) * -1); }
+[class*='c-navbar-dropdown-right'] { margin-left: var(--navbar-dropdown-margin); }
+
+/*
+ * Grid
+ * Adopts `c-grid`
+ */
+
+/* Gutter Horizontal */
+.c-navbar-dropdown-grid { margin-left: calc(var(--navbar-dropdown-grid-gutter-horizontal) * -1); }
+.c-navbar-dropdown-grid > * { padding-left: var(--navbar-dropdown-grid-gutter-horizontal); }
+
+/* Gutter Vertical */
+.c-navbar-dropdown-grid > .c-grid-margin { margin-top: var(--navbar-dropdown-grid-gutter-vertical); }
+
+/* Stack */
+.c-navbar-dropdown-stack .c-navbar-dropdown-grid > * { width: 100% !important; }
+
+/*
+ * Width modifier
+ */
+
+.c-navbar-dropdown-width-2:not(.c-navbar-dropdown-stack) { width: calc(var(--navbar-dropdown-width) * 2); }
+.c-navbar-dropdown-width-3:not(.c-navbar-dropdown-stack) { width: calc(var(--navbar-dropdown-width) * 3); }
+.c-navbar-dropdown-width-4:not(.c-navbar-dropdown-stack) { width: calc(var(--navbar-dropdown-width) * 4); }
+.c-navbar-dropdown-width-5:not(.c-navbar-dropdown-stack) { width: calc(var(--navbar-dropdown-width) * 5); }
+
+/*
+ * Dropbar modifier
+ */
+
+.c-navbar-dropdown-dropbar {
+    margin-top: var(--navbar-dropdown-dropbar-margin-top);
+    margin-bottom: var(--navbar-dropdown-dropbar-margin-bottom);
+    box-shadow: none;
+}
+
+
+/* Dropdown Nav
+ * Adopts `c-nav`
+ ========================================================================== */
+
+.c-navbar-dropdown-nav {
+    font-size: var(--navbar-dropdown-nav-font-size);
+}
+
+/*
+ * Items
+ */
+
+.c-navbar-dropdown-nav > li > a {
+    color: var(--navbar-dropdown-nav-item-color);
+}
+
+/* Hover + Focus */
+.c-navbar-dropdown-nav > li > a:hover,
+.c-navbar-dropdown-nav > li > a:focus {
+    color: var(--navbar-dropdown-nav-item-hover-color);
+}
+
+/* Active */
+.c-navbar-dropdown-nav > li.c-active > a {
+    color: var(--navbar-dropdown-nav-item-active-color);
+}
+
+/*
+ * Header
+ */
+
+.c-navbar-dropdown-nav .c-nav-header {
+    color: var(--navbar-dropdown-nav-header-color);
+}
+
+/*
+ * Divider
+ */
+
+.c-navbar-dropdown-nav .c-nav-divider {
+    border-top: var(--navbar-dropdown-nav-divider-border-width) solid var(--navbar-dropdown-nav-divider-border);
+}
+
+/*
+ * Grid Divider
+ */
+
+.c-navbar-dropdown-grid > * { position: relative; }
+
+.c-navbar-dropdown-grid > :not(.c-first-column)::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--navbar-dropdown-grid-gutter-horizontal) / 2);
+    border-left: var(--navbar-dropdown-grid-divider-border-width) solid var(--navbar-dropdown-grid-divider-border);
+}
+
+/* Vertical */
+.c-navbar-dropdown-grid.c-grid-stack > .c-grid-margin::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--navbar-dropdown-grid-gutter-vertical) / -2);
+    left: var(--navbar-dropdown-grid-gutter-horizontal);
+    right: 0;
+    border-top: var(--navbar-dropdown-grid-divider-border-width) solid var(--navbar-dropdown-grid-divider-border);
+}
+
+/*
+ * Sublists
+ */
+
+.c-navbar-dropdown-nav .c-nav-sub a { color: var(--navbar-dropdown-nav-sublist-item-color); }
+
+.c-navbar-dropdown-nav .c-nav-sub a:hover,
+.c-navbar-dropdown-nav .c-nav-sub a:focus { color: var(--navbar-dropdown-nav-sublist-item-hover-color); }
+
+.c-navbar-dropdown-nav .c-nav-sub li.c-active > a { color: var(--navbar-dropdown-nav-sublist-item-active-color); }
+
+
+/* Dropbar
+ ========================================================================== */
+
+.c-navbar-dropbar {
+    background: var(--navbar-dropbar-background);
+}
+
+/*
+ * Slide modifier
+ */
+
+.c-navbar-dropbar-slide {
+    position: absolute;
+    z-index: var(--navbar-dropbar-z-index);
+    left: 0;
+    right: 0;
+    box-shadow: var(--navbar-dropbar-box-shadow);
+}

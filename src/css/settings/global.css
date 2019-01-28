@@ -1,0 +1,136 @@
+/**
+ * Media Queries
+ */
+
+@custom-media --xs (max-width: 639px);
+@custom-media --s (min-width: 640px) and (max-width: 959px);
+@custom-media --s-up (min-width: 640px);
+@custom-media --s-down (max-width: 959px);
+@custom-media --m (min-width: 960px) and (max-width: 1199px);
+@custom-media --m-up (min-width: 960px);
+@custom-media --m-down (max-width: 1199px);
+@custom-media --l (min-width: 1200px) and (max-width: 1599px);
+@custom-media --l-up (min-width: 1200px);
+@custom-media --l-down (max-width: 1599px);
+@custom-media --xl (min-width: 1600px);
+
+
+/* Pass media breakpoints to JS
+ ========================================================================== */
+
+/**
+ * Breakpoints
+ */
+
+.c-breakpoint-s::before  { content: '640px'; }
+.c-breakpoint-m::before  { content: '960px'; }
+.c-breakpoint-l::before  { content: '1200px'; }
+.c-breakpoint-xl::before { content: '1600px'; }
+
+
+/* Useful Custom Selectors
+ ========================================================================== */
+
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+@custom-selector :--link a, a:focus, a:visited, a:hover, a:active;
+@custom-selector :--button button, .button;
+@custom-selector :--enter :hover, :focus;
+@custom-selector :--around ::before, ::after;
+
+
+:root {
+
+	/**
+	 * Typography
+	 */
+
+	--global-font-family:                            "Sofia Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--global-font-size:                              16px;
+	--global-line-height:                            1.5;      /* 24px */
+
+	--global-xxlarge-font-size:                      2.625rem; /* 42px */
+	--global-xlarge-font-size:                       2rem;     /* 32px */
+	--global-large-font-size:                        1.5rem;   /* 24px */
+	--global-medium-font-size:                       1.25rem;  /* 20px */
+	--global-small-font-size:                        0.875rem; /* 14px */
+	--global-xsmall-font-size:                       0.75rem;  /* 12px */
+
+	/**
+	 * Colors
+	 */
+
+	--global-color:                                  var(--gray-7);
+	--global-emphasis-color:                         var(--gray-9);
+	--global-muted-color:                            var(--gray-5);
+
+	--global-link-color:                             var(--primary);
+	--global-link-hover-color:                       var(--primary-hover);
+
+	--global-inverse-color:                          var(--white);
+
+	/**
+	 * Backgrounds
+	 */
+
+	--global-background:                             var(--white);
+
+	--global-muted-background:                       var(--gray-0);
+	--global-primary-background:                     var(--primary);
+	--global-secondary-background:                   var(--gray-9);
+
+	--global-gradient-background:                    var(--gradient);
+
+	--global-info-background:                        var(--info);
+	--global-success-background:                     var(--success);
+	--global-warning-background:                     var(--warning);
+	--global-danger-background:                      var(--danger);
+
+	/**
+	 * Borders
+	 */
+
+	--global-border-width:                           1px;
+	--global-border:                                 var(--gray-3);
+	--global-border-radius:                          3px;
+
+	/**
+	 * Box-Shadows
+	 */
+
+	--global-small-box-shadow:                       0 2px 8px rgba(0,0,0,0.08);
+	--global-medium-box-shadow:                      0 5px 15px rgba(0,0,0,0.08);
+	--global-large-box-shadow:                       0 14px 25px rgba(0,0,0,0.16);
+	--global-xlarge-box-shadow:                      0 28px 50px rgba(0,0,0,0.16);
+
+	/**
+	 * Spacings
+	 */
+
+	/* Used in margin, section, list */
+	--global-margin:                                 20px;
+	--global-small-margin:                           10px;
+	--global-medium-margin:                          40px;
+	--global-large-margin:                           70px;
+	--global-xlarge-margin:                          140px;
+
+	/* Used in grid, column, container, align, card, padding */
+	--global-gutter:                                 30px;
+	--global-small-gutter:                           15px;
+	--global-medium-gutter:                          40px;
+	--global-large-gutter:                           70px;
+
+	/**
+	 * Controls
+	 */
+
+	--global-control-height:                         40px;
+	--global-control-small-height:                   30px;
+	--global-control-large-height:                   55px;
+
+	/**
+	 * Z-index
+	 */
+
+	--global-z-index:                                1000;
+
+}

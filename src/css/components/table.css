@@ -1,0 +1,278 @@
+/**
+ * Name:            Table
+ * Description:     Styles for tables
+ *
+ * Component:       `c-table`
+ *
+ * Modifiers:       `c-table-middle`
+ *                  `c-table-divider`
+ *                  `c-table-striped`
+ *                  `c-table-hover`
+ *                  `c-table-small`
+ *                  `c-table-justify`
+ *                  `c-table-shrink`
+ *                  `c-table-expand`
+ *                  `c-table-link`
+ *                  `c-table-responsive`
+ *
+ * States:          `c-active`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --table-margin-vertical:                         var(--global-margin);
+
+    --table-cell-padding-vertical:                   16px;
+    --table-cell-padding-horizontal:                 12px;
+
+    --table-header-cell-font-size:                   var(--global-small-font-size);
+    --table-header-cell-font-weight:                 normal;
+    --table-header-cell-color:                       var(--global-muted-color);
+
+    --table-footer-font-size:                        var(--global-small-font-size);
+
+    --table-caption-font-size:                       var(--global-small-font-size);
+    --table-caption-color:                           var(--global-muted-color);
+
+    --table-row-active-background:                   #ffd;
+
+    --table-divider-border-width:                    var(--global-border-width);
+    --table-divider-border:                          var(--global-border);
+
+    --table-striped-row-background:                  var(--global-muted-background);
+
+    --table-hover-row-background:                    var(--table-row-active-background);
+
+    --table-small-cell-padding-vertical:             10px;
+    --table-small-cell-padding-horizontal:           12px;
+
+    --table-large-cell-padding-vertical:             22px;
+    --table-large-cell-padding-horizontal:           12px;
+
+    --table-expand-min-width:                        150px;
+
+}
+
+
+/* ========================================================================
+   Component: Table
+ ========================================================================== */
+
+/*
+ * 1. Remove most spacing between table cells.
+ * 2. Behave like a block element
+ * 3. Style
+ */
+
+.c-table {
+    /* 1 */
+    border-collapse: collapse;
+    border-spacing: 0;
+    /* 2 */
+    width: 100%;
+    /* 3 */
+    margin-bottom: var(--table-margin-vertical);
+}
+
+/* Add margin if adjacent element */
+* + .c-table { margin-top: var(--table-margin-vertical); }
+
+
+/* Header cell
+ ========================================================================== */
+
+/*
+ * 1. Style
+ */
+
+.c-table th {
+    padding: var(--table-cell-padding-vertical) var(--table-cell-padding-horizontal);
+    text-align: left;
+    vertical-align: bottom;
+    /* 1 */
+    font-size: var(--table-header-cell-font-size);
+    font-weight: var(--table-header-cell-font-weight);
+    color: var(--table-header-cell-color);
+    text-transform: uppercase;
+}
+
+
+/* Cell
+ ========================================================================== */
+
+.c-table tbody tr { transition: background-color 0.1s linear; }
+
+
+/* Cell
+ ========================================================================== */
+
+.c-table td {
+    padding: var(--table-cell-padding-vertical) var(--table-cell-padding-horizontal);
+    vertical-align: top;
+}
+
+/*
+ * Remove margin from the last-child
+ */
+
+.c-table td > :last-child { margin-bottom: 0; }
+
+
+/* Footer
+ ========================================================================== */
+
+.c-table tfoot {
+    font-size: var(--table-footer-font-size);
+}
+
+
+/* Caption
+ ========================================================================== */
+
+.c-table caption {
+    font-size: var(--table-caption-font-size);
+    text-align: left;
+    color: var(--table-caption-color);
+}
+
+
+/* Alignment modifier
+ ========================================================================== */
+
+.c-table-middle,
+.c-table-middle td { vertical-align: middle !important; }
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Divider
+ */
+
+.c-table-divider > tr:not(:first-child),
+.c-table-divider > :not(:first-child) > tr,
+.c-table-divider > :first-child > tr:not(:first-child) {
+    border-top: var(--table-divider-border-width) solid var(--table-divider-border);
+}
+
+/*
+ * Striped
+ */
+
+.c-table-striped > tr:nth-of-type(odd),
+.c-table-striped tbody tr:nth-of-type(odd) {
+    background: var(--table-striped-row-background);
+}
+
+/*
+ * Hover
+ */
+
+.c-table-hover > tr:hover,
+.c-table-hover tbody tr:hover {
+    background: var(--table-hover-row-background);
+}
+
+
+/* Active state
+ ========================================================================== */
+
+.c-table > tr.c-active,
+.c-table tbody tr.c-active {
+    background: var(--table-row-active-background);
+}
+
+/* Size modifier
+ ========================================================================== */
+
+.c-table-small th,
+.c-table-small td {
+    padding: var(--table-small-cell-padding-vertical) var(--table-small-cell-padding-horizontal);
+}
+
+.c-table-large th,
+.c-table-large td {
+    padding: var(--table-large-cell-padding-vertical) var(--table-large-cell-padding-horizontal);
+}
+
+
+/* Justify modifier
+ ========================================================================== */
+
+.c-table-justify th:first-child,
+.c-table-justify td:first-child { padding-left: 0; }
+
+.c-table-justify th:last-child,
+.c-table-justify td:last-child { padding-right: 0; }
+
+
+/* Cell size modifier
+ ========================================================================== */
+
+.c-table-shrink { width: 1px; }
+.c-table-expand { min-width: var(--table-expand-min-width); }
+
+
+/* Cell link modifier
+ ========================================================================== */
+
+/*
+ * Does not work with `c-table-justify` at the moment
+ */
+
+.c-table-link { padding: 0 !important; }
+
+.c-table-link > a {
+    display: block;
+    padding: var(--table-cell-padding-vertical) var(--table-cell-padding-horizontal);
+}
+
+.c-table-small .c-table-link > a { padding: var(--table-small-cell-padding-vertical) var(--table-small-cell-padding-horizontal); }
+
+
+/* Responsive table
+ ========================================================================== */
+
+
+/* Phone landscape and smaller */
+@media (--xs) {
+
+    .c-table-responsive,
+    .c-table-responsive tbody,
+    .c-table-responsive th,
+    .c-table-responsive td,
+    .c-table-responsive tr { display: block; }
+
+    .c-table-responsive thead { display: none; }
+
+    .c-table-responsive th,
+    .c-table-responsive td {
+        width: auto !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        overflow: visible !important;
+        white-space: normal !important;
+    }
+
+    .c-table-responsive th:not(:first-child):not(.c-table-link),
+    .c-table-responsive td:not(:first-child):not(.c-table-link),
+    .c-table-responsive .c-table-link:not(:first-child) > a { padding-top: calc(var(--table-cell-padding-vertical) / 3) !important; }
+
+    .c-table-responsive th:not(:last-child):not(.c-table-link),
+    .c-table-responsive td:not(:last-child):not(.c-table-link),
+    .c-table-responsive .c-table-link:not(:last-child) > a { padding-bottom: calc(var(--table-cell-padding-vertical) / 3) !important; }
+
+    .c-table-justify.c-table-responsive th,
+    .c-table-justify.c-table-responsive td {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+}

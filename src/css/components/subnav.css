@@ -1,0 +1,190 @@
+/**
+ * Name:            Subnav
+ * Description:     Component to create a sub navigation
+ *
+ * Component:       `c-subnav`
+ *
+ * Modifiers:       `c-subnav-divider`
+ *                  `c-subnav-pill`
+ *
+ * States:          `c-active`
+ *                  `c-first-column`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --subnav-margin-horizontal:                      20px;
+
+    --subnav-item-font-size:                         var(--global-small-font-size);
+    --subnav-item-text-transform:                    uppercase;
+    --subnav-item-color:                             var(--global-muted-color);
+    --subnav-item-hover-color:                       var(--global-color);
+    --subnav-item-hover-text-decoration:             none;
+    --subnav-item-active-color:                      var(--global-emphasis-color);
+    --subnav-item-text-decoration:                   inherit;
+
+    --subnav-divider-margin-horizontal:              var(--subnav-margin-horizontal);
+    --subnav-divider-border-height:                  1.5em;
+    --subnav-divider-border-width:                   var(--global-border-width);
+    --subnav-divider-border:                         var(--global-border);
+
+    --subnav-pill-item-padding-vertical:             5px;
+    --subnav-pill-item-padding-horizontal:           10px;
+    --subnav-pill-item-background:                   transparent;
+    --subnav-pill-item-color:                        var(--subnav-item-color);
+    --subnav-pill-item-hover-background:             var(--global-muted-background);
+    --subnav-pill-item-hover-color:                  var(--global-color);
+    --subnav-pill-item-onclick-background:           var(--subnav-pill-item-hover-background);
+    --subnav-pill-item-onclick-color:                var(--subnav-pill-item-hover-color);
+    --subnav-pill-item-active-background:            var(--global-primary-background);
+    --subnav-pill-item-active-color:                 var(--global-inverse-color);
+
+    --subnav-item-disabled-color:                    var(--global-muted-color);
+
+}
+
+
+/* ========================================================================
+   Component: Subnav
+ ========================================================================== */
+
+/*
+ * 1. Allow items to wrap into the next line
+ * 2. Gutter
+ * 3. Reset list
+ */
+
+.c-subnav {
+    display: flex;
+    /* 1 */
+    flex-wrap: wrap;
+    /* 2 */
+    margin-left: calc(var(--subnav-margin-horizontal) * -1);
+    /* 3 */
+    padding: 0;
+    list-style: none;
+}
+
+/*
+ * 1. Space is allocated solely based on content dimensions: 0 0 auto
+ * 2. Gutter
+ * 3. Create position context for dropdowns
+ * 4. Style
+ */
+
+.c-subnav > * {
+    /* 1 */
+    flex: none;
+    /* 2 */
+    padding-left: var(--subnav-margin-horizontal);
+    /* 3 */
+    position: relative;
+    /* 4 */
+    font-size: var(--subnav-item-font-size);
+    text-transform: var(--subnav-item-text-transform);
+    transition: 0.1s ease-in-out;
+    transition-property: color, background-color;
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * Items must target `a` elements to exclude other elements (e.g. dropdowns)
+ * Using `:first-child` instead of `a` to support `span` elements for text
+ * 1. Prevent gap if child element is `inline-block`, e.g. an icon
+ * 2. Style
+ */
+
+.c-subnav > * > :first-child {
+    /* 1 */
+    display: block;
+    /* 2 */
+    color: var(--subnav-item-color);
+    text-decoration: var(--subnav-item-text-decoration);
+}
+
+/* Hover + Focus */
+.c-subnav > * > a:hover,
+.c-subnav > * > a:focus {
+    color: var(--subnav-item-hover-color);
+    text-decoration: var(--subnav-item-hover-text-decoration);
+    outline: none;
+}
+
+/* Active */
+.c-subnav > .c-active > a {
+    color: var(--subnav-item-active-color);
+}
+
+
+/* Divider modifier
+ ========================================================================== */
+
+/*
+ * 1. Align items and divider vertically
+ */
+
+.c-subnav-divider > * {
+    /* 1 */
+    display: flex;
+    align-items: center;
+}
+
+/*
+ * Divider
+ * `nth-child` makes it also work without JS if it's only one row
+ */
+
+.c-subnav-divider > :nth-child(n+2):not(.c-first-column)::before {
+    content: "";
+    height: var(--subnav-divider-border-height);
+    margin-left: calc(var(--subnav-divider-margin-horizontal) - var(--subnav-margin-horizontal));
+    margin-right: var(--subnav-divider-margin-horizontal);
+    border-left: var(--subnav-divider-border-width) solid var(--subnav-divider-border);
+}
+
+
+/* Pill modifier
+ ========================================================================== */
+
+.c-subnav-pill > * > :first-child {
+    padding: var(--subnav-pill-item-padding-vertical) var(--subnav-pill-item-padding-horizontal);
+    background: var(--subnav-pill-item-background);
+    color: var(--subnav-pill-item-color);
+}
+
+/* Hover + Focus */
+.c-subnav-pill > * > a:hover,
+.c-subnav-pill > * > a:focus {
+    background-color: var(--subnav-pill-item-hover-background);
+    color: var(--subnav-pill-item-hover-color);
+}
+
+/* OnClick */
+.c-subnav-pill > * > a:active {
+    background-color: var(--subnav-pill-item-onclick-background);
+    color: var(--subnav-pill-item-onclick-color);
+}
+
+/* Active */
+.c-subnav-pill > .c-active > a {
+    background-color: var(--subnav-pill-item-active-background);
+    color: var(--subnav-pill-item-active-color);
+}
+
+
+/* Disabled
+ * The same for all style modifiers
+ ========================================================================== */
+
+.c-subnav > .c-disabled > a {
+    color: var(--subnav-item-disabled-color);
+}

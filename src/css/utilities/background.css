@@ -1,0 +1,144 @@
+/**
+ * Name:            Background
+ * Description:     Utilities for backgrounds
+ *
+ * Component:       `c-background-*`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --background-default-background:                 var(--global-background);
+    --background-muted-background:                   var(--global-muted-background);
+    --background-gradient-background:                var(--global-gradient-background);
+    --background-primary-background:                 var(--global-primary-background);
+    --background-secondary-background:               var(--global-secondary-background);
+
+}
+
+
+/* ========================================================================
+   Component: Background
+ ========================================================================== */
+
+
+/* Color
+ ========================================================================== */
+
+.c-background-default { background-color: var(--background-default-background); }
+.c-background-muted { background-color: var(--background-muted-background); }
+.c-background-gradient { background: var(--background-gradient-background); }
+.c-background-primary { background-color: var(--background-primary-background); }
+.c-background-secondary { background-color: var(--background-secondary-background); }
+
+
+/* Size
+ ========================================================================== */
+
+.c-background-cover,
+.c-background-contain {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+.c-background-cover { background-size: cover; }
+.c-background-contain { background-size: contain; }
+
+
+/* Position
+ ========================================================================== */
+
+.c-background-top-left { background-position: 0 0; }
+.c-background-top-center { background-position: 50% 0; }
+.c-background-top-right { background-position: 100% 0; }
+.c-background-center-left { background-position: 0 50%; }
+.c-background-center-center { background-position: 50% 50%; }
+.c-background-center-right { background-position: 100% 50%; }
+.c-background-bottom-left { background-position: 0 100%; }
+.c-background-bottom-center { background-position: 50% 100%; }
+.c-background-bottom-right { background-position: 100% 100%; }
+
+
+/* Repeat
+ ========================================================================== */
+
+.c-background-norepeat { background-repeat: no-repeat; }
+
+
+/* Attachment
+ ========================================================================== */
+
+/*
+ * 1. Fix bug introduced in Chrome 67: the background image is not visible if any element on the page uses `translate3d`
+ */
+
+.c-background-fixed {
+    background-attachment: fixed;
+    /* 1 */
+    backface-visibility: hidden;
+}
+
+/*
+ * Exclude touch devices because `fixed` doesn't work on iOS and Android
+ */
+
+@media (pointer: coarse) {
+    .c-background-fixed { background-attachment: scroll; }
+}
+
+
+/* Image
+ ========================================================================== */
+
+/* Phone portrait and smaller */
+@media (--xs) {
+
+    .c-background-image\@s { background-image: none !important; }
+
+}
+
+/* Phone landscape and smaller */
+@media (--s-down) {
+
+    .c-background-image\@m { background-image: none !important; }
+
+}
+
+/* Tablet landscape and smaller */
+@media (--m-down) {
+
+    .c-background-image\@l { background-image: none !important; }
+
+}
+
+/* Desktop and smaller */
+@media (--l-down) {
+
+    .c-background-image\@xl {background-image: none !important; }
+
+}
+
+
+/* Blend modes
+ ========================================================================== */
+
+.c-background-blend-multiply { background-blend-mode: multiply; }
+.c-background-blend-screen { background-blend-mode: screen; }
+.c-background-blend-overlay { background-blend-mode: overlay; }
+.c-background-blend-darken { background-blend-mode: darken; }
+.c-background-blend-lighten { background-blend-mode: lighten; }
+.c-background-blend-color-dodge { background-blend-mode: color-dodge; }
+.c-background-blend-color-burn { background-blend-mode: color-burn; }
+.c-background-blend-hard-light { background-blend-mode: hard-light; }
+.c-background-blend-soft-light { background-blend-mode: soft-light; }
+.c-background-blend-difference { background-blend-mode: difference; }
+.c-background-blend-exclusion { background-blend-mode: exclusion; }
+.c-background-blend-hue { background-blend-mode: hue; }
+.c-background-blend-saturation { background-blend-mode: saturation; }
+.c-background-blend-color { background-blend-mode: color; }
+.c-background-blend-luminosity { background-blend-mode: luminosity; }

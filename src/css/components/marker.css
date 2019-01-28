@@ -1,0 +1,46 @@
+/**
+ * Name:            Marker
+ * Description:     Component to create a marker icon
+ *
+ * Component:       `c-marker`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --marker-padding:                                 5px;
+    --marker-background:                              var(--global-secondary-background);
+    --marker-color:                                   var(--global-inverse-color);
+    --marker-border-radius:                           500px;
+
+    --marker-hover-color:                             var(--global-inverse-color);
+
+}
+
+
+/* ========================================================================
+   Component: Marker
+ ========================================================================== */
+
+/*
+ * Addopts `c-icon`
+ */
+
+.c-marker {
+    padding: var(--marker-padding);
+    background: var(--marker-background);
+    color: var(--marker-color);
+    border-radius: var(--marker-border-radius);
+}
+
+/* Hover + Focus */
+.c-marker:hover,
+.c-marker:focus {
+    color: var(--marker-hover-color);
+    outline: none;
+}

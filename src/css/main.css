@@ -1,32 +1,117 @@
-/*
-  You can use import statements to include partials:
+/**
+ * Settings
  */
-@import 'imports/reset.css';
 
-/*
-  Or add your statements here:
+@import "settings/color";
+@import "settings/global";
+
+/**
+ * Base
  */
-body {
-  font-size: calc(10px + 1vmin);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background-color: #282c34;
-  color: white;
-}
+@import "base/base";
 
-a {
-  color: pink;
-  text-decoration: none;
-}
+/**
+ * Layouts
+ */
 
-.content {
-  padding: 0 32px;
-}
+@import "layouts/section";
+@import "layouts/container";
+@import "layouts/grid";
+@import "layouts/tile";
+/*@import "layouts/card";*/
+
+/**
+ * Components
+ */
+
+@import "components/link";
+@import "components/heading";
+/*@import "components/divider";*/
+@import "components/list";
+@import "components/description-list";
+@import "components/table";
+@import "components/icon";
+@import "components/form-range";
+/*@import "components/form";  After: Icon, Form Range */
+@import "components/button";
+
+@import "components/close"; /* After: Icon */
+@import "components/spinner"; /* After: Icon */
+@import "components/totop"; /* After: Icon */
+@import "components/marker"; /* After: Icon */
+@import "components/alert"; /* After: Close */
+@import "components/badge";
+@import "components/label";
+@import "components/overlay"; /* After: Close */
+@import "components/article"; /* After: Subnav */
+@import "components/comment"; /* After: Subnav */
+@import "components/search"; /* After: Icon */
+
+@import "components/nav";
+@import "components/navbar"; /* After: Card, Grid, Nav, Icon, Search */
+@import "components/subnav";
+@import "components/breadcrumb";
+@import "components/pagination";
+@import "components/tab";
+@import "components/slidenav"; /* After: Icon */
+@import "components/dotnav";
+@import "components/thumbnav";
+
+@import "components/accordion";
+@import "components/drop"; /* After: Card */
+@import "components/dropdown"; /* After: Card */
+@import "components/modal"; /* After: Close */
+@import "components/lightbox"; /* After: Close */
+@import "components/slideshow";
+@import "components/slider";
+@import "components/sticky";
+@import "components/offcanvas";
+@import "components/switcher";
+@import "components/leader";
+/**
+ * Scrollspy
+ * Toggle
+ * Scroll
+ */
+
+@import "components/iconnav";
+@import "components/notification";
+@import "components/tooltip";
+@import "components/placeholder";
+@import "components/progress";
+@import "components/sortable";
+@import "components/countdown";
+
+/* UofU Specific */
+@import "components/arrow";
+@import "components/line";
+/*@import "components/player";*/
+/**
+ * Chart
+ */
+
+/**
+ * Utilities
+ */
+
+@import "utilities/animation";
+@import "utilities/width";
+@import "utilities/height";
+@import "utilities/text";
+@import "utilities/column";
+@import "utilities/cover";
+@import "utilities/background";
+@import "utilities/align";
+@import "utilities/svg";
+@import "utilities/utility";
+@import "utilities/flex"; /* After: Utility */
+@import "utilities/margin";
+@import "utilities/padding";
+@import "utilities/position";
+@import "utilities/transition";
+@import "utilities/visibility";
+@import "utilities/inverse";
+
+/* Need to be loaded last */
+@import "base/print";

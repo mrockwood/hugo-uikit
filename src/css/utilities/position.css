@@ -1,0 +1,252 @@
+/**
+ * Name:            Position
+ * Description:     Utilities to position content
+ *
+ * Component:       `c-position-absolute`
+ *                  `c-position-relative`
+ *                  `c-position-z-index`
+ *                  `c-position-top`
+ *                  `c-position-bottom`
+ *                  `c-position-left`
+ *                  `c-position-right`
+ *                  `c-position-top-left`
+ *                  `c-position-top-center`
+ *                  `c-position-top-right`
+ *                  `c-position-bottom-left`
+ *                  `c-position-bottom-center`
+ *                  `c-position-bottom-right`
+ *                  `c-position-center`
+ *                  `c-position-center-left`
+ *                  `c-position-center-right`
+ *                  `c-position-cover`
+ *
+ * Modifiers:       `c-position-small`
+ *                  `c-position-medium`
+ *                  `c-position-large`
+ *
+ * ======================================================================== */
+
+
+/*
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --position-small-margin:                                var(--global-small-gutter);
+    --position-medium-margin:                               var(--global-gutter);
+    --position-large-margin:                                var(--global-gutter);
+
+}
+
+@media (--l-up) {
+
+    :root {
+
+        --position-large-margin:                            50px;
+
+    }
+
+}
+
+
+/* ========================================================================
+   Component: Position
+ ========================================================================== */
+
+
+/* Directions
+ ========================================================================== */
+
+[class*='c-position-top'],
+[class*='c-position-bottom'],
+[class*='c-position-left'],
+[class*='c-position-right'],
+[class*='c-position-center'] { position: absolute !important; }
+
+
+/* Edges
+ ========================================================================== */
+
+/* Don't use `width: 100%` because it is wrong if the parent has padding. */
+.c-position-top {
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.c-position-bottom {
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.c-position-left {
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.c-position-right {
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+
+/* Corners
+ ========================================================================== */
+
+.c-position-top-left {
+    top: 0;
+    left: 0;
+}
+
+.c-position-top-right {
+    top: 0;
+    right: 0;
+}
+
+.c-position-bottom-left {
+    bottom: 0;
+    left: 0;
+}
+
+.c-position-bottom-right {
+    bottom: 0;
+    right: 0;
+}
+
+/*
+ * Center
+ * 1. Fix text wrapping if content is larger than 50% of the container.
+ */
+
+.c-position-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    /* 1 */
+    width: -moz-max-content;
+    width: max-content;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Vertical */
+[class*='c-position-center-left'],
+[class*='c-position-center-right'] {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.c-position-center-left { left: 0; }
+.c-position-center-right { right: 0; }
+
+.c-position-center-left-out {
+    right: 100%;
+    width: -moz-max-content;
+    width: max-content;
+}
+
+.c-position-center-right-out {
+    left: 100%;
+    width: -moz-max-content;
+    width: max-content;
+}
+
+/* Horizontal */
+.c-position-top-center,
+.c-position-bottom-center {
+    left: 50%;
+    transform: translateX(-50%);
+    /* 1 */
+    display: table;
+    /* 2 */
+    width: -moz-max-content;
+    width: max-content;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.c-position-top-center { top: 0; }
+.c-position-bottom-center { bottom: 0; }
+
+
+/* Cover
+ ========================================================================== */
+
+.c-position-cover {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+/* Utility
+ ========================================================================== */
+
+.c-position-relative { position: relative !important; }
+
+.c-position-absolute { position: absolute !important; }
+
+.c-position-fixed { position: fixed !important; }
+
+.c-position-z-index { z-index: 1; }
+
+
+/* Margin modifier
+ ========================================================================== */
+
+/*
+ * Small
+ */
+
+.c-position-small {
+    margin: var(--position-small-margin);
+    max-width: calc(100% - (var(--position-small-margin) * 2));
+}
+
+.c-position-small.c-position-center { transform: translate(-50%, -50%) translate(calc(var(--position-small-margin) * -1), calc(var(--position-small-margin) * -1)); }
+
+.c-position-small[class*='c-position-center-left'],
+.c-position-small[class*='c-position-center-right'] { transform: translateY(-50%) translateY(calc(var(--position-small-margin) * -1)); }
+
+.c-position-small.c-position-top-center,
+.c-position-small.c-position-bottom-center { transform: translateX(-50%) translateX(calc(var(--position-small-margin) * -1)); }
+
+/*
+ * Medium
+ */
+
+.c-position-medium {
+    margin: var(--position-medium-margin);
+    max-width: calc(100% - (var(--position-medium-margin) * 2));
+}
+
+.c-position-medium.c-position-center { transform: translate(-50%, -50%) translate(calc(var(--position-medium-margin) * -1), calc(var(--position-medium-margin) * -1)); }
+
+.c-position-medium[class*='c-position-center-left'],
+.c-position-medium[class*='c-position-center-right'] { transform: translateY(-50%) translateY(calc(var(--position-medium-margin) * -1)); }
+
+.c-position-medium.c-position-top-center,
+.c-position-medium.c-position-bottom-center { transform: translateX(-50%) translateX(calc(var(--position-medium-margin) * -1)); }
+
+/*
+ * Large
+ */
+
+.c-position-large {
+    margin: var(--position-large-margin);
+    max-width: calc(100% - (var(--position-large-margin) * 2));
+}
+
+.c-position-large.c-position-center { transform: translate(-50%, -50%) translate(calc(var(--position-large-margin) * -1), calc(var(--position-large-margin) * -1)); }
+
+.c-position-large[class*='c-position-center-left'],
+.c-position-large[class*='c-position-center-right'] { transform: translateY(-50%) translateY(calc(var(--position-large-margin) * -1)); }
+
+.c-position-large.c-position-top-center,
+.c-position-large.c-position-bottom-center { transform: translateX(-50%) translateX(calc(var(--position-large-margin) * -1)); }

@@ -1,0 +1,170 @@
+/**
+ * Name:            Line
+ * Description:     Add horizontal or vertical line to other components.
+ *
+ * Component:       `c-line`
+ *
+ * Modifiers:       `c-line-bl`
+ *                  `c-line-b`
+ *                  `c-line-br`
+ *                  `c-line-lt`
+ *                  `c-line-l`
+ *                  `c-line-lb`
+ *                  `c-line-rt`
+ *                  `c-line-r`
+ *                  `c-line-rb`
+ *                  `c-line-tl`
+ *                  `c-line-t`
+ *                  `c-line-tr`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --line-size: var(--global-border-width);
+    --line-style: solid;
+    --line-color: var(--primary);
+
+    --line-width: 100vw;
+    --line-height: 100vh;
+
+}
+
+
+/* ========================================================================
+   Component: Line
+ ========================================================================== */
+
+.c-line {
+    /* set base positioning for line */
+    position: relative;
+}
+
+.c-line::before {
+    border-color: var(--line-color);
+    border-style: var(--line-style);
+    border-width: 0;
+    content: '';
+    position: absolute;
+}
+
+
+/* Style modifiers
+ ========================================================================== */
+
+.c-line-r::before,
+.c-line-rt::before,
+.c-line-rb::before,
+.c-line-l::before,
+.c-line-lt::before,
+.c-line-lb::before {
+    border-top-width: var(--line-size);
+    width: var(--line-width);
+}
+
+.c-line-t::before,
+.c-line-tl::before,
+.c-line-tr::before,
+.c-line-b::before,
+.c-line-bl::before,
+.c-line-br::before {
+    border-left-width: var(--line-size);
+    height: var(--line-height);
+}
+
+
+/**
+ * Top
+ */
+
+.c-line-t::before,
+.c-line-tl::before,
+.c-line-tr::before {
+    bottom: 100%;
+}
+
+.c-line-t::before {
+    left: calc(50% - (var(--line-size) / 2));
+}
+
+.c-line-tl::before {
+    left: calc(15% - (var(--line-size) / 2));
+}
+
+.c-line-tr::before {
+    left: calc(85% - (var(--line-size) / 2));
+}
+
+
+/**
+ * Right
+ */
+
+.c-line-r::before,
+.c-line-rt::before,
+.c-line-rb::before {
+    left: 100%;
+}
+
+.c-line-rt::before {
+    top: calc(15% - (var(--line-size) / 2));
+}
+
+.c-line-r::before {
+    top: calc(50% - (var(--line-size) / 2));
+}
+
+.c-line-rb::before {
+    top: calc(85% - (var(--line-size) / 2));
+}
+
+
+/**
+ * Left
+ */
+
+.c-line-l::before,
+.c-line-lt::before,
+.c-line-lb::before {
+    right: 100%;
+}
+
+.c-line-lt::before {
+    top: calc(15% - (var(--line-size) / 2));
+}
+
+.c-line-l::before {
+    top: calc(50% - (var(--line-size) / 2));
+}
+
+.c-line-lb::before {
+    top: calc(85% - (var(--line-size) / 2));
+}
+
+
+/**
+ * Bottom
+ */
+
+.c-line-b::before,
+.c-line-bl::before,
+.c-line-br::before {
+    top: 100%
+}
+
+.c-line-b::before {
+    left: calc(50% - (var(--line-size) / 2));
+}
+
+.c-line-bl::before {
+    left: calc(15% - (var(--line-size) / 2));
+}
+
+.c-line-br::before {
+    left: calc(85% - (var(--line-size) / 2));
+}

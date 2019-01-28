@@ -1,0 +1,285 @@
+/**
+ * Name:            Search
+ * Description:     Component to create the search
+ *
+ * Component:       `c-search`
+ *
+ * Sub-objects:     `c-search-input`
+ *                  `c-search-toggle`
+ *
+ * Adopted:         `c-search-icon`
+ *
+ * Modifier:        `c-search-default`
+ *                  `c-search-navbar`
+ *                  `c-search-large`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --search-color:                                      var(--global-color);
+    --search-placeholder-color:                          var(--global-muted-color);
+
+    --search-icon-color:                                 var(--global-muted-color);
+
+    --search-default-width:                              180px;
+    --search-default-height:                             var(--global-control-height);
+    --search-default-padding-horizontal:                 6px;
+    --search-default-background:                         transparent;
+    --search-default-focus-background:                   var(--search-default-background);
+    --search-default-border-width:                       var(--global-border-width);
+    --search-default-border:                             var(--global-border);
+
+    --search-default-icon-width:                         var(--global-control-height);
+
+    --search-navbar-width:                               400px;
+    --search-navbar-height:                              40px;
+    --search-navbar-background:                          transparent;
+    --search-navbar-font-size:                           var(--global-large-font-size);
+
+    --search-navbar-icon-width:                          40px;
+
+    --search-large-width:                                500px;
+    --search-large-height:                               80px;
+    --search-large-background:                           transparent;
+    --search-large-font-size:                            var(--global-xxlarge-font-size);
+
+    --search-large-icon-width:                           80px;
+
+    --search-toggle-color:                               var(--global-muted-color);
+    --search-toggle-hover-color:                         var(--global-color);
+
+}
+
+
+/* ========================================================================
+   Component: Search
+ ========================================================================== */
+
+/*
+ * 1. Container fits its content
+ * 2. Create position context
+ * 3. Prevent content overflow
+ * 4. Reset `form`
+ */
+
+.c-search {
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    position: relative;
+    /* 3 */
+    max-width: 100%;
+    /* 4 */
+    margin: 0;
+}
+
+
+/* Input
+ ========================================================================== */
+
+/*
+ * Remove the inner padding and cancel buttons in Chrome on OS X and Safari on OS X.
+ */
+
+.c-search-input::-webkit-search-cancel-button,
+.c-search-input::-webkit-search-decoration { -webkit-appearance: none; }
+
+/*
+ * Removes placeholder transparency in Firefox.
+ */
+
+.c-search-input::-moz-placeholder { opacity: 1; }
+
+/*
+ * 1. Define consistent box sizing.
+ * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
+ * 3. Remove `border-radius` in iOS.
+ * 4. Change font properties to `inherit` in all browsers
+ * 5. Show the overflow in Edge.
+ * 6. Remove default style in iOS.
+ * 7. Vertical alignment
+ * 8. Take the full container width
+ * 9. Style
+ */
+
+.c-search-input {
+    /* 1 */
+    box-sizing: border-box;
+    /* 2 */
+    margin: 0;
+    /* 3 */
+    border-radius: 0;
+    /* 4 */
+    font: inherit;
+    /* 5 */
+    overflow: visible;
+    /* 6 */
+    -webkit-appearance: none;
+    /* 7 */
+    vertical-align: middle;
+    /* 8 */
+    width: 100%;
+    /* 9 */
+    border: none;
+    color: var(--search-color);
+}
+
+.c-search-input:focus { outline: none; }
+
+/* Placeholder */
+.c-search-input:-ms-input-placeholder { color: var(--search-placeholder-color) !important; }
+.c-search-input::placeholder { color: var(--search-placeholder-color); }
+
+
+/* Icon (Adopts `c-icon`)
+ ========================================================================== */
+
+/*
+ * Remove default focus style
+ */
+
+.c-search-icon:focus { outline: none; }
+
+/*
+ * Position above input
+ * 1. Set position
+ * 2. Center icon vertically and horizontally
+ * 3. Style
+ */
+
+.c-search .c-search-icon {
+    /* 1 */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    /* 2 */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    /* 3 */
+    color: var(--search-icon-color);
+}
+
+/*
+ * Required for `a`.
+ */
+
+.c-search .c-search-icon:hover { color: var(--search-icon-color); }
+
+/*
+ * Make `input` element clickable through icon, e.g. if it's a `span`
+ */
+
+.c-search .c-search-icon:not(a):not(button):not(input) { pointer-events: none; }
+
+/*
+ * Position modifier
+ */
+
+.c-search .c-search-icon-flip {
+    right: 0;
+    left: auto;
+}
+
+
+/* Default modifier
+ ========================================================================== */
+
+.c-search-default { width: var(--search-default-width); }
+
+/*
+ * Input
+ */
+
+.c-search-default .c-search-input {
+    height: var(--search-default-height);
+    padding-left: var(--search-default-padding-horizontal);
+    padding-right: var(--search-default-padding-horizontal);
+    background: var(--search-default-background);
+    border: var(--search-default-border-width) solid var(--search-default-border);
+}
+
+/* Focus */
+.c-search-default .c-search-input:focus {
+    background-color: var(--search-default-focus-background);
+}
+
+/*
+ * Icon
+ */
+
+.c-search-default .c-search-icon { width: var(--search-default-icon-width); }
+
+.c-search-default .c-search-icon:not(.c-search-icon-flip) ~ .c-search-input { padding-left: var(--search-default-icon-width); }
+.c-search-default .c-search-icon-flip ~ .c-search-input { padding-right: var(--search-default-icon-width); }
+
+
+/* Navbar modifier
+ ========================================================================== */
+
+.c-search-navbar { width: var(--search-navbar-width); }
+
+/*
+ * Input
+ */
+
+.c-search-navbar .c-search-input {
+    height: var(--search-navbar-height);
+    background: var(--search-navbar-background);
+    font-size: var(--search-navbar-font-size);
+}
+
+/*
+ * Icon
+ */
+
+.c-search-navbar .c-search-icon { width: var(--search-navbar-icon-width); }
+
+.c-search-navbar .c-search-icon:not(.c-search-icon-flip) ~ .c-search-input { padding-left: var(--search-navbar-icon-width); }
+.c-search-navbar .c-search-icon-flip ~ .c-search-input { padding-right: var(--search-navbar-icon-width); }
+
+
+/* Large modifier
+ ========================================================================== */
+
+.c-search-large { width: var(--search-large-width); }
+
+/*
+ * Input
+ */
+
+.c-search-large .c-search-input {
+    height: var(--search-large-height);
+    background: var(--search-large-background);
+    font-size: var(--search-large-font-size);
+}
+
+/*
+ * Icon
+ */
+
+.c-search-large .c-search-icon { width: var(--search-large-icon-width); }
+
+.c-search-large .c-search-icon:not(.c-search-icon-flip) ~ .c-search-input { padding-left: var(--search-large-icon-width); }
+.c-search-large .c-search-icon-flip ~ .c-search-input { padding-right: var(--search-large-icon-width); }
+
+
+/* Toggle
+ ========================================================================== */
+
+.c-search-toggle {
+    color: var(--search-toggle-color);
+}
+
+/* Hover + Focus */
+.c-search-toggle:hover,
+.c-search-toggle:focus {
+    color: var(--search-toggle-hover-color);
+}

@@ -1,0 +1,13 @@
+{{ define "main" }} {{ $section := .Site.GetPage "section" .Section }}
+
+<div class="styleguide-container">
+  <div class="styleguide-tos">
+    {{ .TableOfContents }}
+  </div>
+
+  <div class="styleguide-main">
+    {{ .Content }}
+  </div>
+</div>
+
+{{ end }}

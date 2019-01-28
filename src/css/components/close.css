@@ -1,0 +1,41 @@
+/**
+ * Name:            Close
+ * Description:     Component to create a close button
+ *
+ * Component:       `c-close`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --close-color:                                   var(--global-muted-color);
+    --close-hover-color:                             var(--global-color);
+
+}
+
+
+/* ========================================================================
+   Component: Close
+ ========================================================================== */
+
+/*
+ * Adopts `c-icon`
+ */
+
+.c-close {
+    color: var(--close-color);
+    transition: 0.1s ease-in-out;
+    transition-property: color, opacity;
+}
+
+/* Hover + Focus */
+.c-close:hover,
+.c-close:focus {
+    color: var(--close-hover-color);
+    outline: none;
+}

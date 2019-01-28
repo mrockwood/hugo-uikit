@@ -1,0 +1,202 @@
+/**
+ * Name:            Flex
+ * Description:     Utilities for layouts based on flexbox
+ *
+ * Component:       `c-flex-*`
+ *
+ * ======================================================================== */
+
+
+/* ========================================================================
+   Component: Flex
+ ========================================================================== */
+
+.c-flex { display: flex; }
+.c-flex-inline { display: inline-flex; }
+
+/*
+ * Remove pseudo elements created by micro clearfix as precaution
+ */
+
+.c-flex::before,
+.c-flex::after,
+.c-flex-inline::before,
+.c-flex-inline::after { display: none; }
+
+
+/* Alignment
+ ========================================================================== */
+
+/*
+ * Align items along the main axis of the current line of the flex container
+ * Row: Horizontal
+ */
+
+/* Default */
+.c-flex-left { justify-content: flex-start; }
+.c-flex-center { justify-content: center; }
+.c-flex-right { justify-content: flex-end; }
+.c-flex-between { justify-content: space-between; }
+.c-flex-around { justify-content: space-around; }
+
+
+/* Phone landscape and bigger */
+@media (--s-up) {
+
+    .c-flex-left\@s { justify-content: flex-start; }
+    .c-flex-center\@s { justify-content: center; }
+    .c-flex-right\@s { justify-content: flex-end; }
+    .c-flex-between\@s { justify-content: space-between; }
+    .c-flex-around\@s { justify-content: space-around; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (--m-up) {
+
+    .c-flex-left\@m { justify-content: flex-start; }
+    .c-flex-center\@m { justify-content: center; }
+    .c-flex-right\@m { justify-content: flex-end; }
+    .c-flex-between\@m { justify-content: space-between; }
+    .c-flex-around\@m { justify-content: space-around; }
+
+}
+
+/* Desktop and bigger */
+@media (--l-up) {
+
+    .c-flex-left\@l { justify-content: flex-start; }
+    .c-flex-center\@l { justify-content: center; }
+    .c-flex-right\@l { justify-content: flex-end; }
+    .c-flex-between\@l { justify-content: space-between; }
+    .c-flex-around\@l { justify-content: space-around; }
+
+}
+
+/* Large screen and bigger */
+@media (--xl) {
+
+    .c-flex-left\@xl { justify-content: flex-start; }
+    .c-flex-center\@xl { justify-content: center; }
+    .c-flex-right\@xl { justify-content: flex-end; }
+    .c-flex-between\@xl { justify-content: space-between; }
+    .c-flex-around\@xl { justify-content: space-around; }
+
+}
+
+/*
+ * Align items in the cross axis of the current line of the flex container
+ * Row: Vertical
+ */
+
+/* Default */
+.c-flex-stretch { align-items: stretch; }
+.c-flex-top { align-items: flex-start; }
+.c-flex-middle { align-items: center; }
+.c-flex-bottom { align-items: flex-end; }
+
+
+/* Direction
+ ========================================================================== */
+
+/* Default */
+.c-flex-row { flex-direction: row; }
+.c-flex-row-reverse { flex-direction: row-reverse; }
+.c-flex-column { flex-direction: column; }
+.c-flex-column-reverse { flex-direction: column-reverse; }
+
+
+/* Wrap
+ ========================================================================== */
+
+/* Default */
+.c-flex-nowrap { flex-wrap: nowrap; }
+.c-flex-wrap { flex-wrap: wrap; }
+.c-flex-wrap-reverse { flex-wrap: wrap-reverse; }
+
+/*
+ * Aligns items within the flex container when there is extra space in the cross-axis
+ * Only works if there is more than one line of flex items
+ */
+
+/* Default */
+.c-flex-wrap-stretch { align-content: stretch; }
+.c-flex-wrap-top { align-content: flex-start; }
+.c-flex-wrap-middle { align-content: center; }
+.c-flex-wrap-bottom { align-content: flex-end; }
+.c-flex-wrap-between { align-content: space-between; }
+.c-flex-wrap-around { align-content: space-around; }
+
+
+/* Item ordering
+ ========================================================================== */
+
+/*
+ * Default is 0
+ */
+
+.c-flex-first { order: -1;}
+.c-flex-last { order: 99;}
+
+
+/* Phone landscape and bigger */
+@media (--s-up) {
+
+    .c-flex-first\@s { order: -1; }
+    .c-flex-last\@s { order: 99; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (--m-up) {
+
+    .c-flex-first\@m { order: -1; }
+    .c-flex-last\@m { order: 99; }
+
+}
+
+/* Desktop and bigger */
+@media (--l-up) {
+
+    .c-flex-first\@l { order: -1; }
+    .c-flex-last\@l { order: 99; }
+
+}
+
+/* Large screen and bigger */
+@media (--xl) {
+
+    .c-flex-first\@xl { order: -1; }
+    .c-flex-last\@xl { order: 99; }
+
+}
+
+
+/* Item dimensions
+ ========================================================================== */
+
+/*
+ * Initial: 0 1 auto
+ * Content dimensions, but shrinks
+ */
+
+/*
+ * No Flex: 0 0 auto
+ * Content dimensions
+ */
+
+.c-flex-none { flex: none; }
+
+/*
+ * Relative Flex: 1 1 auto
+ * Space is allocated considering content
+ */
+
+.c-flex-auto { flex: auto; }
+
+/*
+ * Absolute Flex: 1 1 0%
+ * Space is allocated solely based on flex
+ */
+
+.c-flex-1 { flex: 1; }

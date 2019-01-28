@@ -1,0 +1,286 @@
+/**
+ * Name:            Grid
+ * Description:     Component to create responsive, fluid and nestable grids
+ *
+ * Component:       `c-grid`
+ *
+ * Modifiers:       `c-grid-small`
+ *                  `c-grid-medium`
+ *                  `c-grid-large`
+ *                  `c-grid-collapse`
+ *                  `c-grid-divider`
+ *                  `c-grid-match`
+ *                  `c-grid-stack`
+ *                  `c-grid-margin`
+ *                  `c-grid-margin-small`
+ *                  `c-grid-margin-medium`
+ *                  `c-grid-margin-large`
+ *                  `c-grid-margin-collapse`
+ *
+ * Sub-modifier:    `c-grid-item-match`
+ *
+ * States:          `c-first-column`
+ *
+ * ======================================================================== */
+
+
+/**
+ * Variables
+ * ======================================================================== */
+
+:root {
+
+    --grid-gutter-horizontal:                        var(--global-gutter);
+    --grid-gutter-vertical:                          var(--grid-gutter-horizontal);
+
+    --grid-small-gutter-horizontal:                  var(--global-small-gutter);
+    --grid-small-gutter-vertical:                    var(--grid-small-gutter-horizontal);
+
+    --grid-medium-gutter-horizontal:                 var(--global-gutter);
+    --grid-medium-gutter-vertical:                   var(--grid-medium-gutter-horizontal);
+
+    --grid-large-gutter-horizontal:                  var(--global-medium-gutter);
+    --grid-large-gutter-vertical:                    var(--grid-large-gutter-horizontal);
+
+    --grid-divider-border-width:                     var(--global-border-width);
+    --grid-divider-border:                           var(--global-border);
+
+}
+
+@media (--l-up) {
+
+    :root {
+
+        --grid-gutter-horizontal:                    var(--global-medium-gutter);
+        --grid-gutter-vertical:                      var(--global-medium-gutter);
+
+        --grid-large-gutter-horizontal:              var(--global-large-gutter);
+        --grid-large-gutter-vertical:                var(--global-large-gutter);
+
+    }
+
+}
+
+
+/* ========================================================================
+   Component: Grid
+ ========================================================================== */
+
+/*
+ * 1. Allow cells to wrap into the next line
+ * 2. Reset list
+ */
+
+.c-grid {
+    display: flex;
+    /* 1 */
+    flex-wrap: wrap;
+    /* 2 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/*
+ * Grid cell
+ * Note: Space is allocated solely based on content dimensions, but shrinks: 0 1 auto
+ * Reset margin for e.g. paragraphs
+ */
+
+.c-grid > * { margin: 0; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.c-grid > * > :last-child { margin-bottom: 0; }
+
+
+/* Gutter
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+/* Horizontal */
+.c-grid { margin-left: calc(var(--grid-gutter-horizontal) * -1); }
+.c-grid > * { padding-left: var(--grid-gutter-horizontal); }
+
+/* Vertical */
+.c-grid + .c-grid,
+.c-grid > .c-grid-margin,
+* + .c-grid-margin { margin-top: var(--grid-gutter-vertical); }
+
+/*
+ * Small
+ */
+
+/* Horizontal */
+.c-grid-small { margin-left: calc(var(--grid-small-gutter-horizontal) * -1); }
+.c-grid-small > * { padding-left: var(--grid-small-gutter-horizontal); }
+
+/* Vertical */
+.c-grid + .c-grid-small,
+.c-grid-small > .c-grid-margin,
+* + .c-grid-margin-small { margin-top: var(--grid-small-gutter-vertical); }
+
+/*
+ * Medium
+ */
+
+/* Horizontal */
+.c-grid-medium { margin-left: calc(var(--grid-medium-gutter-horizontal) * -1); }
+.c-grid-medium > * { padding-left: var(--grid-medium-gutter-horizontal); }
+
+/* Vertical */
+.c-grid + .c-grid-medium,
+.c-grid-medium > .c-grid-margin,
+* + .c-grid-margin-medium { margin-top: var(--grid-medium-gutter-vertical); }
+
+/*
+ * Large
+ */
+
+/* Horizontal */
+.c-grid-large { margin-left: calc(var(--grid-large-gutter-horizontal) * -1); }
+.c-grid-large > * { padding-left: var(--grid-large-gutter-horizontal); }
+
+/* Vertical */
+.c-grid + .c-grid-large,
+.c-grid-large > .c-grid-margin,
+* + .c-grid-margin-large { margin-top: var(--grid-large-gutter-vertical); }
+
+/*
+ * Collapse
+ */
+
+/* Horizontal */
+.c-grid-collapse { margin-left: 0; }
+.c-grid-collapse > * { padding-left: 0; }
+
+/* Vertical */
+.c-grid + .c-grid-collapse,
+.c-grid-collapse > .c-grid-margin { margin-top: 0; }
+
+
+/* Divider
+ ========================================================================== */
+
+.c-grid-divider > * { position: relative; }
+
+.c-grid-divider > :not(.c-first-column)::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-left: var(--grid-divider-border-width) solid var(--grid-divider-border);
+}
+
+/* Vertical */
+.c-grid-divider.c-grid-stack > .c-grid-margin::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: var(--grid-divider-border-width) solid var(--grid-divider-border);
+}
+
+/*
+ * Default
+ */
+
+/* Horizontal */
+.c-grid-divider { margin-left: calc(var(--grid-gutter-horizontal) * -2); }
+.c-grid-divider > * { padding-left: calc(var(--grid-gutter-horizontal) * 2); }
+
+.c-grid-divider > :not(.c-first-column)::before { left: var(--grid-gutter-horizontal); }
+
+/* Vertical */
+.c-grid-divider.c-grid-stack > .c-grid-margin { margin-top: calc(var(--grid-gutter-vertical) * 2); }
+
+.c-grid-divider.c-grid-stack > .c-grid-margin::before {
+    top: calc(var(--grid-gutter-vertical) * -1);
+    left: calc(var(--grid-gutter-horizontal) * 2);
+}
+
+/*
+ * Small
+ */
+
+/* Horizontal */
+.c-grid-divider.c-grid-small { margin-left: calc(var(--grid-small-gutter-horizontal) * -2); }
+.c-grid-divider.c-grid-small > * { padding-left: calc(var(--grid-small-gutter-horizontal) * 2); }
+
+.c-grid-divider.c-grid-small > :not(.c-first-column)::before { left: var(--grid-small-gutter-horizontal); }
+
+/* Vertical */
+.c-grid-divider.c-grid-small.c-grid-stack > .c-grid-margin { margin-top: calc(var(--grid-small-gutter-vertical) * 2); }
+
+.c-grid-divider.c-grid-small.c-grid-stack > .c-grid-margin::before {
+    top: calc(var(--grid-small-gutter-vertical) * -1);
+    left: calc(var(--grid-small-gutter-horizontal) * 2);
+}
+
+/*
+ * Medium
+ */
+
+/* Horizontal */
+.c-grid-divider.c-grid-medium { margin-left: calc(var(--grid-medium-gutter-horizontal) * -2); }
+.c-grid-divider.c-grid-medium > * { padding-left: calc(var(--grid-medium-gutter-horizontal) * 2); }
+
+.c-grid-divider.c-grid-medium > :not(.c-first-column)::before { left: var(--grid-medium-gutter-horizontal); }
+
+/* Vertical */
+.c-grid-divider.c-grid-medium.c-grid-stack > .c-grid-margin { margin-top: calc(var(--grid-medium-gutter-vertical) * 2); }
+
+.c-grid-divider.c-grid-medium.c-grid-stack > .c-grid-margin::before {
+    top: calc(var(--grid-medium-gutter-vertical) * -1);
+    left: calc(var(--grid-medium-gutter-horizontal) * 2);
+}
+
+/*
+ * Large
+ */
+
+/* Horizontal */
+.c-grid-divider.c-grid-large { margin-left: calc(var(--grid-large-gutter-horizontal) * -2); }
+.c-grid-divider.c-grid-large > * { padding-left: calc(var(--grid-large-gutter-horizontal) * 2); }
+
+.c-grid-divider.c-grid-large > :not(.c-first-column)::before { left: var(--grid-large-gutter-horizontal); }
+
+/* Vertical */
+.c-grid-divider.c-grid-large.c-grid-stack > .c-grid-margin { margin-top: calc(var(--grid-large-gutter-vertical) * 2); }
+
+.c-grid-divider.c-grid-large.c-grid-stack > .c-grid-margin::before {
+    top: calc(var(--grid-large-gutter-vertical) * -1);
+    left: calc(var(--grid-large-gutter-horizontal) * 2);
+}
+
+
+/* Match child of a grid cell
+ ========================================================================== */
+
+/*
+ * Behave like a block element
+ * 1. Wrap into the next line
+ * 2. Take the full width, at least 100%. Only if no class from the Width component is set.
+ * 3. Expand width even if larger than 100%, e.g. because of negative margin (Needed for nested grids)
+ */
+
+.c-grid-match > *,
+.c-grid-item-match {
+    display: flex;
+    /* 1 */
+    flex-wrap: wrap;
+}
+
+.c-grid-match > * > :not([class*='c-width']),
+.c-grid-item-match > :not([class*='c-width']) {
+    /* 2 */
+    box-sizing: border-box;
+    width: 100%;
+    /* 3 */
+    flex: auto;
+}
