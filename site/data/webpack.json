@@ -1,0 +1,30 @@
+{
+  "app": {
+    "js": "app.js"
+  },
+  "main": {
+    "css": "main.css",
+    "js": "main.js"
+  },
+  "": {
+    "ttf": "fonts/LibreBaskerville-Regular.ttf",
+    "svg": [
+      "images/close-icon.svg",
+      "images/close-large.svg",
+      "images/marker.svg",
+      "images/navbar-toggle-icon.svg",
+      "images/overlay-icon.svg",
+      "images/pagination-next.svg",
+      "images/pagination-previous.svg",
+      "images/search-icon.svg",
+      "images/search-large.svg",
+      "images/search-navbar.svg",
+      "images/slidenav-next-large.svg",
+      "images/slidenav-next.svg",
+      "images/slidenav-previous-large.svg",
+      "images/slidenav-previous.svg",
+      "images/spinner.svg",
+      "images/totop.svg"
+    ]
+  }
+}
